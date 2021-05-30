@@ -20,6 +20,8 @@
         "CR_HASTE_MELEE",
         "CR_HASTE_RANGED",
         "CR_HASTE_SPELL",
-        "CR_EXPERTISE"
-    ]
+        "CR_EXPERTISE",
+        "ITEM_SPELL_TRIGGER_ONEQUIP"
+    ],
+    "vscode-lua-format.configPath": ".luaconfig"
 }
