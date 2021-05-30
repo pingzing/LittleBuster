@@ -158,7 +158,7 @@ local function getEffectFromRating(rating, id)
     end
 end
 
--- returns true or false
+-- Returns true or false
 local function statLineContains(text, statKey)
     -- First, try the actual official line
     local toFind = string.sub(_G[statKey], 1, -5);

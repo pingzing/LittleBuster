@@ -1,0 +1,25 @@
+{
+    "Lua.diagnostics.globals": [
+        "GameTooltip",
+        "ItemRefTooltip",
+        "ShoppingTooltip1",
+        "ShoppingTooltip2",
+        "format",
+        "GetItemStats",
+        "UnitLevel",
+        "CR_DEFENSE_SKILL",
+        "CR_DODGE",
+        "CR_PARRY",
+        "CR_BLOCK",
+        "CR_HIT_MELEE",
+        "CR_HIT_RANGED",
+        "CR_HIT_SPELL",
+        "CR_CRIT_MELEE",
+        "CR_CRIT_RANGED",
+        "CR_CRIT_SPELL",
+        "CR_HASTE_MELEE",
+        "CR_HASTE_RANGED",
+        "CR_HASTE_SPELL",
+        "CR_EXPERTISE"
+    ]
+}
