@@ -21,7 +21,12 @@
         "CR_HASTE_RANGED",
         "CR_HASTE_SPELL",
         "CR_EXPERTISE",
-        "ITEM_SPELL_TRIGGER_ONEQUIP"
+        "ITEM_SPELL_TRIGGER_ONEQUIP",
+        "GetLocale",
+        "GetLocale"
     ],
-    "vscode-lua-format.configPath": ".luaconfig"
+    "vscode-lua-format.configPath": ".luaconfig",
+    "Lua.diagnostics.disable": [
+        "empty-block"
+    ]
 }

@@ -2,12 +2,17 @@
 ## Title: LittleBuster
 ## Notes: Break those ratings down into actual percentages.
 ## Author: PingZing
-## Version: 1.0
+## Version: 1.0.1
 ## X-Email: psychozagal@gmail.com
 ## X-License: GPL v3
 
-# Entry point
+# Localized strings
+strings/strings.enUS.lua
+
+# Utilities
 strExtensions.lua
 mappings.lua
 statConversion.lua
+
+# Entry point
 littleBuster.lua

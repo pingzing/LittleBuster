@@ -1,4 +1,5 @@
 local addonName, LB = ...;
+local _strings = nil;
 
 -- Checks to see if the given string of text contains the given stat
 -- in its short form as given by _G[STAT_NAME_SHORT]. If it finds it,
@@ -17,7 +18,7 @@ local function statLineContainsShortPattern(text, statKey)
     end
 
     local shortStatString = _G[shortStatKey]:lower();
-    local shortStatPattern = shortStatString .. " rating by (%d+)" -- todo: Localize?    
+    local shortStatPattern = shortStatString .. _strings.ShortStatPattern
     local discoveredRating = string.match(text, shortStatPattern);
     if (discoveredRating == nil) then
         return nil;
@@ -69,7 +70,7 @@ local function statLineContains(text, statKey)
         end
 
         -- If that didn't work, try the alternative phrasings 
-        for _, alternative in ipairs(LB.StatKeyAlternatives[statKey]) do
+        for _, alternative in ipairs(_strings.StatKeyAlternatives[statKey]) do
             startIndex, endIndex = string.find(text, alternative);
             if (startIndex and endIndex) then
                 return startIndex, endIndex;
@@ -129,6 +130,12 @@ local function injectStats(tooltip)
             end
         end
     end
+end
+
+if GetLocale() == "enUS" then
+    _strings = LB.enUS.Strings;
+else -- If we don't support this locale, fall back to enUS
+    _strings = LB.enUS.Strings;
 end
 
 -- Entry point:
