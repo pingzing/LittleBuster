@@ -8,6 +8,7 @@
 
 # Localized strings
 strings/strings.enUS.lua
+strings/strings.esMX.lua
 
 # Utilities
 strExtensions.lua

@@ -1,5 +1,5 @@
 local addonName, LB = ...;
-local _strings = nil;
+local _locale = nil;
 
 -- Checks to see if the given string of text contains the given stat
 -- in its short form as given by _G[STAT_NAME_SHORT]. If it finds it,
@@ -17,14 +17,22 @@ local function statLineContainsShortPattern(text, statKey)
         return nil;
     end
 
-    local shortStatString = _G[shortStatKey]:lower();
-    local shortStatPattern = shortStatString .. _strings.ShortStatPattern
-    local discoveredRating = string.match(text, shortStatPattern);
+    local shortStatString = _G[shortStatKey];
+    local shortStatPatterns = _locale.GetShortStatPatterns(shortStatString);
+    local discoveredRating = nil;
+    local successfulPattern = nil;
+    for _, pattern in pairs(shortStatPatterns) do
+        discoveredRating = string.match(text, pattern);
+        if (discoveredRating ~= nil) then
+            successfulPattern = pattern;
+            break
+        end
+    end
     if (discoveredRating == nil) then
         return nil;
     end
 
-    local startIndex, endIndex = string.find(text, shortStatPattern);
+    local startIndex, endIndex = string.find(text, successfulPattern);
     if (startIndex == nil or endIndex == nil) then
         return nil;
     end
@@ -53,7 +61,7 @@ local function statLineContains(text, statKey)
     --   +5 Block rating
     if (startsWithOnEquip or startsWithPlus) then
         -- First, try the long form
-        local toFind = string.sub(_G[statKey], 1, -5);
+        local toFind = string.gsub(_G[statKey], "%%s", "(%%d+)");
         startIndex, endIndex = string.find(text, toFind);
         if (startIndex and endIndex) then
             return startIndex, endIndex;
@@ -69,8 +77,8 @@ local function statLineContains(text, statKey)
             end
         end
 
-        -- If that didn't work, try the alternative phrasings 
-        for _, alternative in ipairs(_strings.StatKeyAlternatives[statKey]) do
+        -- If that didn't work, try the alternative phrasings         
+        for _, alternative in ipairs(_locale.Strings.StatKeyAlternatives[statKey]) do
             startIndex, endIndex = string.find(text, alternative);
             if (startIndex and endIndex) then
                 return startIndex, endIndex;
@@ -80,7 +88,7 @@ local function statLineContains(text, statKey)
 
     -- This block handles more free-form formatting like:
     --  Use: Increase your dodge rating by 300 for 10 sec.
-    --  Equip: Your attacks have a chance ot increase your haste rating by 325 for 10 sec.
+    --  Equip: Your attacks have a chance ot increase your haste rating by 325 for 10 sec.    
     startIndex, endIndex, rating = statLineContainsShortPattern(text, statKey);
     if (startIndex and endIndex and rating) then
         return startIndex, endIndex, rating;
@@ -132,10 +140,14 @@ local function injectStats(tooltip)
     end
 end
 
-if GetLocale() == "enUS" then
-    _strings = LB.enUS.Strings;
+local locale = GetLocale();
+if locale == "enUS" then
+    _locale = LB.enUS;
+elseif locale == "esMX" then -- <-- this is reeeal experimental. Tooltips in other languages are TERRIBLE.
+    _locale = LB.esMX;
 else -- If we don't support this locale, fall back to enUS
-    _strings = LB.enUS.Strings;
+    print("Little Buster is running in an unsupported locale (" .. locale .. "). Defaulting to enUS.");
+    _locale = LB.enUS;
 end
 
 -- Entry point:

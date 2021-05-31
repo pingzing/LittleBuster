@@ -23,5 +23,9 @@ LB.enUS.Strings = {
         ["ITEM_MOD_DODGE_RATING"] = { "Increases dodge rating by" },
         ["ITEM_MOD_PARRY_RATING"] = {},
     },
-    ShortStatPattern = " rating by (%d+)",
 }
+
+-- Possible short stat patterns we might see in trinkets, or set bonuses.
+function LB.enUS.GetShortStatPatterns(shortStatString)
+    return { shortStatString:lower() .. " rating by (%d+)" };
+end
