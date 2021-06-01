@@ -1,0 +1,9 @@
+--- 1.1.0 ---
++ Experimental Spanish support for the esMX locale.
++ Added basic caching, to reduce the performance impact of tooltip parsing.
+
+--- 1.0.1 ---
+Packaging fix, no feature or code changes.
+
+--- 1.0.0 ---
+Initial release
