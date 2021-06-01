@@ -1,4 +1,4 @@
-column_limit: 120
+column_limit: 100
 keep_simple_control_block_one_line: false
 keep_simple_function_one_line: false
 extra_sep_at_table_end: true

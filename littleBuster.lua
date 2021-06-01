@@ -1,6 +1,28 @@
 local addonName, LB = ...;
 local _locale = nil;
 
+local _tooltipType = {
+    GameTooltip = "GameTooltip",
+    ItemRefTooltp = "ItemRefTooltip",
+    ShoppingTooltip1 = "ShoppingTooltip1",
+    ShoppingTooltip2 = "ShoppingTooltip2",
+};
+
+local _tooltipState = {
+    [_tooltipType.GameTooltip] = { itemID = nil, modifiedLines = nil },
+    [_tooltipType.ItemRefTooltp] = { itemID = nil, modifiedLines = nil },
+    [_tooltipType.ShoppingTooltip1] = { itemID = nil, modifiedLines = nil },
+    [_tooltipType.ShoppingTooltip2] = { itemID = nil, modifiedLines = nil },
+};
+
+local function getItemIDFromLink(itemLink)
+    -- |cff9d9d9d|Hitem:0000000: <-- the zeroes are the item ID.
+    local firstColonIndex = string.find(itemLink, ":");
+    local secondColonIndex = string.find(itemLink, ":", firstColonIndex + 1);
+    local itemID = string.sub(itemLink, firstColonIndex + 1, secondColonIndex - 1);
+    return tonumber(itemID);
+end
+
 -- Checks to see if the given string of text contains the given stat
 -- in its short form as given by _G[STAT_NAME_SHORT]. If it finds it,
 -- it also parses out the rating, because we're almost certainly parsing
@@ -97,16 +119,7 @@ local function statLineContains(text, statKey)
     return false;
 end
 
-local function injectStats(tooltip)
-    local _, itemLink = tooltip:GetItem();
-    if (not itemLink) then
-        -- If we don't get an itemLink, don't even bother trying
-        return;
-    end
-
-    local itemStats = {};
-    GetItemStats(itemLink, itemStats);
-
+local function generateModifiedTooltipLines(tooltip, itemStats)
     local linesModified = {};
     -- Skip the first line, as it's always an item name  
     for i = 2, tooltip:NumLines() do
@@ -119,8 +132,9 @@ local function injectStats(tooltip)
                     -- statRating as set here doesn't necessarily correspond to this tooltip line. We'll verify when we call statLineContains()
                     local statRating = itemStats[statKey];
                     if (statRating) then
-                        statValue = LB.GetEffectFromRating(statRating + 1, -- +1 because GetItemStats lies by -1
-                        LB.ModToRating[statKey]);
+                        statValue =
+                            LB.GetEffectFromRating(statRating + 1, -- +1 because GetItemStats lies by -1
+                                                   LB.ModToRating[statKey]);
                     end
 
                     local startIndex, endIndex, foundRating = statLineContains(text, statKey);
@@ -130,14 +144,53 @@ local function injectStats(tooltip)
 
                     if (startIndex and endIndex and statValue) then
                         local endFragment = LB.ContainsPercent[statKey] and "%" or "";
-                        lineRef:SetText(text .. " (" .. format("%.2F", statValue) .. endFragment .. ")");
-                        linesModified[i] = true;
+                        local modifiedText = text .. " (" .. format("%.2F", statValue) ..
+                                                 endFragment .. ")";
+                        linesModified[i] = modifiedText;
                     end
-
                 end
             end
         end
     end
+    return linesModified;
+end
+
+local function injectModifiedLines(tooltip, modifiedLines)
+    -- If the table is empty, we can bail immediately.
+    if (next(modifiedLines) == nil) then
+        return;
+    end
+    for i = 2, tooltip:NumLines() do
+        local modifiedText = modifiedLines[i]
+        if (modifiedText) then
+            local lineRef = _G[tooltip:GetName() .. "TextLeft" .. i];
+            lineRef:SetText(modifiedText);
+        end
+    end
+end
+
+local function injectStats(tooltip, tooltipType)
+    local _, itemLink = tooltip:GetItem();
+    if (not itemLink) then
+        -- If we don't get an itemLink, don't even bother trying
+        return;
+    end
+
+    local itemID = getItemIDFromLink(itemLink);
+    local tooltipState = _tooltipState[tooltipType];
+    if (tooltipState.itemID == itemID and next(tooltipState.modifiedLines)) then
+        injectModifiedLines(tooltip, tooltipState.modifiedLines);
+        return;
+    end
+
+    local itemStats = {};
+    GetItemStats(itemLink, itemStats);
+
+    local linesModified = generateModifiedTooltipLines(tooltip, itemStats);
+
+    tooltipState.itemID = itemID;
+    tooltipState.modifiedLines = linesModified;
+    injectModifiedLines(tooltip, linesModified);
 end
 
 local locale = GetLocale();
@@ -146,7 +199,8 @@ if locale == "enUS" then
 elseif locale == "esMX" then -- <-- this is reeeal experimental. Tooltips in other languages are TERRIBLE.
     _locale = LB.esMX;
 else -- If we don't support this locale, fall back to enUS
-    print("Little Buster is running in an unsupported locale (" .. locale .. "). Defaulting to enUS.");
+    print("Little Buster is running in an unsupported locale (" .. locale ..
+              "). Defaulting to enUS.");
     _locale = LB.enUS;
 end
 
@@ -154,7 +208,15 @@ end
 -- Note that this seems to fire continuously when hovering over an item in the paper doll
 -- But, if we try to only fire one update per-frame, it seems to break shift-to-compare.
 -- ...eh, good enough.
-GameTooltip:HookScript("OnTooltipSetItem", injectStats);
-ItemRefTooltip:HookScript("OnTooltipSetItem", injectStats);
-ShoppingTooltip1:HookScript("OnTooltipSetItem", injectStats);
-ShoppingTooltip2:HookScript("OnTooltipSetItem", injectStats);
+GameTooltip:HookScript("OnTooltipSetItem", function(self)
+    injectStats(self, _tooltipType.GameTooltip);
+end);
+ItemRefTooltip:HookScript("OnTooltipSetItem", function(self)
+    injectStats(self, _tooltipType.ItemRefTooltp);
+end);
+ShoppingTooltip1:HookScript("OnTooltipSetItem", function(self)
+    injectStats(self, _tooltipType.ShoppingTooltip1);
+end);
+ShoppingTooltip2:HookScript("OnTooltipSetItem", function(self)
+    injectStats(self, _tooltipType.ShoppingTooltip2);
+end);

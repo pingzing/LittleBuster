@@ -18,7 +18,12 @@ local _ratingBase = {
     [CR_EXPERTISE] = 2.5,
 }
 
-local _level34Ratings = { [CR_DEFENSE_SKILL] = true, [CR_DODGE] = true, [CR_PARRY] = true, [CR_BLOCK] = true }
+local _level34Ratings = {
+    [CR_DEFENSE_SKILL] = true,
+    [CR_DODGE] = true,
+    [CR_PARRY] = true,
+    [CR_BLOCK] = true,
+}
 
 local _ratingNameToID = {
     [CR_DEFENSE_SKILL] = "DEFENSE_RATING",

@@ -27,5 +27,8 @@ LB.enUS.Strings = {
 
 -- Possible short stat patterns we might see in trinkets, or set bonuses.
 function LB.enUS.GetShortStatPatterns(shortStatString)
-    return { shortStatString:lower() .. " rating by (%d+)" };
+    return {
+        shortStatString:lower() .. " rating by (%d+)",
+        "(%d+) " .. shortStatString:lower() .. " rating",
+    };
 end
