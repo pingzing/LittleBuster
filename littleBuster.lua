@@ -9,10 +9,10 @@ local _tooltipType = {
 };
 
 local _tooltipState = {
-    [_tooltipType.GameTooltip] = { itemID = nil, modifiedLines = nil },
-    [_tooltipType.ItemRefTooltp] = { itemID = nil, modifiedLines = nil },
-    [_tooltipType.ShoppingTooltip1] = { itemID = nil, modifiedLines = nil },
-    [_tooltipType.ShoppingTooltip2] = { itemID = nil, modifiedLines = nil },
+    [_tooltipType.GameTooltip] = { itemID = nil, modifiedLines = {} },
+    [_tooltipType.ItemRefTooltp] = { itemID = nil, modifiedLines = {} },
+    [_tooltipType.ShoppingTooltip1] = { itemID = nil, modifiedLines = {} },
+    [_tooltipType.ShoppingTooltip2] = { itemID = nil, modifiedLines = {} },
 };
 
 local function getItemIDFromLink(itemLink)
@@ -23,129 +23,96 @@ local function getItemIDFromLink(itemLink)
     return tonumber(itemID);
 end
 
--- Checks to see if the given string of text contains the given stat
--- in its short form as given by _G[STAT_NAME_SHORT]. If it finds it,
--- it also parses out the rating, because we're almost certainly parsing
--- a trinket or some other weird free-form text.
---
+local function findRatingIndices(text, patternStartIndex, patternEndIndex)
+    local substring = strsub(text, patternStartIndex, patternEndIndex);
+    return string.find(substring, "(%d+)");
+end
+
+-- Checks to see if the given string of text contains the given stat.
+-- If it finds it, it returns the start and end index of the numeric
+-- rating value, as well as the rating value itself.
+-- 
 -- `text`: The text to search for the given stat.
 --
 -- `statKey`: The key of the stat to search for.
 --
--- Returns `startIndex`, `endIndex`, `rating`. On failure, returns `nil`.
-local function statLineContainsShortPattern(text, statKey)
-    local shortStatKey = LB.ShortStatKeys[statKey];
-    if (shortStatKey == nil) then
-        return nil;
-    end
-
-    local shortStatString = _G[shortStatKey];
-    local shortStatPatterns = _locale.GetShortStatPatterns(shortStatString);
+-- Returns `startIndex`, `endIndex`, `rating`. On failure, returns `nil`, `nil`, `nil`.
+local function scanTooltipLine(text, statKey)
+    local lowercaseText = text:lower();
     local discoveredRating = nil;
-    local successfulPattern = nil;
-    for _, pattern in pairs(shortStatPatterns) do
-        discoveredRating = string.match(text, pattern);
+    local foundPattern = nil;
+
+    -- First, try the alternatives we've noted to deal with weird cases where Blizzard-defined keys don't work
+    for _, pattern in pairs(_locale.Strings.StatKeyAlternatives[statKey]) do
+        discoveredRating = string.match(lowercaseText, pattern);
         if (discoveredRating ~= nil) then
-            successfulPattern = pattern;
+            foundPattern = pattern;
             break
         end
     end
+
+    -- If that didn't work, try the short stat phrases that use the Blizzard _SHORT key as a building block.
+    if (discoveredRating == nil) then
+        local shortStatKey = LB.ShortStatKeys[statKey];
+        if (shortStatKey == nil) then
+            return nil;
+        end
+
+        local shortStatString = _G[shortStatKey]:lower();
+        local shortStatPatterns = _locale.GetShortStatPatterns(shortStatString);
+        for _, pattern in pairs(shortStatPatterns) do
+            discoveredRating = string.match(lowercaseText, pattern);
+            if (discoveredRating ~= nil) then
+                foundPattern = pattern;
+                break
+            end
+        end
+    end
+
     if (discoveredRating == nil) then
         return nil;
     end
 
-    local startIndex, endIndex = string.find(text, successfulPattern);
+    local startIndex, endIndex = string.find(lowercaseText, foundPattern);
     if (startIndex == nil or endIndex == nil) then
         return nil;
     end
 
-    return startIndex, endIndex, tonumber(discoveredRating);
-end
-
--- `text`: The text to search.
--- 
--- `statKey`: The string key that we can use in _G[] to get the 
--- actual text of the stat as used in item tooltips.
--- 
--- Returns: `startIndex`, `endIndex`, `[ratingValue]`
-local function statLineContains(text, statKey)
-    local startIndex = nil;
-    local endIndex = nil;
-    local rating = nil;
-
-    local strippedText = LB.strStripColors(text); -- Use stripped text for comparison, otherwise the first 11 chars are just color code stuff 
-
-    local startsWithOnEquip = LB.strStartsWith(strippedText, ITEM_SPELL_TRIGGER_ONEQUIP);
-    local startsWithPlus = LB.strStartsWith(strippedText, "+");
-
-    -- These first three segments handle formatting like:
-    --   Equip: Increases your dodge rating by 38
-    --   +5 Block rating
-    if (startsWithOnEquip or startsWithPlus) then
-        -- First, try the long form
-        local toFind = string.gsub(_G[statKey], "%%s", "(%%d+)");
-        startIndex, endIndex = string.find(text, toFind);
-        if (startIndex and endIndex) then
-            return startIndex, endIndex;
-        end
-
-        -- If that didn't work, try the short form
-        local shortStatKey = LB.ShortStatKeys[statKey];
-        if (shortStatKey ~= nil) then -- some statKeys don't HAVE a corresponding shortStatKey        
-            local toFind = string.sub(_G[shortStatKey], 1)
-            startIndex, endIndex = string.find(text, toFind);
-            if (startIndex and endIndex) then
-                return startIndex, endIndex;
-            end
-        end
-
-        -- If that didn't work, try the alternative phrasings         
-        for _, alternative in ipairs(_locale.Strings.StatKeyAlternatives[statKey]) do
-            startIndex, endIndex = string.find(text, alternative);
-            if (startIndex and endIndex) then
-                return startIndex, endIndex;
-            end
-        end
-    end
-
-    -- This block handles more free-form formatting like:
-    --  Use: Increase your dodge rating by 300 for 10 sec.
-    --  Equip: Your attacks have a chance ot increase your haste rating by 325 for 10 sec.    
-    startIndex, endIndex, rating = statLineContainsShortPattern(text, statKey);
+    local rating = tonumber(discoveredRating);
     if (startIndex and endIndex and rating) then
-        return startIndex, endIndex, rating;
+        -- Get the indices of the actual rating value, so we know exactly where to insert our stat value.
+        local ratingStartIndex, ratingEndIndex = findRatingIndices(lowercaseText, startIndex,
+                                                                   endIndex);
+        return ratingStartIndex + startIndex, ratingEndIndex + startIndex, rating;
     end
 
-    return false;
+    return nil, nil, nil;
 end
 
-local function generateModifiedTooltipLines(tooltip, itemStats)
+local function generateModifiedTooltipLines(tooltip)
     local linesModified = {};
     -- Skip the first line, as it's always an item name  
     for i = 2, tooltip:NumLines() do
         local lineRef = _G[tooltip:GetName() .. "TextLeft" .. i];
         local text = lineRef:GetText();
         if (text) then
-            for _, statKey in pairs(LB.StatsKeys) do
+            for _, statKey in ipairs(LB.StatsKeys) do
                 if (not linesModified[i]) then -- Skip the line if we've already modified it.
                     local statValue = nil;
-                    -- statRating as set here doesn't necessarily correspond to this tooltip line. We'll verify when we call statLineContains()
-                    local statRating = itemStats[statKey];
-                    if (statRating) then
-                        statValue =
-                            LB.GetEffectFromRating(statRating + 1, -- +1 because GetItemStats lies by -1
-                                                   LB.ModToRating[statKey]);
-                    end
-
-                    local startIndex, endIndex, foundRating = statLineContains(text, statKey);
+                                        
+                    -- Parse the stat rating and its location out of the tooltip line.
+                    local ratingStart, ratingEnd, foundRating = scanTooltipLine(text, statKey);
                     if (foundRating) then
-                        statValue = LB.GetEffectFromRating(foundRating, LB.ModToRating[statKey]); -- no +1 here because we parsed it out of the tooltip text
+                        statValue = LB.GetEffectFromRating(foundRating, LB.ModToRating[statKey]);
                     end
 
-                    if (startIndex and endIndex and statValue) then
+                    if (ratingStart and ratingEnd and statValue) then
+                        -- TODO: Different color codes for the formatted value
                         local endFragment = LB.ContainsPercent[statKey] and "%" or "";
-                        local modifiedText = text .. " (" .. format("%.2F", statValue) ..
-                                                 endFragment .. ")";
+                        local formattedValue = " (" .. format("%.2F", statValue) .. endFragment ..
+                                                   ")";
+                        local modifiedText = text:sub(1, ratingEnd - 1) .. formattedValue ..
+                                                 text:sub(ratingEnd);
                         linesModified[i] = modifiedText;
                     end
                 end
@@ -178,21 +145,20 @@ local function injectStats(tooltip, tooltipType)
 
     local itemID = getItemIDFromLink(itemLink);
     local tooltipState = _tooltipState[tooltipType];
-    if (tooltipState.itemID == itemID and next(tooltipState.modifiedLines)) then
+    -- If this particular tooltip already knows the lines for this item, just reuse what we have and return early
+    if (tooltipState.itemID == itemID) then
         injectModifiedLines(tooltip, tooltipState.modifiedLines);
         return;
     end
 
-    local itemStats = {};
-    GetItemStats(itemLink, itemStats);
-
-    local linesModified = generateModifiedTooltipLines(tooltip, itemStats);
+    local linesModified = generateModifiedTooltipLines(tooltip);
 
     tooltipState.itemID = itemID;
     tooltipState.modifiedLines = linesModified;
     injectModifiedLines(tooltip, linesModified);
 end
 
+-- Entry point
 local locale = GetLocale();
 if locale == "enUS" then
     _locale = LB.enUS;
@@ -204,10 +170,6 @@ else -- If we don't support this locale, fall back to enUS
     _locale = LB.enUS;
 end
 
--- Entry point:
--- Note that this seems to fire continuously when hovering over an item in the paper doll
--- But, if we try to only fire one update per-frame, it seems to break shift-to-compare.
--- ...eh, good enough.
 GameTooltip:HookScript("OnTooltipSetItem", function(self)
     injectStats(self, _tooltipType.GameTooltip);
 end);

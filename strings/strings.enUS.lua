@@ -3,32 +3,45 @@ local addonName, LB = ...;
 LB.enUS = {};
 
 LB.enUS.Strings = {
-    -- Blizzard is silly, and doesn't always use the strings pointed to by the 
-    -- various X_MOD_STAT_NAME, especially in older gear. So, we have here a table of alternative things
-    -- to try for each stat
+    -- These patterns are tried first.
     StatKeyAlternatives = {
-        ["ITEM_MOD_HIT_RATING"] = { "Increases your hit rating by" },
-        ["ITEM_MOD_HIT_MELEE_RATING"] = { "Increases your hit rating by" },
-        ["ITEM_MOD_HIT_RANGED_RATING"] = { "Increases your hit rating by" },
-        ["ITEM_MOD_CRIT_RATING"] = { "Increases your critical strike rating by" },
-        ["ITEM_MOD_CRIT_MELEE_RATING"] = { "Increases your critical strike rating by" },
-        ["ITEM_MOD_CRIT_RANGED_RATING"] = { "Increases your critical strike rating by" },
-        ["ITEM_MOD_HASTE_RATING"] = { "Increases your haste rating by" },
-        ["ITEM_MOD_EXPERTISE_RATING"] = { "Increases expertise rating by" },
-        ["ITEM_MOD_HIT_SPELL_RATING"] = { "Increases your spell hit rating by" },
-        ["ITEM_MOD_CRIT_SPELL_RATING"] = { "Increases your spell critical strike rating by" },
-        ["ITEM_MOD_HASTE_SPELL_RATING"] = {},
-        ["ITEM_MOD_DEFENSE_SKILL_RATING"] = { "Increases defense rating by" },
-        ["ITEM_MOD_BLOCK_RATING"] = { "Increases your block rating by" },
-        ["ITEM_MOD_DODGE_RATING"] = { "Increases dodge rating by" },
+        ["ITEM_MOD_HIT_RATING"] = { "increases your hit rating by (%d+)." },
+        ["ITEM_MOD_HIT_MELEE_RATING"] = {
+            "increases your hit rating by (%d+).", "melee hit rating by (%d+)",
+        },
+        ["ITEM_MOD_HIT_RANGED_RATING"] = {
+            "increases your hit rating by (%d+).", "ranged hit rating by (%d+)",
+        },
+        ["ITEM_MOD_CRIT_RATING"] = {
+            "increases your critical strike rating by (%d+).", "critical strike rating by (%d+)",
+            "crit rating by (%d+)",
+        },
+        ["ITEM_MOD_CRIT_MELEE_RATING"] = {
+            "increases your critical strike rating by (%d+).",
+            "melee critical strike rating by (%d+)", "melee crit rating by (%d+)",
+        },
+        ["ITEM_MOD_CRIT_RANGED_RATING"] = {
+            "increases your critical strike rating by (%d+).", "ranged crit rating by (%d+)",
+        },
+        ["ITEM_MOD_HASTE_RATING"] = { "increases your haste rating by (%d+)." },
+        ["ITEM_MOD_EXPERTISE_RATING"] = { "increases expertise rating by (%d+)." },
+        ["ITEM_MOD_HIT_SPELL_RATING"] = {
+            "increases your spell hit rating by (%d+).", "spell hit rating by (%d+)",
+        },
+        ["ITEM_MOD_CRIT_SPELL_RATING"] = {
+            "increases your spell critical strike rating by (%d+).",
+            "spell critical strike rating by (%d+)", "spell crit rating by (%d+)",
+            "(%d+) spell critical strike rating", "(%d+) spell critical rating",
+        },
+        ["ITEM_MOD_HASTE_SPELL_RATING"] = { "spell haste rating by (%d+)" },
+        ["ITEM_MOD_DEFENSE_SKILL_RATING"] = { "increases defense rating by (%d+)." },
+        ["ITEM_MOD_BLOCK_RATING"] = { "increases your block rating by (%d+)." },
+        ["ITEM_MOD_DODGE_RATING"] = { "increases dodge rating by (%d+).", "(%d+) dodge rating" },
         ["ITEM_MOD_PARRY_RATING"] = {},
     },
 }
 
--- Possible short stat patterns we might see in trinkets, or set bonuses.
+-- These are tried second.
 function LB.enUS.GetShortStatPatterns(shortStatString)
-    return {
-        shortStatString:lower() .. " rating by (%d+)",
-        "(%d+) " .. shortStatString:lower() .. " rating",
-    };
+    return { shortStatString .. " rating by (%d+)", "(%d+) " .. shortStatString .. " rating" };
 end

@@ -23,7 +23,8 @@
         "CR_EXPERTISE",
         "ITEM_SPELL_TRIGGER_ONEQUIP",
         "GetLocale",
-        "GetLocale"
+        "GetLocale",
+        "strsub"
     ],
     "vscode-lua-format.configPath": ".luaconfig",
     "Lua.diagnostics.disable": [

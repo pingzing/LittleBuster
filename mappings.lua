@@ -1,39 +1,42 @@
 local addonName, LB = ...;
 
+-- The order of these matters! Stats will be scanned in order from top to bottom.
+-- If we're looking at an item with "spell hit rating", but search for "hit rating" first, we'll
+-- return hit rating values!
 LB.StatsKeys = {
-    meleeHitKey = "ITEM_MOD_HIT_MELEE_RATING",
-    rangedHitKey = "ITEM_MOD_HIT_RANGED_RATING",
-    meleeCritKey = "ITEM_MOD_CRIT_MELEE_RATING",
-    rangedCritKey = "ITEM_MOD_CRIT_RANGED_RATING",
-    expertiseKey = "ITEM_MOD_EXPERTISE_RATING",
-    spellHitKey = "ITEM_MOD_HIT_SPELL_RATING",
-    spellCritKey = "ITEM_MOD_CRIT_SPELL_RATING",
-    spellHasteKey = "ITEM_MOD_HASTE_SPELL_RATING",
-    hitKey = "ITEM_MOD_HIT_RATING",
-    critKey = "ITEM_MOD_CRIT_RATING",
-    hasteKey = "ITEM_MOD_HASTE_RATING",
-    defenseKey = "ITEM_MOD_DEFENSE_SKILL_RATING",
-    blockKey = "ITEM_MOD_BLOCK_RATING",
-    dodgeKey = "ITEM_MOD_DODGE_RATING",
-    parryKey = "ITEM_MOD_PARRY_RATING",
+    [1] = "ITEM_MOD_HIT_SPELL_RATING",
+    [2] = "ITEM_MOD_CRIT_SPELL_RATING",
+    [3] = "ITEM_MOD_HASTE_SPELL_RATING",
+    [4] = "ITEM_MOD_HIT_RANGED_RATING",
+    [5] = "ITEM_MOD_CRIT_RANGED_RATING",
+    [6] = "ITEM_MOD_HIT_MELEE_RATING",
+    [7] = "ITEM_MOD_CRIT_MELEE_RATING",
+    [8] = "ITEM_MOD_EXPERTISE_RATING",
+    [9] = "ITEM_MOD_HIT_RATING",
+    [10] = "ITEM_MOD_CRIT_RATING",
+    [11] = "ITEM_MOD_HASTE_RATING",
+    [12] = "ITEM_MOD_DEFENSE_SKILL_RATING",
+    [13] = "ITEM_MOD_BLOCK_RATING",
+    [14] = "ITEM_MOD_DODGE_RATING",
+    [15] = "ITEM_MOD_PARRY_RATING",
 };
 
 LB.ShortStatKeys = {
-    [LB.StatsKeys.hitKey] = "ITEM_MOD_HIT_RATING_SHORT",
-    [LB.StatsKeys.meleeHitKey] = "ITEM_MOD_HIT_MELEE_RATING_SHORT",
-    [LB.StatsKeys.rangedHitKey] = "ITEM_MOD_HIT_RANGED_RATING_SHORT",
-    [LB.StatsKeys.critKey] = "ITEM_MOD_CRIT_RATING_SHORT",
-    [LB.StatsKeys.meleeCritKey] = "ITEM_MOD_CRIT_MELEE_RATING_SHORT",
-    [LB.StatsKeys.rangedCritKey] = "ITEM_MOD_CRIT_RANGED_RATING_SHORT",
-    [LB.StatsKeys.hasteKey] = "ITEM_MOD_HASTE_RATING_SHORT",
-    [LB.StatsKeys.expertiseKey] = "ITEM_MOD_EXPERTISE_RATING_SHORT",
-    [LB.StatsKeys.spellHitKey] = "ITEM_MOD_HIT_SPELL_RATING_SHORT",
-    [LB.StatsKeys.spellCritKey] = "ITEM_MOD_CRIT_SPELL_RATING_SHORT",
-    --    [LB.StatsKeys.spellHasteKey] = "ITEM_MOD_HASTE_SPELL_RATING_SHORT", -- This doesn't seem to exist, actually
-    [LB.StatsKeys.defenseKey] = "ITEM_MOD_DEFENSE_SKILL_RATING_SHORT",
-    [LB.StatsKeys.blockKey] = "ITEM_MOD_BLOCK_RATING_SHORT",
-    [LB.StatsKeys.dodgeKey] = "ITEM_MOD_DODGE_RATING_SHORT",
-    [LB.StatsKeys.parryKey] = "ITEM_MOD_PARRY_RATING_SHORT",
+    ["ITEM_MOD_HIT_RATING"] = "ITEM_MOD_HIT_RATING_SHORT",
+    ["ITEM_MOD_HIT_MELEE_RATING"] = "ITEM_MOD_HIT_MELEE_RATING_SHORT",
+    ["ITEM_MOD_HIT_RANGED_RATING"] = "ITEM_MOD_HIT_RANGED_RATING_SHORT",
+    ["ITEM_MOD_CRIT_RATING"] = "ITEM_MOD_CRIT_RATING_SHORT",
+    ["ITEM_MOD_CRIT_MELEE_RATING"] = "ITEM_MOD_CRIT_MELEE_RATING_SHORT",
+    ["ITEM_MOD_CRIT_RANGED_RATING"] = "ITEM_MOD_CRIT_RANGED_RATING_SHORT",
+    ["ITEM_MOD_HASTE_RATING"] = "ITEM_MOD_HASTE_RATING_SHORT",
+    ["ITEM_MOD_EXPERTISE_RATING"] = "ITEM_MOD_EXPERTISE_RATING_SHORT",
+    ["ITEM_MOD_HIT_SPELL_RATING"] = "ITEM_MOD_HIT_SPELL_RATING_SHORT",
+    ["ITEM_MOD_CRIT_SPELL_RATING"] = "ITEM_MOD_CRIT_SPELL_RATING_SHORT",
+    --    ["ITEM_MOD_HASTE_SPELL_RATING"] = "ITEM_MOD_HASTE_SPELL_RATING_SHORT", -- This doesn't seem to exist, actually
+    ["ITEM_MOD_DEFENSE_SKILL_RATING"] = "ITEM_MOD_DEFENSE_SKILL_RATING_SHORT",
+    ["ITEM_MOD_BLOCK_RATING"] = "ITEM_MOD_BLOCK_RATING_SHORT",
+    ["ITEM_MOD_DODGE_RATING"] = "ITEM_MOD_DODGE_RATING_SHORT",
+    ["ITEM_MOD_PARRY_RATING"] = "ITEM_MOD_PARRY_RATING_SHORT",
 };
 
 LB.ModToRating = {
