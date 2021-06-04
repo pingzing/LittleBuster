@@ -1,4 +1,17 @@
 |||||||||||||
+||| 1.2.0 ||| 2021-06-04
+|||||||||||||
+
++ Ratings are now displayed in-line, rather than at the end of the line.
++ Expanded the number of special cases handled in English.
+
+|||||||||||||
+||| 1.1.1 ||| 2021-06-03
+|||||||||||||
+
+Packaging fix, no feature or code changes.
+
+|||||||||||||
 ||| 1.1.0 ||| 2021-06-01
 |||||||||||||
 
