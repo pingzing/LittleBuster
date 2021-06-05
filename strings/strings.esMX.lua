@@ -1,39 +1,54 @@
 local addonName, LB = ...;
 
-LB.esMX = {};
+local esMX = {};
 
-LB.esMX.Strings = {
-    -- Blizzard is silly, and doesn't always use the strings pointed to by the 
-    -- various X_MOD_STAT_NAME, especially in older gear. So, we have here a table of alternative things
-    -- to try for each stat
-    -- Note that this table only gets used by statLineContains(), and NOT statLineContainsShortPattern().
+-- A HUGE number of esMX tooltips, especially for pre-TBC gear are just... wrong.
+-- Wrong in a way that is 100% not worth it to try to support. TBC patterns only here!
+
+esMX.Strings = {
+    -- These patterns are tried first.
     StatKeyAlternatives = {
-        ["ITEM_MOD_HIT_RATING"] = {},
+        ["ITEM_MOD_HIT_RATING"] = { "(%d+) p. el golpe.", "(%d+) índice de golpe" },
         ["ITEM_MOD_HIT_MELEE_RATING"] = {},
         ["ITEM_MOD_HIT_RANGED_RATING"] = {},
-        ["ITEM_MOD_CRIT_RATING"] = {},
+        ["ITEM_MOD_CRIT_RATING"] = {
+            "(%d+) p. el golpe crítico.",
+            "(%d+) índice de golpe crítico",
+        },
         ["ITEM_MOD_CRIT_MELEE_RATING"] = {},
         ["ITEM_MOD_CRIT_RANGED_RATING"] = {},
         ["ITEM_MOD_HASTE_RATING"] = {},
         ["ITEM_MOD_EXPERTISE_RATING"] = {},
         ["ITEM_MOD_HIT_SPELL_RATING"] = {},
-        ["ITEM_MOD_CRIT_SPELL_RATING"] = {},
+        ["ITEM_MOD_CRIT_SPELL_RATING"] = {
+            "(%d+) p. el golpe crítico con hechizos",
+            "(%d+) índice de golpe crítico con hechizos",
+        },
         ["ITEM_MOD_HASTE_SPELL_RATING"] = {},
         ["ITEM_MOD_DEFENSE_SKILL_RATING"] = {
-            "Aumenta el índice de defensa en", "Aumenta el índice de defensa",
+            "Aumenta el índice de defensa en (%d+)",
+            "Aumenta el índice de defensa (%d+)",
+            "(%d+) p. la defensa.",
+            "(%d+) índice de defensa",
         },
-        ["ITEM_MOD_BLOCK_RATING"] = {},
+        ["ITEM_MOD_BLOCK_RATING"] = { "(%d+) p. el bloqueo con escudo." },
         ["ITEM_MOD_DODGE_RATING"] = {},
         ["ITEM_MOD_PARRY_RATING"] = { "Aumenta tu índice de parada" },
     },
 }
 
--- Possible short stat patterns we might see in trinkets, or set bonuses.
-function LB.esMX.GetShortStatPatterns(shortStatString)
+-- These are tried second.
+function esMX.GetShortStatPatterns(shortStatString)
     -- Pay VERY close attention to the accent over the i.
     -- it is actually í and not i.
     return {
         " índice de " .. shortStatString .. " (%d+) p.",
         "(%d+) p. tu índice de " .. shortStatString,
+        "(%d+) p. de índice de " .. shortStatString,
     };
+end
+
+LB.esMX = {};
+function LB.esMX.getLocaleTable()
+    return esMX;
 end

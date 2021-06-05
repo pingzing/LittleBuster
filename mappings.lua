@@ -4,13 +4,13 @@ local addonName, LB = ...;
 -- If we're looking at an item with "spell hit rating", but search for "hit rating" first, we'll
 -- return hit rating values!
 LB.StatsKeys = {
-    [1] = "ITEM_MOD_HIT_SPELL_RATING",
-    [2] = "ITEM_MOD_CRIT_SPELL_RATING",
+    [1] = "ITEM_MOD_CRIT_SPELL_RATING",
+    [2] = "ITEM_MOD_HIT_SPELL_RATING",
     [3] = "ITEM_MOD_HASTE_SPELL_RATING",
-    [4] = "ITEM_MOD_HIT_RANGED_RATING",
-    [5] = "ITEM_MOD_CRIT_RANGED_RATING",
-    [6] = "ITEM_MOD_HIT_MELEE_RATING",
-    [7] = "ITEM_MOD_CRIT_MELEE_RATING",
+    [4] = "ITEM_MOD_CRIT_RANGED_RATING",
+    [5] = "ITEM_MOD_HIT_RANGED_RATING",
+    [6] = "ITEM_MOD_CRIT_MELEE_RATING",
+    [7] = "ITEM_MOD_HIT_MELEE_RATING",
     [8] = "ITEM_MOD_EXPERTISE_RATING",
     [9] = "ITEM_MOD_HIT_RATING",
     [10] = "ITEM_MOD_CRIT_RATING",

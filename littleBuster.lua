@@ -9,10 +9,10 @@ local _tooltipType = {
 };
 
 local _tooltipState = {
-    [_tooltipType.GameTooltip] = { itemID = nil, modifiedLines = {} },
-    [_tooltipType.ItemRefTooltp] = { itemID = nil, modifiedLines = {} },
-    [_tooltipType.ShoppingTooltip1] = { itemID = nil, modifiedLines = {} },
-    [_tooltipType.ShoppingTooltip2] = { itemID = nil, modifiedLines = {} },
+    [_tooltipType.GameTooltip] = { itemID = nil, modifiedLines = {}, timesSeen = 0 },
+    [_tooltipType.ItemRefTooltp] = { itemID = nil, modifiedLines = {}, timesSeen = 0 },
+    [_tooltipType.ShoppingTooltip1] = { itemID = nil, modifiedLines = {}, timesSeen = 0 },
+    [_tooltipType.ShoppingTooltip2] = { itemID = nil, modifiedLines = {}, timesSeen = 0 },
 };
 
 local function getItemIDFromLink(itemLink)
@@ -99,7 +99,7 @@ local function generateModifiedTooltipLines(tooltip)
             for _, statKey in ipairs(LB.StatsKeys) do
                 if (not linesModified[i]) then -- Skip the line if we've already modified it.
                     local statValue = nil;
-                                        
+
                     -- Parse the stat rating and its location out of the tooltip line.
                     local ratingStart, ratingEnd, foundRating = scanTooltipLine(text, statKey);
                     if (foundRating) then
@@ -145,30 +145,31 @@ local function injectStats(tooltip, tooltipType)
 
     local itemID = getItemIDFromLink(itemLink);
     local tooltipState = _tooltipState[tooltipType];
+
     -- If this particular tooltip already knows the lines for this item, just reuse what we have and return early
-    if (tooltipState.itemID == itemID) then
+    -- Don't use the cached value unless we've seen the item at least TWICE though.
+    -- Why? The first tooltip retrieval per GAME BOOT, (not /console reloadui session!)
+    -- only seems to get base stats, not on-equip bonuses or other data.
+    if (tooltipState.itemID == itemID and tooltipState.timesSeen > 1) then
+        tooltipState.timesSeen = tooltipState.timesSeen + 1;
         injectModifiedLines(tooltip, tooltipState.modifiedLines);
         return;
     end
 
     local linesModified = generateModifiedTooltipLines(tooltip);
 
+    if (tooltipState.itemID == itemID) then
+        tooltipState.timesSeen = tooltipState.timesSeen + 1;
+    else
+        tooltipState.timesSeen = 0;
+    end
     tooltipState.itemID = itemID;
     tooltipState.modifiedLines = linesModified;
     injectModifiedLines(tooltip, linesModified);
 end
 
 -- Entry point
-local locale = GetLocale();
-if locale == "enUS" then
-    _locale = LB.enUS;
-elseif locale == "esMX" then -- <-- this is reeeal experimental. Tooltips in other languages are TERRIBLE.
-    _locale = LB.esMX;
-else -- If we don't support this locale, fall back to enUS
-    print("Little Buster is running in an unsupported locale (" .. locale ..
-              "). Defaulting to enUS.");
-    _locale = LB.enUS;
-end
+_locale = LB.getLocaleTable(GetLocale());
 
 GameTooltip:HookScript("OnTooltipSetItem", function(self)
     injectStats(self, _tooltipType.GameTooltip);
