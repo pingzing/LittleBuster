@@ -9,8 +9,6 @@ function LB.GetLocaleTable(locale)
         local localeLang = locale:sub(1, 2);
         for k, v in pairs(LB) do
             if (LB.strStartsWith(k, localeLang)) then
-                print("Little Buster couldn't find a localization file for '" .. locale ..
-                          "', but it did find one for '" .. k .. "'. Falling back to that.");
                 foundLocale = v;
             end
         end
