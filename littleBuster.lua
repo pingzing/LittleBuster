@@ -37,11 +37,6 @@ local function getItemIDFromLink(itemLink)
     return tonumber(itemID);
 end
 
-local function findValueIndices(text, patternStartIndex, patternEndIndex)
-    local substring = strsub(text, patternStartIndex, patternEndIndex);
-    return string.find(substring, "(%d+)");
-end
-
 -- Checks to see if the given string of text contains the given stat.
 -- If it finds it, it returns the start and end index of the numeric
 -- stat value, as well as the stat value itself.
@@ -55,20 +50,20 @@ end
 -- Returns `startIndex`, `endIndex`, `value`. On failure, returns `nil`, `nil`, `nil`.
 local function scanForStat(text, statKey, statType)
     local lowercaseText = text:lower();
-    local discoveredValue = nil;
-    local foundPattern = nil;
+    local discoveredCapture = nil; -- A capture will usually contain just a number, but not necessarily.
+    local successfulPattern = nil;
 
     -- First, try the alternatives we've noted to deal with weird cases where Blizzard-defined keys don't work
     for _, pattern in pairs(_locale.Strings.AlternativePatterns[statKey]) do
-        discoveredValue = string.match(lowercaseText, pattern);
-        if (discoveredValue ~= nil) then
-            foundPattern = pattern;
+        discoveredCapture = string.match(lowercaseText, pattern:lower());
+        if (discoveredCapture ~= nil) then
+            successfulPattern = pattern;
             break
         end
     end
 
     -- If that didn't work, try the short stat phrases that use the Blizzard _SHORT key as a building block.
-    if (discoveredValue == nil) then
+    if (discoveredCapture == nil) then
         local shortStatKey = ShortStatKeys[statKey];
         if (shortStatKey == nil) then
             return nil, nil, nil;
@@ -77,28 +72,32 @@ local function scanForStat(text, statKey, statType)
         local shortStatString = _G[shortStatKey]:lower();
         local shortStatPatterns = _locale.GetShortStatPatterns(shortStatString);
         for _, pattern in pairs(shortStatPatterns) do
-            discoveredValue = string.match(lowercaseText, pattern);
-            if (discoveredValue ~= nil) then
-                foundPattern = pattern;
+            discoveredCapture = string.match(lowercaseText, pattern);
+            if (discoveredCapture ~= nil) then
+                successfulPattern = pattern;
                 break
             end
         end
     end
 
-    if (discoveredValue == nil) then
+    if (discoveredCapture == nil) then
         return nil, nil, nil;
     end
 
-    local startIndex, endIndex = string.find(lowercaseText, foundPattern);
-    if (startIndex == nil or endIndex == nil) then
+    successfulPattern = successfulPattern:lower();
+    local patternStart, patternEnd = string.find(lowercaseText, successfulPattern);
+    if (patternStart == nil or patternEnd == nil) then
         return nil, nil, nil;
     end
 
-    local value = tonumber(discoveredValue);
-    if (startIndex and endIndex and value) then
-        -- Get the indices of the actual stat value, so we know exactly where to insert our stat value.
-        local valueStartIndex, valueEndIndex = findValueIndices(lowercaseText, startIndex, endIndex);
-        return valueStartIndex + startIndex, valueEndIndex + startIndex, value;
+    -- In case the value we found contains more than just a number, isolate out the number,
+    local value = tonumber(string.match(discoveredCapture, "(%d+)"));
+    if (patternStart and patternEnd and value) then
+        -- Search within substring of the tooltip we found our pattern in for the captured value
+        local patternSubstring = lowercaseText:sub(patternStart, patternEnd);
+        local captureStart, captureEnd = string.find(patternSubstring, discoveredCapture);
+        -- And make sure to add in the diff between the length of the substring and original tooltip string
+        return captureStart + patternStart, captureEnd + patternStart, value;
     end
 
     return nil, nil, nil;
@@ -124,7 +123,7 @@ local function generateModifiedTooltipLines(tooltip)
                         if (statKey.type == StatTypeEnum.Rating) then
                             statValue = GetEffectFromRating(foundValue, ModToRating[statKey.key]);
                         end
-                    -- TODO: If it's a stat, do statty things. 
+                        -- TODO: If it's a stat, do statty things. 
                     end
 
                     if (valueStart and valueEnd and statValue) then

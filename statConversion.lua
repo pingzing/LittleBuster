@@ -14,7 +14,7 @@ local _ratingBase = {
     [CR_CRIT_SPELL] = 14,
     [CR_HASTE_MELEE] = 10, -- changed in 2.2
     [CR_HASTE_RANGED] = 10, -- changed in 2.2
-    [CR_HASTE_SPELL] = 10, -- changed in 2.2  
+    [CR_HASTE_SPELL] = 10, -- changed in 2.2 
     [CR_EXPERTISE] = 2.5,
 }
 
@@ -56,18 +56,15 @@ local _ratingNameToID = {
     ["EXPERTISE_RATING"] = CR_EXPERTISE,
 }
 
---[[
-Takes a rating value and ID, and returns the actual numeric value that stat rating provides
-to the player at their current level.
-
-`rating` The rating amount to convert to stat value.
-
-`id` The ID of the stat to convert, either in numeric ID form, or SCREAMING_SNAKE form.
-
-Returns: A number of the given rating converted to the value is provides.
-
---]]
-function LB.GetEffectFromRating(rating, id)    
+-- Takes a rating value and ID, and returns the actual numeric value that stat rating provides
+-- to the player at their current level.
+--
+-- `rating` The rating amount to convert to stat value.
+--
+--`id` The ID of the stat to convert, either in numeric ID form, or SCREAMING_SNAKE form.
+--
+-- Returns: A number of the given rating converted to the value is provides.
+function LB.GetEffectFromRating(rating, id)
     -- if id is stringID then convert to numberID
     if type(id) == "string" and _ratingNameToID[id] then
         id = _ratingNameToID[id];
