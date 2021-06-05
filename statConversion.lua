@@ -67,7 +67,7 @@ to the player at their current level.
 Returns: A number of the given rating converted to the value is provides.
 
 --]]
-function LB.GetEffectFromRating(rating, id)
+function LB.GetEffectFromRating(rating, id)    
     -- if id is stringID then convert to numberID
     if type(id) == "string" and _ratingNameToID[id] then
         id = _ratingNameToID[id];

@@ -1,24 +1,26 @@
 local addonName, LB = ...;
 
+LB.StatTypeEnum = { Rating = "Rating", Value = "Value" };
+
 -- The order of these matters! Stats will be scanned in order from top to bottom.
 -- If we're looking at an item with "spell hit rating", but search for "hit rating" first, we'll
 -- return hit rating values!
-LB.StatsKeys = {
-    [1] = "ITEM_MOD_CRIT_SPELL_RATING",
-    [2] = "ITEM_MOD_HIT_SPELL_RATING",
-    [3] = "ITEM_MOD_HASTE_SPELL_RATING",
-    [4] = "ITEM_MOD_CRIT_RANGED_RATING",
-    [5] = "ITEM_MOD_HIT_RANGED_RATING",
-    [6] = "ITEM_MOD_CRIT_MELEE_RATING",
-    [7] = "ITEM_MOD_HIT_MELEE_RATING",
-    [8] = "ITEM_MOD_EXPERTISE_RATING",
-    [9] = "ITEM_MOD_HIT_RATING",
-    [10] = "ITEM_MOD_CRIT_RATING",
-    [11] = "ITEM_MOD_HASTE_RATING",
-    [12] = "ITEM_MOD_DEFENSE_SKILL_RATING",
-    [13] = "ITEM_MOD_BLOCK_RATING",
-    [14] = "ITEM_MOD_DODGE_RATING",
-    [15] = "ITEM_MOD_PARRY_RATING",
+LB.StatKeys = {
+    [1] = { key = "ITEM_MOD_CRIT_SPELL_RATING", type = LB.StatTypeEnum.Rating },
+    [2] = { key = "ITEM_MOD_HIT_SPELL_RATING", type = LB.StatTypeEnum.Rating },
+    [3] = { key = "ITEM_MOD_HASTE_SPELL_RATING", type = LB.StatTypeEnum.Rating },
+    [4] = { key = "ITEM_MOD_CRIT_RANGED_RATING", type = LB.StatTypeEnum.Rating },
+    [5] = { key = "ITEM_MOD_HIT_RANGED_RATING", type = LB.StatTypeEnum.Rating },
+    [6] = { key = "ITEM_MOD_CRIT_MELEE_RATING", type = LB.StatTypeEnum.Rating },
+    [7] = { key = "ITEM_MOD_HIT_MELEE_RATING", type = LB.StatTypeEnum.Rating },
+    [8] = { key = "ITEM_MOD_EXPERTISE_RATING", type = LB.StatTypeEnum.Rating },
+    [9] = { key = "ITEM_MOD_HIT_RATING", type = LB.StatTypeEnum.Rating },
+    [10] = { key = "ITEM_MOD_CRIT_RATING", type = LB.StatTypeEnum.Rating },
+    [11] = { key = "ITEM_MOD_HASTE_RATING", type = LB.StatTypeEnum.Rating },
+    [12] = { key = "ITEM_MOD_DEFENSE_SKILL_RATING", type = LB.StatTypeEnum.Rating },
+    [13] = { key = "ITEM_MOD_BLOCK_RATING", type = LB.StatTypeEnum.Rating },
+    [14] = { key = "ITEM_MOD_DODGE_RATING", type = LB.StatTypeEnum.Rating },
+    [15] = { key = "ITEM_MOD_PARRY_RATING", type = LB.StatTypeEnum.Rating },
 };
 
 LB.ShortStatKeys = {
@@ -39,6 +41,7 @@ LB.ShortStatKeys = {
     ["ITEM_MOD_PARRY_RATING"] = "ITEM_MOD_PARRY_RATING_SHORT",
 };
 
+-- Used for ratings only, to look up the key to pass to GetEffectFromRating().
 LB.ModToRating = {
     ["ITEM_MOD_HIT_RATING"] = CR_HIT_MELEE,
     ["ITEM_MOD_HIT_MELEE_RATING"] = CR_HIT_MELEE,

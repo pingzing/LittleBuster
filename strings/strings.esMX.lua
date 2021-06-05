@@ -7,7 +7,7 @@ local esMX = {};
 
 esMX.Strings = {
     -- These patterns are tried first.
-    StatKeyAlternatives = {
+    AlternativePatterns = {
         ["ITEM_MOD_HIT_RATING"] = { "(%d+) p. el golpe.", "(%d+) índice de golpe" },
         ["ITEM_MOD_HIT_MELEE_RATING"] = {},
         ["ITEM_MOD_HIT_RANGED_RATING"] = {},

@@ -1,4 +1,12 @@
 |||||||||||||
+||| 1.3.0 ||| 2021-06-0
+|||||||||||||
+
++ Tooltips with multiple stats in a single line will now display conversions for all those stats.
++ Gems and socket bonuses will now be converted.
++ Tooltips should no longer occasionally be missing conversions.
+
+|||||||||||||
 ||| 1.2.0 ||| 2021-06-04
 |||||||||||||
 
