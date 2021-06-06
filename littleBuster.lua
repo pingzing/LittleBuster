@@ -151,8 +151,8 @@ local function tryGenerateModifiedLine(text, statKey, indicesProcessed)
         if (valueStart and valueEnd and statValue) then
             local currentColorCode = select(3, string.find(text, "(|c%x%x%x%x%x%x%x%x)")) or "|r";
             local endFragment = ContainsPercent[statKey.key] and "%" or "";
-            local formattedValue = " " .. _goldColor .. "(" .. format("%.2F", statValue) ..
-                                       endFragment .. ")" .. currentColorCode;
+            local formattedValue = _goldColor .. " (" .. format("%.2F", statValue) .. endFragment ..
+                                       ")" .. currentColorCode;
             return valueStart, valueEnd, formattedValue;
         end
     end
