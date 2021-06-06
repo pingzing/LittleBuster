@@ -1,12 +1,6 @@
-local addonName, LB = ...;
+local args = { ... };
+local LB = args[2];
 
-function LB.strStartsWith(str, start)
-    return str:sub(1, #start) == start
-end
-
-function LB.strStripColors(str)
-    if (LB.strStartsWith(str, "|c")) then
-        return str:sub(11);
-    end
-    return str;
+LB.strStartsWith = function(str, start)
+   return str:sub(1, #start) == start
 end

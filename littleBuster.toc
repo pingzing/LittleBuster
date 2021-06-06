@@ -12,11 +12,11 @@ mappings.lua
 statConversion.lua
 
 # Localized strings
+strings/localeCore.lua
 strings/strings.deDE.lua
 strings/strings.enUS.lua
 strings/strings.esMX.lua
 strings/strings.ruRU.lua
-strings/localeCore.lua
 
 # Entry point
 littleBuster.lua

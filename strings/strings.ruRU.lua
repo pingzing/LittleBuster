@@ -1,4 +1,5 @@
-local addonName, LB = ...;
+local args = { ... };
+local LB = args[2];
 
 local ruRU = {};
 
@@ -77,38 +78,38 @@ ruRU.Strings = {
     },
 }
 
--- Because the Russian short stat strings are never used directly--just the conjugated forms
+
 local conjugatedShortStats = {
-    ["ITEM_MOD_HIT_RATING"] = "меткости",
-    ["ITEM_MOD_HIT_MELEE_RATING"] = "меткости",
-    ["ITEM_MOD_HIT_RANGED_RATING"] = "меткости", -- does anything in the game actually give JUST ranged hit rating?
-    ["ITEM_MOD_CRIT_RATING"] = "критического удара",
-    ["ITEM_MOD_CRIT_MELEE_RATING"] = "критического удара", -- ditto just crit?
-    ["ITEM_MOD_CRIT_RANGED_RATING"] = "критического удара", -- ditto just ranged crit?
-    ["ITEM_MOD_HASTE_RATING"] = "скорости",
-    ["ITEM_MOD_EXPERTISE_RATING"] = "мастерства",
-    ["ITEM_MOD_HIT_SPELL_RATING"] = "меткости заклинаний",
-    ["ITEM_MOD_CRIT_SPELL_RATING"] = "критического удара заклинаниями",
-    ["ITEM_MOD_HASTE_SPELL_RATING"] = "скорости заклинаний",
-    ["ITEM_MOD_DEFENSE_SKILL_RATING"] = "защиты",
-    ["ITEM_MOD_BLOCK_RATING"] = "блока",
-    ["ITEM_MOD_DODGE_RATING"] = "уклонения",
-    ["ITEM_MOD_PARRY_RATING"] = "парирования",
+   ["ITEM_MOD_HIT_RATING"] = "меткости",
+   ["ITEM_MOD_HIT_MELEE_RATING"] = "меткости",
+   ["ITEM_MOD_HIT_RANGED_RATING"] = "меткости",
+   ["ITEM_MOD_CRIT_RATING"] = "критического удара",
+   ["ITEM_MOD_CRIT_MELEE_RATING"] = "критического удара",
+   ["ITEM_MOD_CRIT_RANGED_RATING"] = "критического удара",
+   ["ITEM_MOD_HASTE_RATING"] = "скорости",
+   ["ITEM_MOD_EXPERTISE_RATING"] = "мастерства",
+   ["ITEM_MOD_HIT_SPELL_RATING"] = "меткости заклинаний",
+   ["ITEM_MOD_CRIT_SPELL_RATING"] = "критического удара заклинаниями",
+   ["ITEM_MOD_HASTE_SPELL_RATING"] = "скорости заклинаний",
+   ["ITEM_MOD_DEFENSE_SKILL_RATING"] = "защиты",
+   ["ITEM_MOD_BLOCK_RATING"] = "блока",
+   ["ITEM_MOD_DODGE_RATING"] = "уклонения",
+   ["ITEM_MOD_PARRY_RATING"] = "парирования",
 }
 
--- These are tried second.
-function ruRU.GetShortStatPatterns(shortStatString, statKey)
-    return {
-        "рейтинг " .. conjugatedShortStats[statKey] .. " на (%d+)",
-        "рейтингу " .. conjugatedShortStats[statKey] .. " на (%d+)",
-        "рейтинга " .. conjugatedShortStats[statKey] .. " на (%d+)",
-        "рейтинг " .. conjugatedShortStats[statKey] .. " (%d+) на",
-        "рейтингу " .. conjugatedShortStats[statKey] .. " (%d+) на",
-        "рейтинга " .. conjugatedShortStats[statKey] .. " (%d+) на",
-    };
+
+ruRU.GetShortStatPatterns = function(_, statKey)
+   return {
+      "рейтинг " .. conjugatedShortStats[statKey] .. " на (%d+)",
+      "рейтингу " .. conjugatedShortStats[statKey] .. " на (%d+)",
+      "рейтинга " .. conjugatedShortStats[statKey] .. " на (%d+)",
+      "рейтинг " .. conjugatedShortStats[statKey] .. " (%d+) на",
+      "рейтингу " .. conjugatedShortStats[statKey] .. " (%d+) на",
+      "рейтинга " .. conjugatedShortStats[statKey] .. " (%d+) на",
+   }
 end
 
-LB.ruRU = {};
-function LB.ruRU.getLocaleTable()
-    return ruRU;
+LB.LocaleTables["ruRU"] = {};
+LB.LocaleTables["ruRU"].getLocaleTable = function()
+   return ruRU
 end
