@@ -15,9 +15,11 @@ ruRU.Strings = {
         ["ITEM_MOD_EXPERTISE_RATING"] = {},
         ["ITEM_MOD_HIT_SPELL_RATING"] = {
             "меткость %(заклинания%) %+(%d+)", -- Because consistency is for the weak. JFC.
+            "Повышение на (%d+)%% рейтинга меткости заклинаний.",
         },
         ["ITEM_MOD_CRIT_SPELL_RATING"] = {
             "критический удар %(заклинания%) %+(%d+)", -- screwwww consistencyyyyyyy
+            "Повышает рейтинг критического эффекта заклинаний на (%d+)",
         },
         ["ITEM_MOD_HASTE_SPELL_RATING"] = {
             "рейтинг скорости заклинаний на (%d+)",
