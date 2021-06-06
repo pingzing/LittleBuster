@@ -1,5 +1,7 @@
 local addonName, LB = ...;
 local _locale = nil;
+local _goldColor = "|cfffffe8b"; -- r = 1.0, g = 0.996,  b = 0.545,
+local _colorEnd = "|r";
 
 -- Localize globals for sanity's sake:
 -- mappings.lua
@@ -38,8 +40,9 @@ local function getItemIDFromLink(itemLink)
 end
 
 -- Checks to see if the given string of text contains the given stat.
--- If it finds it, it returns the start and end index of the numeric
--- stat value, as well as the stat value itself.
+-- If it finds it, it returns the start and end index indices of the stat value
+-- (where 'stat value' is defined by the patterns given in the localization files, and
+-- may contain more than just a numeric value) as well as the stat value itself.
 -- 
 -- `text`: The text to search for the given stat.
 --
@@ -103,55 +106,9 @@ local function scanForStat(text, statKey, statType)
     return nil, nil, nil;
 end
 
-local function generateModifiedTooltipLines(tooltip)
-    -- Pull out all the stats, convert them to values, and wrap them up in pretty strings
-    local statsFound = {};
-    -- Skip the first line, as it's always an item name
-    for i = 2, tooltip:NumLines() do
-        local lineRef = _G[tooltip:GetName() .. "TextLeft" .. i];
-        local text = lineRef:GetText();
-        local indicesProcessed = {}; -- contains a mapping of valueStartIndex -> boolean, to track which values we've already looked at
-        if (text) then
-            for _, statKey in ipairs(StatKeys) do
-                local statValue = nil;
-
-                -- Parse the stat value and its location out of the tooltip line.
-                local valueStart, valueEnd, foundValue =
-                    scanForStat(text, statKey.key, statKey.type);
-                if (not (indicesProcessed[valueStart])) then
-                    if (foundValue) then
-                        if (statKey.type == StatTypeEnum.Rating) then
-                            statValue = GetEffectFromRating(foundValue, ModToRating[statKey.key]);
-                        end
-                        -- TODO: If it's a stat, do statty things. 
-                    end
-
-                    if (valueStart and valueEnd and statValue) then
-                        -- TODO: Different color codes for the formatted value
-                        local endFragment = ContainsPercent[statKey.key] and "%" or "";
-                        local formattedValue = " (" .. format("%.2F", statValue) .. endFragment ..
-                                                   ")";
-                        local lineData = statsFound[i];
-                        if (lineData == nil) then
-                            lineData = { originalText = text, modifications = {} };
-                            statsFound[i] = lineData;
-                        end
-                        table.insert(lineData.modifications, {
-                            stat = statKey.key,
-                            statType = statKey.type,
-                            startIndex = valueStart,
-                            endIndex = valueEnd,
-                            value = formattedValue,
-                        });
-                        -- Mark this stat's index as processed
-                        indicesProcessed[valueStart] = true;
-                    end
-                end
-            end
-        end
-    end
-
-    -- Then take all those pretty strings and insert them into the relevant tooltip lines
+-- Take all the conversion data we found in the tooltip, and use it generate
+-- rewritten tooltip lines.
+local function modifyLines(statsFound)
     local modifiedLines = {};
     for lineNum, lineData in pairs(statsFound) do
         -- Because we're mutating the line, all the indices will be off once we start changing it.
@@ -164,15 +121,77 @@ local function generateModifiedTooltipLines(tooltip)
         end)
         for _, statData in ipairs(lineData.modifications) do
             local prevLen = currentLine:len();
-            currentLine =
-                currentLine:sub(1, statData.endIndex - 1 + indexOffset) .. statData.value ..
-                    currentLine:sub(statData.endIndex + indexOffset);
+            currentLine = currentLine:sub(1, statData.endIndex - 1 + indexOffset) ..
+                              statData.formattedString ..
+                              currentLine:sub(statData.endIndex + indexOffset);
             local lenDiff = currentLine:len() - prevLen;
             indexOffset = indexOffset + lenDiff;
         end
         modifiedLines[lineNum] = currentLine;
     end
+
     return modifiedLines;
+end
+
+-- Take a tooltip's text and see if we can find the given stat. If we do,
+-- we'll return its indices, and a formatted string the caller can insert wherever it likes.
+local function tryGenerateModifiedLine(text, statKey, indicesProcessed)
+    local statValue = nil;
+
+    -- Parse the stat value and its location out of the tooltip line.
+    local valueStart, valueEnd, foundValue = scanForStat(text, statKey.key, statKey.type);
+    if (not (indicesProcessed[valueStart])) then
+        if (foundValue) then
+            if (statKey.type == StatTypeEnum.Rating) then
+                statValue = GetEffectFromRating(foundValue, ModToRating[statKey.key]);
+            end
+            -- TODO: If it's a Value, do Value-y things. 
+        end
+
+        if (valueStart and valueEnd and statValue) then
+            local currentColorCode = select(3, string.find(text, "(|c%x%x%x%x%x%x%x%x)")) or "|r";
+            local endFragment = ContainsPercent[statKey.key] and "%" or "";
+            local formattedValue = " " .. _goldColor .. "(" .. format("%.2F", statValue) ..
+                                       endFragment .. ")" .. currentColorCode;
+            return valueStart, valueEnd, formattedValue;
+        end
+    end
+
+    return nil, nil, nil;
+end
+
+local function generateModifiedTooltipLines(tooltip)
+    local statsFound = {};
+    -- Skip the first line, as it's always an item name
+    for i = 2, tooltip:NumLines() do
+        local lineRef = _G[tooltip:GetName() .. "TextLeft" .. i];
+        local text = lineRef:GetText();
+        local indicesProcessed = {}; -- contains a mapping of valueStartIndex -> boolean, to track which values we've already looked at
+        if (text) then
+            for _, statKey in ipairs(StatKeys) do
+                local valueStart, valueEnd, formattedValue =
+                    tryGenerateModifiedLine(text, statKey, indicesProcessed);
+                if (valueStart and valueEnd and formattedValue) then
+                    local lineData = statsFound[i];
+                    if (lineData == nil) then
+                        lineData = { originalText = text, modifications = {} };
+                        statsFound[i] = lineData;
+                    end
+                    table.insert(lineData.modifications, {
+                        stat = statKey.key,
+                        statType = statKey.type,
+                        startIndex = valueStart,
+                        endIndex = valueEnd,
+                        formattedString = formattedValue,
+                    });
+                    -- Mark this stat's index as processed
+                    indicesProcessed[valueStart] = true;
+                end
+            end
+        end
+    end
+
+    return modifyLines(statsFound);
 end
 
 local function injectModifiedLines(tooltip, modifiedLines)
