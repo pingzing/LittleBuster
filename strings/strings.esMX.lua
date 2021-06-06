@@ -52,7 +52,7 @@ esMX.Strings = {
 }
 
 -- These are tried second.
-function esMX.GetShortStatPatterns(shortStatString)
+function esMX.GetShortStatPatterns(shortStatString, statKey)
     -- Pay VERY close attention to the accent over the i.
     -- it is actually í and not i.
     return {

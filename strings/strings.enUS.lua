@@ -53,7 +53,7 @@ enUS.Strings = {
 }
 
 -- These are tried second.
-function enUS.GetShortStatPatterns(shortStatString)
+function enUS.GetShortStatPatterns(shortStatString, statKey)
     return {
         shortStatString .. " rating by (%d+)", -- "...imcrase your parry rating by 72..."
         "(%d+) " .. shortStatString .. " rating", -- "...grant you 152 dodge rating..."

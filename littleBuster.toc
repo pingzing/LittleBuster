@@ -12,6 +12,7 @@ mappings.lua
 statConversion.lua
 
 # Localized strings
+strings/strings.deDE.lua
 strings/strings.enUS.lua
 strings/strings.esMX.lua
 strings/localeCore.lua

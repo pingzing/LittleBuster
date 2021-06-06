@@ -70,7 +70,7 @@ local function scanForStat(text, statKey, statType)
         end
 
         local shortStatString = _G[shortStatKey]:lower();
-        local shortStatPatterns = _locale.GetShortStatPatterns(shortStatString);
+        local shortStatPatterns = _locale.GetShortStatPatterns(shortStatString, statKey);
         for _, pattern in pairs(shortStatPatterns) do
             discoveredCapture = string.match(lowercaseText, pattern);
             if (discoveredCapture ~= nil) then
