@@ -1,5 +1,12 @@
 |||||||||||||
-||| 1.3.0 ||| 2021-06-0
+||| 1.4.0 ||| 2021-06-6
+|||||||||||||
+
++ Spanish localization now basically complete (not counting edge cases), for both esMX and esES.
++ Added experimental support for German (deDE) localization.
+
+|||||||||||||
+||| 1.3.0 ||| 2021-06-5
 |||||||||||||
 
 + Tooltips with multiple stats in a single line will now display conversions for all those stats.
