@@ -7,4 +7,5 @@
 !README.md
 !LittleBuster.toc
 !tlconfig.lua
-!./src/**/*
+!/src
+!/src/**/*
