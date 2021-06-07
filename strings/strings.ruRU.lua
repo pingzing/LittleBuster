@@ -51,6 +51,7 @@ ruRU.Strings = {
             "рейтинг скорости заклинаний (%d+) на",
             "рейтингу скорости заклинаний (%d+) на",
             "рейтинга скорости заклинаний (%d+) на",
+	    "+(%d+) к рейтингу скорости заклинаний", -- gems
             "рейтинга скорости .+ (%d+ ед%.)", -- This one is really broad--we look for "рейтинга скорости (SOME NUMBER OF ANY CHARACTER) (some number of digits) ед."
         },
         ["ITEM_MOD_DEFENSE_SKILL_RATING"] = {
