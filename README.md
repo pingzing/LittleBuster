@@ -39,15 +39,15 @@ Supports tooltips with phrasing like:
 
 |Locale|Support|
 |------|-------|
-|enUS--|✔------|
-|enGB--|✔------|
-|esMX--|✔------|
-|esES--|✔------|
-|ruRU--|✔------|
-|deDE--|🔷-----|
-|ptBR--|❌-----|
-|itIT--|❌-----|
-|frFR--|❌-----|
-|koKR--|❌-----|
-|zhTW--|❌-----|
-|zhCN--|❌-----|
+|enUS  |✔|
+|enGB  |✔|
+|esMX  |✔|
+|esES  |✔|
+|ruRU  |✔|
+|deDE  |🔷|
+|ptBR  |❌|
+|itIT  |❌|
+|frFR  |❌|
+|koKR  |❌|
+|zhTW  |❌|
+|zhCN  |❌|
