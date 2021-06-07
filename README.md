@@ -33,9 +33,9 @@ Supports tooltips with phrasing like:
  
 #### Locale support
 
-✔: Fully tested and working
-🔷: Functional, but incomplete
-❌: Not supported, no functionality
+✔: Fully tested and working  
+🔷: Functional, but incomplete  
+❌: Not supported, no functionality  
 
 |Locale|Support|
 |------|-------|
