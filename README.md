@@ -6,7 +6,7 @@ A WoW TBC Classic addon for converting ratings to value in tooltips. Currently d
 
 The addon is written in [Teal](https://github.com/teal-language/tl), a typed dialect of Lua. Much like TypeScript compiles to Javascript, Teal compiles to Lua.
 
-As such, this project requires the Teal compiler, `tl`.
+As such, this project requires the Teal compiler, `tl`. You can install it by [following the instructions](https://github.com/teal-language/tl#installing) in the Teal repo.
 
 To build the addon, download `tl` to somewhere on your computer. Then, from a shell/command line, navigate to the directory that this repository is located in.
 
