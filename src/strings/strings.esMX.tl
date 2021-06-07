@@ -1,6 +1,7 @@
-local addonName, LB = ...;
+local args = {...} as {string, SharedTable};
+local LB: SharedTable = args[2];
 
-local esMX = {};
+local esMX: LocaleTable = {};
 
 -- Also used for esES.
 
@@ -52,7 +53,7 @@ esMX.Strings = {
 }
 
 -- These are tried second.
-function esMX.GetShortStatPatterns(shortStatString, statKey)
+esMX.GetShortStatPatterns = function(shortStatString: string, _: string): {string}
     -- Pay VERY close attention to the accent over the i.
     -- it is actually í and not i.
     return {
@@ -63,7 +64,7 @@ function esMX.GetShortStatPatterns(shortStatString, statKey)
     };
 end
 
-LB.esMX = {};
-function LB.esMX.getLocaleTable()
+LB.LocaleTables["esMX"] = {};
+LB.LocaleTables["esMX"].getLocaleTable = function(): LocaleTable
     return esMX;
 end

@@ -1,0 +1,2 @@
+# Force GitHub to color Teal files like Lua files
+*.tl linguist-language=Lua

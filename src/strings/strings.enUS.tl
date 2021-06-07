@@ -1,7 +1,7 @@
-local addonName, LB = ...;
+local args = {...} as {string, SharedTable};
+local LB: SharedTable = args[2];
 
-local enUS = {};
-
+local enUS: LocaleTable = {};
 enUS.Strings = {
     -- These patterns are tried first.
     AlternativePatterns = {
@@ -53,7 +53,7 @@ enUS.Strings = {
 }
 
 -- These are tried second.
-function enUS.GetShortStatPatterns(shortStatString, statKey)
+enUS.GetShortStatPatterns = function(shortStatString: string, _: string): {string}
     return {
         shortStatString .. " rating by (%d+)", -- "...imcrase your parry rating by 72..."
         "(%d+) " .. shortStatString .. " rating", -- "...grant you 152 dodge rating..."
@@ -61,7 +61,7 @@ function enUS.GetShortStatPatterns(shortStatString, statKey)
     };
 end
 
-LB.enUS = {};
-function LB.enUS.getLocaleTable()
+LB.LocaleTables["enUS"] = {};
+LB.LocaleTables["enUS"].getLocaleTable = function(): LocaleTable
     return enUS;
 end

@@ -1,0 +1,22 @@
+## Interface: 20501
+## Title: LittleBuster
+## Notes: Break those ratings down into actual percentages.
+## Author: PingZing
+## Version: 1.0.1
+## X-Email: psychozagal@gmail.com
+## X-License: GPL v3
+
+# Utilities
+strExtensions.lua
+mappings.lua
+statConversion.lua
+
+# Localized strings
+strings/localeCore.lua
+strings/strings.deDE.lua
+strings/strings.enUS.lua
+strings/strings.esMX.lua
+strings/strings.ruRU.lua
+
+# Entry point
+littleBuster.lua

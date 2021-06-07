@@ -1,4 +1,5 @@
-local addonName, LB = ...;
+local args = {...} as {string, SharedTable};
+local LB = args[2];
 
 -- Level 60 rating base
 local _ratingBase = {
@@ -64,15 +65,12 @@ local _ratingNameToID = {
 --`id` The ID of the stat to convert, either in numeric ID form, or SCREAMING_SNAKE form.
 --
 -- Returns: A number of the given rating converted to the value is provides.
-function LB.GetEffectFromRating(rating, id)
+LB.GetEffectFromRating = function(rating: number, id: string): number
     -- if id is stringID then convert to numberID
     if type(id) == "string" and _ratingNameToID[id] then
         id = _ratingNameToID[id];
     end
-    -- check for invalid input
-    if type(rating) ~= "number" or id < 1 or id > 26 then
-        return 0;
-    end
+    
     local level = UnitLevel("player");
     -- 2.4.3  Parry Rating, Defense Rating, and Block Rating: Low-level players
     --   will now convert these ratings into their corresponding defensive

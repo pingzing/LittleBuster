@@ -1,39 +1,40 @@
-local addonName, LB = ...;
+local args = {...} as {string, SharedTable};
+local LB: SharedTable = args[2];
 
-local ruRU = {};
+local ruRU: LocaleTable = {};
 
 ruRU.Strings = {
     -- These patterns are tried first.
     AlternativePatterns = {
         ["ITEM_MOD_HIT_RATING"] = {
-             "рейтинг меткости на (%d+)",
-             "рейтинга меткости на (%d+)",
-             "+(%d+) к рейтингу меткости"
-	},
+            "рейтинг меткости на (%d+)",
+            "рейтинга меткости на (%d+)",
+            "+(%d+) к рейтингу меткости"
+        },
         ["ITEM_MOD_HIT_MELEE_RATING"] = {
             "рейтинг меткости на (%d+).",
-	},
+        },
         ["ITEM_MOD_HIT_RANGED_RATING"] = {
             "рейтинг меткости на (%d+).",
-	},
+        },
         ["ITEM_MOD_CRIT_RATING"] = {
             "рейтинг критического удара на (%d+).",
             "критического урона на (%d+) ед.",
             "+(%d+) к рейтингу критического удара", -- Seen on gems, mostly
-	},
+        },
         ["ITEM_MOD_CRIT_MELEE_RATING"] = {
             "рейтинг критического удара на (%d+).",
-	},
+        },
         ["ITEM_MOD_CRIT_RANGED_RATING"] = {
             "рейтинг критического удара на (%d+).",
-	},
+        },
         ["ITEM_MOD_HASTE_RATING"] = {
             "рейтинга скорости на (%d+) ед.",
             "рейтинг скорости боя на (%d+).",
-	},
+        },
         ["ITEM_MOD_EXPERTISE_RATING"] = {
             "рейтинг мастерства на (%d+)."
-	},
+        },
         ["ITEM_MOD_HIT_SPELL_RATING"] = {
             "меткость %(заклинания%) %+(%d+)", -- Because consistency is for the weak. JFC.
             "Повышение на (%d+)%% рейтинга меткости заклинаний.",
@@ -51,13 +52,13 @@ ruRU.Strings = {
             "рейтинг скорости заклинаний (%d+) на",
             "рейтингу скорости заклинаний (%d+) на",
             "рейтинга скорости заклинаний (%d+) на",
-	    "+(%d+) к рейтингу скорости заклинаний", -- gems
+            "+(%d+) к рейтингу скорости заклинаний", -- gems
             "рейтинга скорости .+ (%d+ ед%.)", -- This one is really broad--we look for "рейтинга скорости (SOME NUMBER OF ANY CHARACTER) (some number of digits) ед."
         },
         ["ITEM_MOD_DEFENSE_SKILL_RATING"] = {
             "повышает рейтинг защиты на (%d+).",
             "+(%d+) к рейтингу защиты",
-	},
+        },
         ["ITEM_MOD_BLOCK_RATING"] = {
             "рейтинг блока на (%d+) ед.",
             "рейтинг блокирования щитом на (%d+)",
@@ -72,13 +73,13 @@ ruRU.Strings = {
         },
         ["ITEM_MOD_PARRY_RATING"] = {
             "+(%d+) к рейтингу парирования",
-	    "рейтинга парирования атак на (%d+) ед."
-	},
+            "рейтинга парирования атак на (%d+) ед."
+        },
     },
 }
 
 -- Because the Russian short stat strings are never used directly--just the conjugated forms
-local conjugatedShortStats = {
+local conjugatedShortStats: {string:string} = {
     ["ITEM_MOD_HIT_RATING"] = "меткости",
     ["ITEM_MOD_HIT_MELEE_RATING"] = "меткости",
     ["ITEM_MOD_HIT_RANGED_RATING"] = "меткости", -- does anything in the game actually give JUST ranged hit rating?
@@ -97,7 +98,7 @@ local conjugatedShortStats = {
 }
 
 -- These are tried second.
-function ruRU.GetShortStatPatterns(shortStatString, statKey)
+ruRU.GetShortStatPatterns = function(_: string, statKey: string): {string}
     return {
         "рейтинг " .. conjugatedShortStats[statKey] .. " на (%d+)",
         "рейтингу " .. conjugatedShortStats[statKey] .. " на (%d+)",
@@ -108,7 +109,7 @@ function ruRU.GetShortStatPatterns(shortStatString, statKey)
     };
 end
 
-LB.ruRU = {};
-function LB.ruRU.getLocaleTable()
+LB.LocaleTables["ruRU"] = {};
+LB.LocaleTables["ruRU"].getLocaleTable = function(): LocaleTable
     return ruRU;
 end

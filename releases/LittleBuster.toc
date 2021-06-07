@@ -6,17 +6,14 @@
 ## X-Email: psychozagal@gmail.com
 ## X-License: GPL v3
 
+# Localized strings
+strings/strings.enUS.lua
+strings/strings.esMX.lua
+
 # Utilities
 strExtensions.lua
 mappings.lua
 statConversion.lua
-
-# Localized strings
-strings/strings.deDE.lua
-strings/strings.enUS.lua
-strings/strings.esMX.lua
-strings/strings.ruRU.lua
-strings/localeCore.lua
 
 # Entry point
 littleBuster.lua

@@ -1,5 +1,7 @@
-local addonName, LB = ...;
-local _locale = nil;
+local args = {...} as {string, SharedTable};
+local LB = args[2];
+local G = getfenv(0);
+local _locale: LocaleTable = nil;
 local _goldColor = "|cfffffe8b"; -- r = 1.0, g = 0.996,  b = 0.545,
 local _colorEnd = "|r";
 
@@ -9,7 +11,6 @@ local StatKeys = LB.StatKeys;
 local ShortStatKeys = LB.ShortStatKeys;
 local ModToRating = LB.ModToRating;
 local ContainsPercent = LB.ContainsPercent;
-local StatTypeEnum = LB.StatTypeEnum;
 
 -- statConversion.lua
 local GetEffectFromRating = LB.GetEffectFromRating;
@@ -17,21 +18,40 @@ local GetEffectFromRating = LB.GetEffectFromRating;
 -- localeCore.lua
 local GetLocaleTable = LB.GetLocaleTable;
 
-local TooltipTypeEnum = {
-    GameTooltip = "GameTooltip",
-    ItemRefTooltp = "ItemRefTooltip",
-    ShoppingTooltip1 = "ShoppingTooltip1",
-    ShoppingTooltip2 = "ShoppingTooltip2",
-};
+local enum TooltipType
+    "GameTooltip"
+    "ItemRefTooltip"
+    "ShoppingTooltip1"
+    "ShoppingTooltip2"
+end
 
-local _tooltipState = {
-    [TooltipTypeEnum.GameTooltip] = { itemID = nil, modifiedLines = {}, timesSeen = 0 },
-    [TooltipTypeEnum.ItemRefTooltp] = { itemID = nil, modifiedLines = {}, timesSeen = 0 },
-    [TooltipTypeEnum.ShoppingTooltip1] = { itemID = nil, modifiedLines = {}, timesSeen = 0 },
-    [TooltipTypeEnum.ShoppingTooltip2] = { itemID = nil, modifiedLines = {}, timesSeen = 0 },
-};
+local record TooltipState
+    itemID: number
+    modifiedLines: {number:string}
+    timesSeen: number
+end
 
-local function getItemIDFromLink(itemLink)
+local record LineModInfo
+    stat: string
+    statType: StatType
+    startIndex: number
+    endIndex: number
+    formattedString: string
+end
+
+local record LineData
+    originalText: string
+    modifications: {LineModInfo} 
+end
+
+local _tooltipState: {TooltipType:TooltipState} = {
+    ["GameTooltip"] = { itemID = nil, modifiedLines = {}, timesSeen = 0 },
+    ["ItemRefTooltip"] = { itemID = nil, modifiedLines = {}, timesSeen = 0 },
+    ["ShoppingTooltip1"] = { itemID = nil, modifiedLines = {}, timesSeen = 0 },
+    ["ShoppingTooltip2"] = { itemID = nil, modifiedLines = {}, timesSeen = 0 },
+}
+
+local function getItemIDFromLink(itemLink: string): number
     -- |cff9d9d9d|Hitem:0000000: <-- the zeroes are the item ID.
     local firstColonIndex = string.find(itemLink, ":");
     local secondColonIndex = string.find(itemLink, ":", firstColonIndex + 1);
@@ -51,13 +71,13 @@ end
 -- `statType`: The type of the stat, i.e. whether it's a rating or just a value.
 --
 -- Returns `startIndex`, `endIndex`, `value`. On failure, returns `nil`, `nil`, `nil`.
-local function scanForStat(text, statKey, statType)
-    local lowercaseText = text:lower();
-    local discoveredCapture = nil; -- A capture will usually contain just a number, but not necessarily.
-    local successfulPattern = nil;
+local function scanForStat(text: string, statKey: string, _: StatType): {number, number, number}
+    local lowercaseText: string = text:lower();
+    local discoveredCapture: string = nil; -- A capture will usually contain just a number, but not necessarily.
+    local successfulPattern: string = nil;
 
     -- First, try the alternatives we've noted to deal with weird cases where Blizzard-defined keys don't work
-    for _, pattern in pairs(_locale.Strings.AlternativePatterns[statKey]) do
+    for _, pattern in ipairs(_locale.Strings.AlternativePatterns[statKey]) do
         discoveredCapture = string.match(lowercaseText, pattern:lower());
         if (discoveredCapture ~= nil) then
             successfulPattern = pattern;
@@ -69,12 +89,12 @@ local function scanForStat(text, statKey, statType)
     if (discoveredCapture == nil) then
         local shortStatKey = ShortStatKeys[statKey];
         if (shortStatKey == nil) then
-            return nil, nil, nil;
+            return {nil, nil, nil};
         end
 
-        local shortStatString = _G[shortStatKey]:lower();
+        local shortStatString = (G[shortStatKey] as string):lower();
         local shortStatPatterns = _locale.GetShortStatPatterns(shortStatString, statKey);
-        for _, pattern in pairs(shortStatPatterns) do
+        for _, pattern in ipairs(shortStatPatterns) do
             discoveredCapture = string.match(lowercaseText, pattern);
             if (discoveredCapture ~= nil) then
                 successfulPattern = pattern;
@@ -84,13 +104,13 @@ local function scanForStat(text, statKey, statType)
     end
 
     if (discoveredCapture == nil) then
-        return nil, nil, nil;
+        return {nil, nil, nil};
     end
 
     successfulPattern = successfulPattern:lower();
     local patternStart, patternEnd = string.find(lowercaseText, successfulPattern);
     if (patternStart == nil or patternEnd == nil) then
-        return nil, nil, nil;
+        return {nil, nil, nil};
     end
 
     -- In case the value we found contains more than just a number, isolate out the number,
@@ -100,15 +120,15 @@ local function scanForStat(text, statKey, statType)
         local patternSubstring = lowercaseText:sub(patternStart, patternEnd);
         local captureStart, captureEnd = string.find(patternSubstring, discoveredCapture);
         -- And make sure to add in the diff between the length of the substring and original tooltip string
-        return captureStart + patternStart, captureEnd + patternStart, value;
+        return {captureStart + patternStart, captureEnd + patternStart, value};
     end
 
-    return nil, nil, nil;
+    return {nil, nil, nil};
 end
 
 -- Take all the conversion data we found in the tooltip, and use it generate
 -- rewritten tooltip lines.
-local function modifyLines(statsFound)
+local function modifyLines(statsFound: {number:LineData}): {number:string}
     local modifiedLines = {};
     for lineNum, lineData in pairs(statsFound) do
         -- Because we're mutating the line, all the indices will be off once we start changing it.
@@ -116,7 +136,7 @@ local function modifyLines(statsFound)
         local indexOffset = 0;
         local currentLine = lineData.originalText;
         -- Sort lineData.modifications so that we mutate stats in the order they appear        
-        table.sort(lineData.modifications, function(modA, modB)
+        table.sort(lineData.modifications, function(modA: LineModInfo, modB: LineModInfo): boolean
             return modA.startIndex < modB.startIndex;
         end)
         for _, statData in ipairs(lineData.modifications) do
@@ -135,44 +155,50 @@ end
 
 -- Take a tooltip's text and see if we can find the given stat. If we do,
 -- we'll return its indices, and a formatted string the caller can insert wherever it likes.
-local function tryGenerateModifiedLine(text, statKey, indicesProcessed)
-    local statValue = nil;
+local function tryGenerateModifiedLine(text: string, statKey: StatKey, indicesProcessed: {number:boolean}): {number, number, string}
+    local statValue: number = nil;
 
     -- Parse the stat value and its location out of the tooltip line.
-    local valueStart, valueEnd, foundValue = scanForStat(text, statKey.key, statKey.type);
+    local found: {number, number, number} = scanForStat(text, statKey.key, statKey.type);
+    local valueStart = found[1];
+    local valueEnd = found[2];
+    local foundValue = found[3];
     if (not (indicesProcessed[valueStart])) then
         if (foundValue) then
-            if (statKey.type == StatTypeEnum.Rating) then
+            if (statKey.type == "Rating") then
                 statValue = GetEffectFromRating(foundValue, ModToRating[statKey.key]);
             end
-            -- TODO: If it's a Value, do Value-y things. 
+            -- TODO: If it's an attribute, do attributey things
         end
 
         if (valueStart and valueEnd and statValue) then
-            local currentColorCode = select(3, string.find(text, "(|c%x%x%x%x%x%x%x%x)")) or "|r";
+            local currentColorCode: string = (select(3, string.find(text, "(|c%x%x%x%x%x%x%x%x)")) or _colorEnd) as string;
             local endFragment = ContainsPercent[statKey.key] and "%" or "";
             local formattedValue = _goldColor .. " (" .. format("%.2F", statValue) .. endFragment ..
                                        ")" .. currentColorCode;
-            return valueStart, valueEnd, formattedValue;
+            return {valueStart, valueEnd, formattedValue};
         end
     end
 
-    return nil, nil, nil;
+    return {nil, nil, nil};
 end
 
-local function generateModifiedTooltipLines(tooltip)
-    local statsFound = {};
+local function generateModifiedTooltipLines(tooltip: Tooltip): {number:string}
+    local statsFound: {number:LineData} = {};
     -- Skip the first line, as it's always an item name
     for i = 2, tooltip:NumLines() do
-        local lineRef = _G[tooltip:GetName() .. "TextLeft" .. i];
+        local lineRef = G[tooltip:GetName().. "TextLeft" .. i] as FontString;
         local text = lineRef:GetText();
-        local indicesProcessed = {}; -- contains a mapping of valueStartIndex -> boolean, to track which values we've already looked at
+        local indicesProcessed: {number:boolean} = {}; -- contains a mapping of valueStartIndex -> boolean, to track which values we've already looked at
         if (text) then
             for _, statKey in ipairs(StatKeys) do
-                local valueStart, valueEnd, formattedValue =
+                local modifiedLineInfo: {number, number, string} =
                     tryGenerateModifiedLine(text, statKey, indicesProcessed);
+                    local valueStart = modifiedLineInfo[1];
+                    local valueEnd = modifiedLineInfo[2];
+                    local formattedValue = modifiedLineInfo[3];
                 if (valueStart and valueEnd and formattedValue) then
-                    local lineData = statsFound[i];
+                    local lineData: LineData = statsFound[i];
                     if (lineData == nil) then
                         lineData = { originalText = text, modifications = {} };
                         statsFound[i] = lineData;
@@ -194,28 +220,28 @@ local function generateModifiedTooltipLines(tooltip)
     return modifyLines(statsFound);
 end
 
-local function injectModifiedLines(tooltip, modifiedLines)
+local function injectModifiedLines(tooltip: Tooltip, modifiedLines: {number:string})
     -- If the table is empty, we can bail immediately.
     if (next(modifiedLines) == nil) then
         return;
     end
     for i = 2, tooltip:NumLines() do
-        local modifiedText = modifiedLines[i]
+        local modifiedText: string = modifiedLines[i]
         if (modifiedText) then
-            local lineRef = _G[tooltip:GetName() .. "TextLeft" .. i];
+            local lineRef = (G[tooltip:GetName() .. "TextLeft" .. i]) as FontString;
             lineRef:SetText(modifiedText);
         end
     end
 end
 
-local function injectStats(tooltip, tooltipType)
-    local _, itemLink = tooltip:GetItem();
-    if (not itemLink) then
+local function injectStats(tooltip: Tooltip, tooltipType: TooltipType)
+    local item: {any, string} = {tooltip:GetItem()};
+    if (not item) then
         -- If we don't get an itemLink, don't even bother trying
         return;
     end
 
-    local itemID = getItemIDFromLink(itemLink);
+    local itemID: number = getItemIDFromLink(item[2]);
     local tooltipState = _tooltipState[tooltipType];
 
     -- If this particular tooltip already knows the lines for this item, just reuse what we have and return early
@@ -243,32 +269,32 @@ end
 -- Entry point
 _locale = GetLocaleTable(GetLocale());
 
-GameTooltip:HookScript("OnTooltipSetItem", function(self)
-    injectStats(self, TooltipTypeEnum.GameTooltip);
+GameTooltip:HookScript("OnTooltipSetItem", function(self: Tooltip)
+    injectStats(self, "GameTooltip");
 end);
-ItemRefTooltip:HookScript("OnTooltipSetItem", function(self)
-    injectStats(self, TooltipTypeEnum.ItemRefTooltp);
+ItemRefTooltip:HookScript("OnTooltipSetItem", function(self: Tooltip)
+    injectStats(self, "ItemRefTooltip");
 end);
-ShoppingTooltip1:HookScript("OnTooltipSetItem", function(self)
-    injectStats(self, TooltipTypeEnum.ShoppingTooltip1);
+ShoppingTooltip1:HookScript("OnTooltipSetItem", function(self: Tooltip)
+    injectStats(self, "ShoppingTooltip1");
 end);
-ShoppingTooltip2:HookScript("OnTooltipSetItem", function(self)
-    injectStats(self, TooltipTypeEnum.ShoppingTooltip2);
+ShoppingTooltip2:HookScript("OnTooltipSetItem", function(self: Tooltip)
+    injectStats(self, "ShoppingTooltip2");
 end);
 
 -- Debugging helpers
 
-function Dump(o)
-    if type(o) == "table" then
-        local s = "{ "
-        for k, v in pairs(o) do
-            if type(k) ~= "number" then
-                k = "\"" .. k .. "\""
-            end
-            s = s .. "[" .. k .. "] = " .. Dump(v) .. ","
-        end
-        return s .. "} "
-    else
-        return tostring(o)
-    end
-end
+-- function Dump(o)
+--     if type(o) == "table" then
+--         local s = "{ "
+--         for k, v in pairs(o) do
+--             if type(k) ~= "number" then
+--                 k = "\"" .. k .. "\""
+--             end
+--             s = s .. "[" .. k .. "] = " .. Dump(v) .. ","
+--         end
+--         return s .. "} "
+--     else
+--         return tostring(o)
+--     end
+-- end

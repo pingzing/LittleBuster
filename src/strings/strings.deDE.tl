@@ -1,6 +1,7 @@
-local addonName, LB = ...;
+local args = {...} as {string, SharedTable};
+local LB: SharedTable = args[2];
 
-local deDE = {};
+local deDE: LocaleTable = {};
 
 deDE.Strings = {
     -- These patterns are tried first.
@@ -24,7 +25,7 @@ deDE.Strings = {
 }
 
 -- Because the German short stat strings are never used directly--just their conjugated forms x.x
-local conjugatedShortStats = {
+local conjugatedShortStats: {string:string} = {
     ["ITEM_MOD_HIT_RATING"] = "treffer",
     ["ITEM_MOD_HIT_MELEE_RATING"] = "treffer",
     ["ITEM_MOD_HIT_RANGED_RATING"] = "treffer", -- does anything in the game actually give JUST ranged hit rating?
@@ -43,7 +44,7 @@ local conjugatedShortStats = {
 }
 
 -- These are tried second.
-function deDE.GetShortStatPatterns(shortStatString, statKey)
+deDE.GetShortStatPatterns = function(shortStatString: string, statKey: string) : {string}
     return {
         "(%d+) "..conjugatedShortStats[statKey], -- rarer proc format
         shortStatString .. "wertung um (%d+)",
@@ -52,7 +53,7 @@ function deDE.GetShortStatPatterns(shortStatString, statKey)
     };
 end
 
-LB.deDE = {};
-function LB.deDE.getLocaleTable()
+LB.LocaleTables["deDE"] = {};
+LB.LocaleTables["deDE"].getLocaleTable = function(): LocaleTable
     return deDE;
 end
