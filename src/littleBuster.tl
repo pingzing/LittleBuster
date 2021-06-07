@@ -168,7 +168,7 @@ local function tryGenerateModifiedLine(text: string, statKey: StatKey, indicesPr
             if (statKey.type == "Rating") then
                 statValue = GetEffectFromRating(foundValue, ModToRating[statKey.key]);
             end
-            -- TODO: If it's a Value, do Value-y things. 
+            -- TODO: If it's an attribute, do attributey things
         end
 
         if (valueStart and valueEnd and statValue) then

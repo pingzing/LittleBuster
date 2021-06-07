@@ -1,1 +1,9 @@
-releases/*
+/*
+!.gitignore
+!/.vscode/**/*
+!.luaconfig
+!LICENSE.md
+!README.md
+!LittleBuster.toc
+!tlconfig.lua
+!./src/**/*
