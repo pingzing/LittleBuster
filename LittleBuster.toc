@@ -17,6 +17,7 @@ strings/strings.deDE.lua
 strings/strings.enUS.lua
 strings/strings.esMX.lua
 strings/strings.ruRU.lua
+strings/strings.ptBR.lua
 
 # Entry point
 littleBuster.lua
