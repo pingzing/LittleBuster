@@ -45,7 +45,7 @@ Supports tooltips with phrasing like:
 |esMX  |🔷|
 |esES  |🔷|
 |deDE  |🔷|
-|ptBR  |❌|
+|ptBR  |🔷|
 |itIT  |❌|
 |frFR  |❌|
 |koKR  |❌|

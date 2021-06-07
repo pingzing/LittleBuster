@@ -1,0 +1,60 @@
+|||||||||||||
+||| 1.6.0 ||| 2021-06-7
+|||||||||||||
+
++ Added more special-case handling for ruRU localization, courtesy of bu7cher and golgofinyanin2. Thanks!
++ Added experimental ptBR localization.
+
+|||||||||||||
+||| 1.5.0 ||| 2021-06-6
+|||||||||||||
+
++ Injected values are now colored differently than the surrounding text.
++ Added experimental support for Russian (ruRU) locale.
+
+|||||||||||||
+||| 1.4.0 ||| 2021-06-6
+|||||||||||||
+
++ Spanish localization now basically complete (not counting edge cases), for both esMX and esES.
++ Added experimental support for German (deDE) locale.
+
+|||||||||||||
+||| 1.3.0 ||| 2021-06-5
+|||||||||||||
+
++ Tooltips with multiple stats in a single line will now display conversions for all those stats.
++ Gems and socket bonuses will now be converted.
++ Tooltips should no longer occasionally be missing conversions.
+
+|||||||||||||
+||| 1.2.0 ||| 2021-06-04
+|||||||||||||
+
++ Ratings are now displayed in-line, rather than at the end of the line.
++ Expanded the number of special cases handled in English.
+
+|||||||||||||
+||| 1.1.1 ||| 2021-06-03
+|||||||||||||
+
+Packaging fix, no feature or code changes.
+
+|||||||||||||
+||| 1.1.0 ||| 2021-06-01
+|||||||||||||
+
++ Experimental Spanish support for the esMX locale.
++ Added basic caching, to reduce the performance impact of tooltip parsing.
+
+|||||||||||||
+||| 1.0.1 ||| 2021-05-31
+|||||||||||||
+
+Packaging fix, no feature or code changes.
+
+|||||||||||||
+||| 1.0.0 ||| 2021-05-30
+|||||||||||||
+
+Initial release
