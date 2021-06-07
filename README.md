@@ -41,9 +41,9 @@ Supports tooltips with phrasing like:
 |------|-------|
 |enUS  |✔|
 |enGB  |✔|
-|esMX  |✔|
-|esES  |✔|
 |ruRU  |✔|
+|esMX  |🔷|
+|esES  |🔷|
 |deDE  |🔷|
 |ptBR  |❌|
 |itIT  |❌|
