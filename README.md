@@ -34,20 +34,19 @@ Supports tooltips with phrasing like:
 #### Locale support
 
 ✔: Fully tested and working  
-🔷: Functional, but incomplete  
+🔷: Functional, but not fully tested, or incomplete  
 ❌: Not supported, no functionality  
 
-|Locale|Support|
-|------|-------|
-|enUS  |✔|
-|enGB  |✔|
-|ruRU  |✔|
-|esMX  |🔷|
-|esES  |🔷|
-|deDE  |🔷|
-|ptBR  |🔷|
-|itIT  |❌|
-|frFR  |❌|
-|koKR  |❌|
-|zhTW  |❌|
-|zhCN  |❌|
+|Locale|Support|Future plans|
+|------|-------|------------|
+|enUS|✔|Update as bugs are discovered|
+|enGB|✔|Update as bugs are discovered|
+|ruRU|✔|Update as bugs are reported by users|
+|esMX|🔷|Update as bugs are reported by users|
+|esES|🔷|Update as bugs are reported users|
+|deDE|🔷|Update as bugs are reported users|
+|ptBR|🔷|Update as bugs are reported users|
+|frFR|🔷|Update as bugs are reported users|
+|koKR|❌|No plans to support unless assisted|
+|zhTW|❌|No plans to support unless assisted|
+|zhCN|❌|No plans to support unless assisted|

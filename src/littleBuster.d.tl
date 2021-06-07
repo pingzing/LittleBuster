@@ -20,6 +20,20 @@ global record Tooltip
     GetName: function(Tooltip): string
 end
 
+global record ConfigFrame
+    name: string
+    parent: string
+
+    -- Functions required for usage in the Addons Interface panel
+    okay: function(ConfigFrame)
+    refresh: function(ConfigFrame)
+    cancel: function(ConfigFrame)
+    default: function(ConfigFrame)
+end
+
+global function InterfaceOptions_AddCategory(_: ConfigFrame)
+end
+
 global record GameTooltip
     HookScript: function(Tooltip, string, function(Tooltip))
 end

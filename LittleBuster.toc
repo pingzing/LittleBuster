@@ -18,6 +18,10 @@ strings/strings.enUS.lua
 strings/strings.esMX.lua
 strings/strings.ruRU.lua
 strings/strings.ptBR.lua
+strings/strings.frFR.lua
+
+# Config
+config/config.xml 
 
 # Entry point
 littleBuster.lua
