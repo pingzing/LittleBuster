@@ -51,32 +51,51 @@ global function GetLocale(): string
 end
 
 -- Global string names
-global CR_HIT_MELEE: string
-global CR_HIT_RANGED: string
-global CR_CRIT_MELEE: string
-global CR_CRIT_RANGED: string
-global CR_HASTE_MELEE: string
-global CR_HASTE_RANGED: string
-global CR_EXPERTISE: string
-global CR_HIT_SPELL: string
-global CR_CRIT_SPELL: string
-global CR_HASTE_SPELL: string
-global CR_DEFENSE_SKILL: string
-global CR_BLOCK: string
-global CR_DODGE: string
-global CR_PARRY: string
+global CR_HIT_MELEE: number
+global CR_HIT_RANGED: number
+global CR_CRIT_MELEE: number
+global CR_CRIT_RANGED: number
+global CR_HASTE_MELEE: number
+global CR_HASTE_RANGED: number
+global CR_EXPERTISE: number
+global CR_HIT_SPELL: number
+global CR_CRIT_SPELL: number
+global CR_HASTE_SPELL: number
+global CR_DEFENSE_SKILL: number
+global CR_BLOCK: number
+global CR_DODGE: number
+global CR_PARRY: number
+
+global enum StatKey
+    "ITEM_MOD_CRIT_SPELL_RATING"
+    "ITEM_MOD_HIT_SPELL_RATING"
+    "ITEM_MOD_HASTE_SPELL_RATING"
+    "ITEM_MOD_CRIT_RANGED_RATING"
+    "ITEM_MOD_HIT_RANGED_RATING"
+    "ITEM_MOD_CRIT_MELEE_RATING"
+    "ITEM_MOD_HIT_MELEE_RATING"
+    "ITEM_MOD_EXPERTISE_RATING"
+    "ITEM_MOD_HIT_RATING"
+    "ITEM_MOD_CRIT_RATING"
+    "ITEM_MOD_HASTE_RATING"
+    "ITEM_MOD_DEFENSE_SKILL_RATING"
+    "ITEM_MOD_BLOCK_RATING"
+    "ITEM_MOD_DODGE_RATING"
+    "ITEM_MOD_PARRY_RATING"
+end
+
 
 -- Little Buster globals
 
 -- Locale stuff
-global record LocaleStrings
+global record LocaleTable    
+    -- Stat-conversion related things
     AlternativePatterns: {string:{string}}
-end
-
-global record LocaleTable
-    Strings: LocaleStrings
     GetShortStatPatterns: function(string, string): {string}
     getLocaleTable: function(): LocaleTable
+
+    -- Config-related things
+    ConfigStrings: {string:string}
 end
 
 -- Mappings stuff
@@ -85,21 +104,26 @@ global enum StatType
     "Value"
 end
 
-global record StatKey
-    key: string -- todo: this could probably be an enum
+global record StatDetailInfo
+    kind: StatKey
     type: StatType
+end
+
+-- Config stuff
+global record Config
+    DisplayToggles: {string:boolean}
 end
 
 -- This is the type of the shared table WoW gives us as the second arg to each script file
 global record SharedTable
     -- mappings.lua
-    StatKeys: {StatKey}
-    ShortStatKeys: {string:string}
-    ModToRating: {string:string}
-    ContainsPercent: {string:boolean}
+    StatDetails: {StatDetailInfo}
+    ShortStatKeys: {StatKey:string}
+    StatKeyToRatingID: {StatKey:number}
+    StatKeyIsPercentage: {StatKey:boolean}
 
     -- statConversion.lua
-    GetEffectFromRating: function(number, string): number
+    GetEffectFromRating: function(number, number): number
 
     -- localeCore.lua
     GetLocaleTable: function(string): LocaleTable

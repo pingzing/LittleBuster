@@ -3,26 +3,24 @@ local LB: SharedTable = args[2];
 
 local deDE: LocaleTable = {};
 
-deDE.Strings = {
-    -- These patterns are tried first.
-    AlternativePatterns = {
-        ["ITEM_MOD_HIT_RATING"] = {},
-        ["ITEM_MOD_HIT_MELEE_RATING"] = {},
-        ["ITEM_MOD_HIT_RANGED_RATING"] = {},
-        ["ITEM_MOD_CRIT_RATING"] = {},
-        ["ITEM_MOD_CRIT_MELEE_RATING"] = {},
-        ["ITEM_MOD_CRIT_RANGED_RATING"] = {},
-        ["ITEM_MOD_HASTE_RATING"] = {},
-        ["ITEM_MOD_EXPERTISE_RATING"] = {},
-        ["ITEM_MOD_HIT_SPELL_RATING"] = {},
-        ["ITEM_MOD_CRIT_SPELL_RATING"] = {},
-        ["ITEM_MOD_HASTE_SPELL_RATING"] = {},
-        ["ITEM_MOD_DEFENSE_SKILL_RATING"] = {},
-        ["ITEM_MOD_BLOCK_RATING"] = {},
-        ["ITEM_MOD_DODGE_RATING"] = {},
-        ["ITEM_MOD_PARRY_RATING"] = {},
-    },
-}
+deDE.AlternativePatterns = {
+-- These patterns are tried first.
+    ["ITEM_MOD_HIT_RATING"] = {},
+    ["ITEM_MOD_HIT_MELEE_RATING"] = {},
+    ["ITEM_MOD_HIT_RANGED_RATING"] = {},
+    ["ITEM_MOD_CRIT_RATING"] = {},
+    ["ITEM_MOD_CRIT_MELEE_RATING"] = {},
+    ["ITEM_MOD_CRIT_RANGED_RATING"] = {},
+    ["ITEM_MOD_HASTE_RATING"] = {},
+    ["ITEM_MOD_EXPERTISE_RATING"] = {},
+    ["ITEM_MOD_HIT_SPELL_RATING"] = {},
+    ["ITEM_MOD_CRIT_SPELL_RATING"] = {},
+    ["ITEM_MOD_HASTE_SPELL_RATING"] = {},
+    ["ITEM_MOD_DEFENSE_SKILL_RATING"] = {},
+    ["ITEM_MOD_BLOCK_RATING"] = {},
+    ["ITEM_MOD_DODGE_RATING"] = {},
+    ["ITEM_MOD_PARRY_RATING"] = {},
+};
 
 -- Because the German short stat strings are never used directly--just their conjugated forms x.x
 local conjugatedShortStats: {string:string} = {
@@ -52,6 +50,10 @@ deDE.GetShortStatPatterns = function(shortStatString: string, statKey: string) :
         conjugatedShortStats[statKey].."wertung %d+ sek. lang um (%d+)", -- see this a lot on procs, trinkets, etc
     };
 end
+
+deDE.ConfigStrings = {
+    
+};
 
 LB.LocaleTables["deDE"] = {};
 LB.LocaleTables["deDE"].getLocaleTable = function(): LocaleTable

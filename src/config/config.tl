@@ -1,5 +1,10 @@
 local args = {...} as {string, SharedTable};
-local _: SharedTable = args[2];
+local LB: SharedTable = args[2];
+
+local _locale = LB.GetLocaleTable(GetLocale());
+
+-- Expose the config strings as a global so XML can see them
+global LB_CONF_STR = _locale.ConfigStrings;
 
 local function configFrame_OnOkay(self: ConfigFrame)
 end

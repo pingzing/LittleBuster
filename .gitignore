@@ -1,6 +1,10 @@
+# Ignore root
 *
+
+# Ignore in-progress release folders in case I forget
 LittleBuster/*
-!*/
+
+# But remember stuff we keep in the repo root
 !.gitignore
 !.gitattributes
 !/.vscode/**/*
@@ -10,5 +14,11 @@ LittleBuster/*
 !CHANGELOG.txt
 !LittleBuster.toc
 !tlconfig.lua
+
+# Remember stuff in /src
 !/src
 !/src/**/*
+
+# Remember XML files in /config and below
+!/config
+!/config/**/*.xml

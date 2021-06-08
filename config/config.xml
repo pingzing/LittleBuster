@@ -1,0 +1,282 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ 
+      C:\Users\mcali\Desktop\Repositories\BlizzardInterfaceCode\Interface\FrameXML\UI.xsd">
+  <Script file="config/config.lua" />
+
+  <!-- Templates, resources, etc -->
+  <Font name="GameFontNormalWhite" inherits="GameFontNormal" virtual="true">
+    <Color r="1.0" g="1.0" b="1.0" />
+  </Font>
+
+  <Frame name="LB_MarginFrame" virtual="true">
+    <Anchors>
+      <Anchor point="TOPLEFT" x="10" y="0"></Anchor>
+    </Anchors>
+  </Frame>
+
+  <Frame name="LB_ConfigHeaderTextFrame" virtual="true" inherits="LB_MarginFrame">
+    <Size x="300" y="20" />
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString name="$parentHeaderString" parentKey="Text" inherits="GameFontNormalLarge">
+          <Anchors>
+            <Anchor point="LEFT" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+
+  <Frame name="LB_ConfigSubheaderTextFrame" virtual="true">
+    <Size x="300" y="13" />
+    <Anchors>
+      <Anchor point="TOPLEFT" />
+    </Anchors>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString name="$parentHeaderString" parentKey="Text" inherits="GameFontNormal">
+          <Anchors>
+            <Anchor point="LEFT" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+
+  <!-- end templates -->
+
+  <!-- Frames -->
+  <Frame name="LB_ConfigRootFrame">
+    <Scripts>
+      <OnLoad function="LB_ConfigRootFrame_OnLoad" />
+    </Scripts>
+    <Frames>
+
+      <ScrollFrame name="LB_ConfigScrollRoot" inherits="UIPanelScrollFrameTemplate">
+        <Size x="590" y="553" />
+        <Anchors>
+          <Anchor point="TOPLEFT" x="0" y="-9" />
+        </Anchors>
+
+        <!-- Scrollbar graphics -->
+        <Layers>
+          <Layer level="ARTWORK">
+            <Texture name="$parentTop" file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+              <Size x="31" y="102" />
+              <Anchors>
+                <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="-2" y="5" />
+              </Anchors>
+              <TexCoords left="0" right="0.484375" top="0" bottom="0.4" />
+            </Texture>
+            <Texture name="$parentBottom" file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+              <Size x="31" y="106" />
+              <Anchors>
+                <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="-2" y="-2" />
+              </Anchors>
+              <TexCoords left="0.515625" right="1.0" top="0" bottom="0.4140625" />
+            </Texture>
+            <Texture name="$parentMiddle" file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+              <Size x="31" y="1" />
+              <Anchors>
+                <Anchor point="TOP" relativeTo="$parentTop" relativePoint="BOTTOM" />
+                <Anchor point="BOTTOM" relativeTo="$parentBottom" relativePoint="TOP" />
+              </Anchors>
+              <TexCoords left="0" right="0.484375" top=".75" bottom="1.0" />
+            </Texture>
+          </Layer>
+        </Layers>
+
+        <!-- The frame hosted by the ScrollFrame -->
+        <ScrollChild>
+          <Frame name="LB_ConfigScrollChild">
+            <Size x="585" y="1000" />
+            <Frames>
+
+              <!-- Addon title, etc -->
+              <Frame name="LB_ConfigHeader" inherits="LB_ConfigHeaderTextFrame">
+                <Anchors>
+                  <Anchor point="TOP" y="0" />
+                </Anchors>
+                <Scripts>
+                  <OnLoad>
+                    self.Text:SetText("Little Buster");
+                  </OnLoad>
+                </Scripts>
+              </Frame>
+
+              <!-- Defenses -->
+              <Frame name="LB_ConfigDefensesContainer">
+                <Size x="575" y="120" />
+                <Anchors>
+                  <Anchor x="0" y="-10" point="TOPLEFT" relativeTo="LB_ConfigHeader" relativePoint="BOTTOMLEFT" />
+                </Anchors>
+                <Frames>
+
+                  <!-- Header -->
+                  <Frame name="LB_ConfigDefensesHeader" inherits="LB_ConfigSubheaderTextFrame">
+                    <Scripts>
+                      <OnLoad>
+                        self.Text:SetText(LB_CONF_STR.DefensesHeader);
+                      </OnLoad>
+                    </Scripts>
+                  </Frame>
+
+                  <!-- Defense -->
+                  <CheckButton name="LB_DefenseRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                    <Anchors>
+                      <Anchor x="5" y="-5" point="TOPLEFT" relativeTo="LB_ConfigDefensesHeader" relativePoint="BOTTOMLEFT" />
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.DefenseRatingCheckbox);</OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Dodge -->
+                  <CheckButton name="LB_DodgeRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                    <Anchors>
+                      <Anchor x="0" y="0" point="TOPLEFT" relativeTo="LB_DefenseRatingCheckbox" relativePoint="BOTTOMLEFT" />
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.DodgeRatingCheckbox);</OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Parry -->
+                  <CheckButton name="LB_ParryRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                    <Anchors>
+                      <Anchor x="0" y="0" point="TOPLEFT" relativeTo="LB_DodgeRatingCheckbox" relativePoint="BOTTOMLEFT" />
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.ParryRatingCheckbox);</OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Block -->
+                  <CheckButton name="LB_BlockRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                    <Anchors>
+                      <Anchor x="0" y="0" point="TOPLEFT" relativeTo="LB_ParryRatingCheckbox" relativePoint="BOTTOMLEFT" />
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.BlockRatingCheckbox);</OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                </Frames>
+              </Frame>
+
+              <!-- Spell stuff -->
+              <Frame name="LB_ConfigSpellsContainer">
+                <Size x="575" y="95" />
+                <Anchors>
+                  <Anchor x="0" y="-10" point="TOPLEFT" relativeTo="LB_ConfigDefensesContainer" relativePoint="BOTTOMLEFT" />
+                </Anchors>
+                <Frames>
+
+                  <!-- Header -->
+                  <Frame name="LB_ConfigSpellsHeader" inherits="LB_ConfigSubheaderTextFrame">
+                    <Scripts>
+                      <OnLoad>
+                        self.Text:SetText(LB_CONF_STR.SpellsHeader);
+                      </OnLoad>
+                    </Scripts>
+                  </Frame>
+
+                  <!-- Spell Hit -->
+                  <CheckButton name="LB_SpellHitRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                    <Anchors>
+                      <Anchor x="5" y="-5" point="TOPLEFT" relativeTo="LB_ConfigSpellsHeader" relativePoint="BOTTOMLEFT" />
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.SpellHitRatingCheckbox);</OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Spell Crit -->
+                  <CheckButton name="LB_SpellCritRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                    <Anchors>
+                      <Anchor x="0" y="0" point="TOPLEFT" relativeTo="LB_SpellHitRatingCheckbox" relativePoint="BOTTOMLEFT" />
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.SpellCritRatingCheckbox);</OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Spell Haste -->
+                  <CheckButton name="LB_SpellHasteRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                    <Anchors>
+                      <Anchor x="0" y="0" point="TOPLEFT" relativeTo="LB_SpellCritRatingCheckbox" relativePoint="BOTTOMLEFT" />
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.SpellHasteRatingCheckbox);</OnLoad>
+                    </Scripts>
+                  </CheckButton>
+                </Frames>
+              </Frame>
+
+              <Frame name="LB_ConfigPhysicalsContainer">
+                <Size x="575" y="95" />
+                <Anchors>
+                  <Anchor x="0" y="-10" point="TOPLEFT" relativeTo="LB_ConfigSpellsContainer" relativePoint="BOTTOMLEFT" />
+                </Anchors>
+                <Frames>
+
+                  <!-- Header -->
+                  <Frame name="LB_ConfigPhysicalsHeader" inherits="LB_ConfigSubheaderTextFrame">
+                    <Scripts>
+                      <OnLoad>
+                        self.Text:SetText(LB_CONF_STR.PhysicalsHeader);
+                      </OnLoad>
+                    </Scripts>
+                  </Frame>
+
+                  <!-- Hit -->
+                  <CheckButton name="LB_PhysicalHitRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                    <Anchors>
+                      <Anchor x="5" y="-5" point="TOPLEFT" relativeTo="LB_ConfigPhysicalsHeader" relativePoint="BOTTOMLEFT" />
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.PhysicalHitRatingCheckbox);</OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Crit -->
+                  <CheckButton name="LB_PhysicalCritRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                    <Anchors>
+                      <Anchor x="0" y="0" point="TOPLEFT" relativeTo="LB_PhysicalHitRatingCheckbox" relativePoint="BOTTOMLEFT" />
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.PhysicalCritRatingCheckbx);</OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Haste -->
+                  <CheckButton name="LB_PhysicalHasteRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                    <Anchors>
+                      <Anchor x="0" y="0" point="TOPLEFT" relativeTo="LB_PhysicalCritRatingCheckbox" relativePoint="BOTTOMLEFT" />
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.PhysicalHasteRatingCheckbox);</OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Expertise -->
+                  <CheckButton name="LB_PhysicalExpertiseRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                    <Anchors>
+                      <Anchor x="0" y="0" point="TOPLEFT" relativeTo="LB_PhysicalHasteRatingCheckbox" relativePoint="BOTTOMLEFT" />
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.PhysicalExpertiseRatingCheckbox);</OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                </Frames>
+              </Frame>              
+
+            </Frames>
+          </Frame>
+        </ScrollChild>
+
+      </ScrollFrame>
+    </Frames>
+  </Frame>
+
+</Ui>

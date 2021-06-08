@@ -4,22 +4,22 @@ local LB = args[2];
 -- The order of these matters! Stats will be scanned in order from top to bottom.
 -- If we're looking at an item with "spell hit rating", but search for "hit rating" first, we'll
 -- return hit rating values!
-LB.StatKeys = {
-    [1] = { key = "ITEM_MOD_CRIT_SPELL_RATING", type ="Rating" },
-    [2] = { key = "ITEM_MOD_HIT_SPELL_RATING", type = "Rating" },
-    [3] = { key = "ITEM_MOD_HASTE_SPELL_RATING", type = "Rating" },
-    [4] = { key = "ITEM_MOD_CRIT_RANGED_RATING", type = "Rating" },
-    [5] = { key = "ITEM_MOD_HIT_RANGED_RATING", type = "Rating" },
-    [6] = { key = "ITEM_MOD_CRIT_MELEE_RATING", type = "Rating" },
-    [7] = { key = "ITEM_MOD_HIT_MELEE_RATING", type = "Rating" },
-    [8] = { key = "ITEM_MOD_EXPERTISE_RATING", type = "Rating" },
-    [9] = { key = "ITEM_MOD_HIT_RATING", type = "Rating" },
-    [10] = { key = "ITEM_MOD_CRIT_RATING", type = "Rating" },
-    [11] = { key = "ITEM_MOD_HASTE_RATING", type = "Rating" },
-    [12] = { key = "ITEM_MOD_DEFENSE_SKILL_RATING", type = "Rating" },
-    [13] = { key = "ITEM_MOD_BLOCK_RATING", type = "Rating" },
-    [14] = { key = "ITEM_MOD_DODGE_RATING", type = "Rating" },
-    [15] = { key = "ITEM_MOD_PARRY_RATING", type = "Rating" },
+LB.StatDetails = {
+    [1] = { kind = "ITEM_MOD_CRIT_SPELL_RATING", type ="Rating" },
+    [2] = { kind = "ITEM_MOD_HIT_SPELL_RATING", type = "Rating" },
+    [3] = { kind = "ITEM_MOD_HASTE_SPELL_RATING", type = "Rating" },
+    [4] = { kind = "ITEM_MOD_CRIT_RANGED_RATING", type = "Rating" },
+    [5] = { kind = "ITEM_MOD_HIT_RANGED_RATING", type = "Rating" },
+    [6] = { kind = "ITEM_MOD_CRIT_MELEE_RATING", type = "Rating" },
+    [7] = { kind = "ITEM_MOD_HIT_MELEE_RATING", type = "Rating" },
+    [8] = { kind = "ITEM_MOD_EXPERTISE_RATING", type = "Rating" },
+    [9] = { kind = "ITEM_MOD_HIT_RATING", type = "Rating" },
+    [10] = { kind = "ITEM_MOD_CRIT_RATING", type = "Rating" },
+    [11] = { kind = "ITEM_MOD_HASTE_RATING", type = "Rating" },
+    [12] = { kind = "ITEM_MOD_DEFENSE_SKILL_RATING", type = "Rating" },
+    [13] = { kind = "ITEM_MOD_BLOCK_RATING", type = "Rating" },
+    [14] = { kind = "ITEM_MOD_DODGE_RATING", type = "Rating" },
+    [15] = { kind = "ITEM_MOD_PARRY_RATING", type = "Rating" },
 };
 
 LB.ShortStatKeys = {
@@ -41,7 +41,7 @@ LB.ShortStatKeys = {
 };
 
 -- Used for ratings only, to look up the key to pass to GetEffectFromRating().
-LB.ModToRating = {
+LB.StatKeyToRatingID = {
     ["ITEM_MOD_HIT_RATING"] = CR_HIT_MELEE,
     ["ITEM_MOD_HIT_MELEE_RATING"] = CR_HIT_MELEE,
     ["ITEM_MOD_HIT_RANGED_RATING"] = CR_HIT_RANGED,
@@ -59,7 +59,7 @@ LB.ModToRating = {
     ["ITEM_MOD_PARRY_RATING"] = CR_PARRY,
 };
 
-LB.ContainsPercent = {
+LB.StatKeyIsPercentage = {
     ["ITEM_MOD_HIT_RATING"] = true,
     ["ITEM_MOD_HIT_MELEE_RATING"] = true,
     ["ITEM_MOD_HIT_RANGED_RATING"] = true,

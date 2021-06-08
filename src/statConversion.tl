@@ -2,7 +2,7 @@ local args = {...} as {string, SharedTable};
 local LB = args[2];
 
 -- Level 60 rating base
-local _ratingBase = {
+local _ratingBase: {number:number} = {
     [CR_DEFENSE_SKILL] = 1.5,
     [CR_DODGE] = 12.0,
     [CR_PARRY] = 15.0,
@@ -19,42 +19,11 @@ local _ratingBase = {
     [CR_EXPERTISE] = 2.5,
 }
 
-local _level34Ratings = {
+local _level34Ratings: {number:boolean} = {
     [CR_DEFENSE_SKILL] = true,
     [CR_DODGE] = true,
     [CR_PARRY] = true,
     [CR_BLOCK] = true,
-}
-
-local _ratingNameToID = {
-    [CR_DEFENSE_SKILL] = "DEFENSE_RATING",
-    [CR_DODGE] = "DODGE_RATING",
-    [CR_PARRY] = "PARRY_RATING",
-    [CR_BLOCK] = "BLOCK_RATING",
-    [CR_HIT_MELEE] = "MELEE_HIT_RATING",
-    [CR_HIT_RANGED] = "RANGED_HIT_RATING",
-    [CR_HIT_SPELL] = "SPELL_HIT_RATING",
-    [CR_CRIT_MELEE] = "MELEE_CRIT_RATING",
-    [CR_CRIT_RANGED] = "RANGED_CRIT_RATING",
-    [CR_CRIT_SPELL] = "SPELL_CRIT_RATING",
-    [CR_HASTE_MELEE] = "MELEE_HASTE_RATING",
-    [CR_HASTE_RANGED] = "RANGED_HASTE_RATING",
-    [CR_HASTE_SPELL] = "SPELL_HASTE_RATING",
-    [CR_EXPERTISE] = "EXPERTISE_RATING",
-    ["DEFENSE_RATING"] = CR_DEFENSE_SKILL,
-    ["DODGE_RATING"] = CR_DODGE,
-    ["PARRY_RATING"] = CR_PARRY,
-    ["BLOCK_RATING"] = CR_BLOCK,
-    ["MELEE_HIT_RATING"] = CR_HIT_MELEE,
-    ["RANGED_HIT_RATING"] = CR_HIT_RANGED,
-    ["SPELL_HIT_RATING"] = CR_HIT_SPELL,
-    ["MELEE_CRIT_RATING"] = CR_CRIT_MELEE,
-    ["RANGED_CRIT_RATING"] = CR_CRIT_RANGED,
-    ["SPELL_CRIT_RATING"] = CR_CRIT_SPELL,
-    ["MELEE_HASTE_RATING"] = CR_HASTE_MELEE,
-    ["RANGED_HASTE_RATING"] = CR_HASTE_RANGED,
-    ["SPELL_HASTE_RATING"] = CR_HASTE_SPELL,
-    ["EXPERTISE_RATING"] = CR_EXPERTISE,
 }
 
 -- Takes a rating value and ID, and returns the actual numeric value that stat rating provides
@@ -62,15 +31,10 @@ local _ratingNameToID = {
 --
 -- `rating` The rating amount to convert to stat value.
 --
---`id` The ID of the stat to convert, either in numeric ID form, or SCREAMING_SNAKE form.
+--`id` The numeric ID of the stat to convert.
 --
 -- Returns: A number of the given rating converted to the value is provides.
-LB.GetEffectFromRating = function(rating: number, id: string): number
-    -- if id is stringID then convert to numberID
-    if type(id) == "string" and _ratingNameToID[id] then
-        id = _ratingNameToID[id];
-    end
-    
+LB.GetEffectFromRating = function(rating: number, id: number): number 
     local level = UnitLevel("player");
     -- 2.4.3  Parry Rating, Defense Rating, and Block Rating: Low-level players
     --   will now convert these ratings into their corresponding defensive

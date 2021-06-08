@@ -7,10 +7,10 @@ local _colorEnd = "|r";
 
 -- Localize globals for sanity's sake:
 -- mappings.lua
-local StatKeys = LB.StatKeys;
+local StatDetails = LB.StatDetails;
 local ShortStatKeys = LB.ShortStatKeys;
-local ModToRating = LB.ModToRating;
-local ContainsPercent = LB.ContainsPercent;
+local StatKeyToRatingID = LB.StatKeyToRatingID;
+local StatKeyIsPercentage = LB.StatKeyIsPercentage;
 
 -- statConversion.lua
 local GetEffectFromRating = LB.GetEffectFromRating;
@@ -32,7 +32,7 @@ local record TooltipState
 end
 
 local record LineModInfo
-    stat: string
+    stat: StatKey
     statType: StatType
     startIndex: number
     endIndex: number
@@ -71,13 +71,13 @@ end
 -- `statType`: The type of the stat, i.e. whether it's a rating or just a value.
 --
 -- Returns `startIndex`, `endIndex`, `value`. On failure, returns `nil`, `nil`, `nil`.
-local function scanForStat(text: string, statKey: string, _: StatType): {number, number, number}
+local function scanForStat(text: string, statKey: StatKey, _: StatType): {number, number, number}
     local lowercaseText: string = text:lower();
     local discoveredCapture: string = nil; -- A capture will usually contain just a number, but not necessarily.
     local successfulPattern: string = nil;
 
     -- First, try the alternatives we've noted to deal with weird cases where Blizzard-defined keys don't work
-    for _, pattern in ipairs(_locale.Strings.AlternativePatterns[statKey]) do
+    for _, pattern in ipairs(_locale.AlternativePatterns[statKey]) do
         discoveredCapture = string.match(lowercaseText, pattern:lower());
         if (discoveredCapture ~= nil) then
             successfulPattern = pattern;
@@ -155,25 +155,25 @@ end
 
 -- Take a tooltip's text and see if we can find the given stat. If we do,
 -- we'll return its indices, and a formatted string the caller can insert wherever it likes.
-local function tryGenerateModifiedLine(text: string, statKey: StatKey, indicesProcessed: {number:boolean}): {number, number, string}
+local function tryGenerateModifiedLine(text: string, statInfo: StatDetailInfo, indicesProcessed: {number:boolean}): {number, number, string}
     local statValue: number = nil;
 
     -- Parse the stat value and its location out of the tooltip line.
-    local found: {number, number, number} = scanForStat(text, statKey.key, statKey.type);
+    local found: {number, number, number} = scanForStat(text, statInfo.kind, statInfo.type);
     local valueStart = found[1];
     local valueEnd = found[2];
     local foundValue = found[3];
     if (not (indicesProcessed[valueStart])) then
         if (foundValue) then
-            if (statKey.type == "Rating") then
-                statValue = GetEffectFromRating(foundValue, ModToRating[statKey.key]);
+            if (statInfo.type == "Rating") then
+                statValue = GetEffectFromRating(foundValue, StatKeyToRatingID[statInfo.kind]);
             end
             -- TODO: If it's an attribute, do attributey things
         end
 
         if (valueStart and valueEnd and statValue) then
             local currentColorCode: string = (select(3, string.find(text, "(|c%x%x%x%x%x%x%x%x)")) or _colorEnd) as string;
-            local endFragment = ContainsPercent[statKey.key] and "%" or "";
+            local endFragment = StatKeyIsPercentage[statInfo.kind] and "%" or "";
             local formattedValue = _goldColor .. " (" .. format("%.2F", statValue) .. endFragment ..
                                        ")" .. currentColorCode;
             return {valueStart, valueEnd, formattedValue};
@@ -191,9 +191,9 @@ local function generateModifiedTooltipLines(tooltip: Tooltip): {number:string}
         local text = lineRef:GetText();
         local indicesProcessed: {number:boolean} = {}; -- contains a mapping of valueStartIndex -> boolean, to track which values we've already looked at
         if (text) then
-            for _, statKey in ipairs(StatKeys) do
+            for _, statKind in ipairs(StatDetails) do
                 local modifiedLineInfo: {number, number, string} =
-                    tryGenerateModifiedLine(text, statKey, indicesProcessed);
+                    tryGenerateModifiedLine(text, statKind, indicesProcessed);
                     local valueStart = modifiedLineInfo[1];
                     local valueEnd = modifiedLineInfo[2];
                     local formattedValue = modifiedLineInfo[3];
@@ -204,8 +204,8 @@ local function generateModifiedTooltipLines(tooltip: Tooltip): {number:string}
                         statsFound[i] = lineData;
                     end
                     table.insert(lineData.modifications, {
-                        stat = statKey.key,
-                        statType = statKey.type,
+                        stat = statKind.kind,
+                        statType = statKind.type,
                         startIndex = valueStart,
                         endIndex = valueEnd,
                         formattedString = formattedValue,
@@ -236,7 +236,7 @@ end
 
 local function injectStats(tooltip: Tooltip, tooltipType: TooltipType)
     local item: {any, string} = {tooltip:GetItem()};
-    if (not item) then
+    if (not item or not item[2]) then
         -- If we don't get an itemLink, don't even bother trying
         return;
     end
