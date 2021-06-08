@@ -1,4 +1,13 @@
 |||||||||||||
+||| 1.7.0 ||| 2021-06-9
+|||||||||||||
+
++ Added a basic UI for disabling stat conversions. It can be found in Interface -> Addons -> Little Buster. 
+    Note that none of the text here is localized yet.
++ Fix a potential crash if we failed to get an item link from the tooltip.
++ Added experimental French (frFR) localization.
+
+|||||||||||||
 ||| 1.6.0 ||| 2021-06-7
 |||||||||||||
 
