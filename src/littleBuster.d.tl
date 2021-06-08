@@ -29,6 +29,21 @@ global record ConfigFrame
     refresh: function(ConfigFrame)
     cancel: function(ConfigFrame)
     default: function(ConfigFrame)
+
+    -- Frame-y functions
+    RegisterEvent: function(ConfigFrame, string)
+end
+
+-- CheckButtons as used on the Config panel
+global record ConfigCheckButton
+    name: string
+    stat: StatKey
+    SetText: function(ConfigCheckButton, string)
+    GetText: function(ConfigCheckButton): string
+    GetChecked: function(ConfigCheckButton): boolean
+    SetChecked: function(ConfigCheckButton, boolean)
+    SetEnabled: function(ConfigCheckButton, boolean): boolean
+    IsEnabled: function(ConfigCheckButton):  boolean
 end
 
 global function InterfaceOptions_AddCategory(_: ConfigFrame)
@@ -50,7 +65,7 @@ end
 global function GetLocale(): string
 end
 
--- Global string names
+-- Global stat IDs provided by the game
 global CR_HIT_MELEE: number
 global CR_HIT_RANGED: number
 global CR_CRIT_MELEE: number
@@ -84,7 +99,6 @@ global enum StatKey
     "ITEM_MOD_PARRY_RATING"
 end
 
-
 -- Little Buster globals
 
 -- Locale stuff
@@ -111,14 +125,31 @@ end
 
 -- Config stuff
 global record Config
-    DisplayToggles: {string:boolean}
+    DisplayToggles: {StatKey:boolean}
 end
+
+-- Checkboxes in config.xml
+global LB_DefenseRatingCheckbox: ConfigCheckButton
+global LB_DodgeRatingCheckbox: ConfigCheckButton
+global LB_ParryRatingCheckbox: ConfigCheckButton
+global LB_BlockRatingCheckbox: ConfigCheckButton
+global LB_SpellHitRatingCheckbox: ConfigCheckButton
+global LB_SpellCritRatingCheckbox: ConfigCheckButton
+global LB_SpellHasteRatingCheckbox: ConfigCheckButton
+global LB_PhysicalHitRatingCheckbox: ConfigCheckButton
+global LB_PhysicalCritRatingCheckbox: ConfigCheckButton
+global LB_PhysicalHasteRatingCheckbox: ConfigCheckButton
+global LB_PhysicalExpertiseRatingCheckbox: ConfigCheckButton
 
 -- This is the type of the shared table WoW gives us as the second arg to each script file
 global record SharedTable
+    -- config/config.tl
+    Config: Config
+
     -- mappings.lua
     StatDetails: {StatDetailInfo}
     ShortStatKeys: {StatKey:string}
+    RatingIDToStatKey: {number:string}
     StatKeyToRatingID: {StatKey:number}
     StatKeyIsPercentage: {StatKey:boolean}
 

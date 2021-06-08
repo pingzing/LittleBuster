@@ -3,6 +3,7 @@
 ## Notes: Break those ratings down into actual percentages.
 ## Author: PingZing
 ## Version: 1.7.0
+## SavedVariablesPerCharacter: LB_Config
 ## X-Email: psychozagal@gmail.com
 ## X-License: GPL v3
 

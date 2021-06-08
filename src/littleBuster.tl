@@ -189,29 +189,31 @@ local function generateModifiedTooltipLines(tooltip: Tooltip): {number:string}
     for i = 2, tooltip:NumLines() do
         local lineRef = G[tooltip:GetName().. "TextLeft" .. i] as FontString;
         local text = lineRef:GetText();
-        local indicesProcessed: {number:boolean} = {}; -- contains a mapping of valueStartIndex -> boolean, to track which values we've already looked at
+        local indicesProcessed: {number:boolean} = {}; -- contains a mapping of valueStartIndex -> boolean, to track which values we've already looked at in this line
         if (text) then
             for _, statKind in ipairs(StatDetails) do
-                local modifiedLineInfo: {number, number, string} =
-                    tryGenerateModifiedLine(text, statKind, indicesProcessed);
-                    local valueStart = modifiedLineInfo[1];
-                    local valueEnd = modifiedLineInfo[2];
-                    local formattedValue = modifiedLineInfo[3];
-                if (valueStart and valueEnd and formattedValue) then
-                    local lineData: LineData = statsFound[i];
-                    if (lineData == nil) then
-                        lineData = { originalText = text, modifications = {} };
-                        statsFound[i] = lineData;
+                if (LB.Config.DisplayToggles[statKind.kind]) then -- Only look for a stat if the user has it enabled
+                    local modifiedLineInfo: {number, number, string} =
+                        tryGenerateModifiedLine(text, statKind, indicesProcessed);
+                        local valueStart = modifiedLineInfo[1];
+                        local valueEnd = modifiedLineInfo[2];
+                        local formattedValue = modifiedLineInfo[3];
+                    if (valueStart and valueEnd and formattedValue) then
+                        local lineData: LineData = statsFound[i];
+                        if (lineData == nil) then
+                            lineData = { originalText = text, modifications = {} };
+                            statsFound[i] = lineData;
+                        end
+                        table.insert(lineData.modifications, {
+                            stat = statKind.kind,
+                            statType = statKind.type,
+                            startIndex = valueStart,
+                            endIndex = valueEnd,
+                            formattedString = formattedValue,
+                        });
+                        -- Mark this stat's index as processed
+                        indicesProcessed[valueStart] = true;
                     end
-                    table.insert(lineData.modifications, {
-                        stat = statKind.kind,
-                        statType = statKind.type,
-                        startIndex = valueStart,
-                        endIndex = valueEnd,
-                        formattedString = formattedValue,
-                    });
-                    -- Mark this stat's index as processed
-                    indicesProcessed[valueStart] = true;
                 end
             end
         end

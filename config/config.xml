@@ -42,12 +42,19 @@
     </Layers>
   </Frame>
 
+  <CheckButton name="LB_ConfigCheckButtonBase" virtual="true" inherits="InterfaceOptionsCheckButtonTemplate">
+    <Scripts>
+      <OnClick>LB_Config_CheckButtonChanged(self, self.statKey, self:GetChecked());</OnClick>
+    </Scripts>
+  </CheckButton>
+
   <!-- end templates -->
 
   <!-- Frames -->
   <Frame name="LB_ConfigRootFrame">
     <Scripts>
       <OnLoad function="LB_ConfigRootFrame_OnLoad" />
+      <OnEvent function="LB_ConfigRootFrame_OnEvent" />
     </Scripts>
     <Frames>
 
@@ -88,7 +95,7 @@
         <!-- The frame hosted by the ScrollFrame -->
         <ScrollChild>
           <Frame name="LB_ConfigScrollChild">
-            <Size x="585" y="1000" />
+            <Size x="585" y="525" />
             <Frames>
 
               <!-- Addon title, etc -->
@@ -121,42 +128,54 @@
                   </Frame>
 
                   <!-- Defense -->
-                  <CheckButton name="LB_DefenseRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                  <CheckButton name="LB_DefenseRatingCheckbox" inherits="LB_ConfigCheckButtonBase">
                     <Anchors>
                       <Anchor x="5" y="-5" point="TOPLEFT" relativeTo="LB_ConfigDefensesHeader" relativePoint="BOTTOMLEFT" />
                     </Anchors>
                     <Scripts>
-                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.DefenseRatingCheckbox);</OnLoad>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.DefenseRatingCheckbox);
+                        self.statKey = "ITEM_MOD_DEFENSE_SKILL_RATING";
+                      </OnLoad>
                     </Scripts>
                   </CheckButton>
 
                   <!-- Dodge -->
-                  <CheckButton name="LB_DodgeRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                  <CheckButton name="LB_DodgeRatingCheckbox" inherits="LB_ConfigCheckButtonBase">
                     <Anchors>
                       <Anchor x="0" y="0" point="TOPLEFT" relativeTo="LB_DefenseRatingCheckbox" relativePoint="BOTTOMLEFT" />
                     </Anchors>
                     <Scripts>
-                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.DodgeRatingCheckbox);</OnLoad>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.DodgeRatingCheckbox);
+                        self.statKey = "ITEM_MOD_DODGE_RATING";
+                      </OnLoad>
                     </Scripts>
                   </CheckButton>
 
                   <!-- Parry -->
-                  <CheckButton name="LB_ParryRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                  <CheckButton name="LB_ParryRatingCheckbox" inherits="LB_ConfigCheckButtonBase">
                     <Anchors>
                       <Anchor x="0" y="0" point="TOPLEFT" relativeTo="LB_DodgeRatingCheckbox" relativePoint="BOTTOMLEFT" />
                     </Anchors>
                     <Scripts>
-                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.ParryRatingCheckbox);</OnLoad>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.ParryRatingCheckbox);
+                        self.statKey = "ITEM_MOD_PARRY_RATING";
+                      </OnLoad>
                     </Scripts>
                   </CheckButton>
 
                   <!-- Block -->
-                  <CheckButton name="LB_BlockRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                  <CheckButton name="LB_BlockRatingCheckbox" inherits="LB_ConfigCheckButtonBase">
                     <Anchors>
                       <Anchor x="0" y="0" point="TOPLEFT" relativeTo="LB_ParryRatingCheckbox" relativePoint="BOTTOMLEFT" />
                     </Anchors>
                     <Scripts>
-                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.BlockRatingCheckbox);</OnLoad>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.BlockRatingCheckbox);
+                        self.statKey = "ITEM_MOD_BLOCK_RATING";
+                      </OnLoad>
                     </Scripts>
                   </CheckButton>
 
@@ -181,32 +200,41 @@
                   </Frame>
 
                   <!-- Spell Hit -->
-                  <CheckButton name="LB_SpellHitRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                  <CheckButton name="LB_SpellHitRatingCheckbox" inherits="LB_ConfigCheckButtonBase">
                     <Anchors>
                       <Anchor x="5" y="-5" point="TOPLEFT" relativeTo="LB_ConfigSpellsHeader" relativePoint="BOTTOMLEFT" />
                     </Anchors>
                     <Scripts>
-                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.SpellHitRatingCheckbox);</OnLoad>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.SpellHitRatingCheckbox);
+                        self.statKey = "ITEM_MOD_HIT_SPELL_RATING";
+                      </OnLoad>
                     </Scripts>
                   </CheckButton>
 
                   <!-- Spell Crit -->
-                  <CheckButton name="LB_SpellCritRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                  <CheckButton name="LB_SpellCritRatingCheckbox" inherits="LB_ConfigCheckButtonBase">
                     <Anchors>
                       <Anchor x="0" y="0" point="TOPLEFT" relativeTo="LB_SpellHitRatingCheckbox" relativePoint="BOTTOMLEFT" />
                     </Anchors>
                     <Scripts>
-                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.SpellCritRatingCheckbox);</OnLoad>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.SpellCritRatingCheckbox);
+                        self.statKey = "ITEM_MOD_CRIT_SPELL_RATING";
+                      </OnLoad>
                     </Scripts>
                   </CheckButton>
 
                   <!-- Spell Haste -->
-                  <CheckButton name="LB_SpellHasteRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                  <CheckButton name="LB_SpellHasteRatingCheckbox" inherits="LB_ConfigCheckButtonBase">
                     <Anchors>
                       <Anchor x="0" y="0" point="TOPLEFT" relativeTo="LB_SpellCritRatingCheckbox" relativePoint="BOTTOMLEFT" />
                     </Anchors>
                     <Scripts>
-                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.SpellHasteRatingCheckbox);</OnLoad>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.SpellHasteRatingCheckbox);
+                        self.statKey = "ITEM_MOD_HASTE_SPELL_RATING";
+                      </OnLoad>
                     </Scripts>
                   </CheckButton>
                 </Frames>
@@ -229,47 +257,59 @@
                   </Frame>
 
                   <!-- Hit -->
-                  <CheckButton name="LB_PhysicalHitRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                  <CheckButton name="LB_PhysicalHitRatingCheckbox" inherits="LB_ConfigCheckButtonBase">
                     <Anchors>
                       <Anchor x="5" y="-5" point="TOPLEFT" relativeTo="LB_ConfigPhysicalsHeader" relativePoint="BOTTOMLEFT" />
                     </Anchors>
                     <Scripts>
-                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.PhysicalHitRatingCheckbox);</OnLoad>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.PhysicalHitRatingCheckbox);
+                        self.statKey = "ITEM_MOD_HIT_RATING";
+                      </OnLoad>
                     </Scripts>
                   </CheckButton>
 
                   <!-- Crit -->
-                  <CheckButton name="LB_PhysicalCritRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                  <CheckButton name="LB_PhysicalCritRatingCheckbox" inherits="LB_ConfigCheckButtonBase">
                     <Anchors>
                       <Anchor x="0" y="0" point="TOPLEFT" relativeTo="LB_PhysicalHitRatingCheckbox" relativePoint="BOTTOMLEFT" />
                     </Anchors>
                     <Scripts>
-                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.PhysicalCritRatingCheckbx);</OnLoad>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.PhysicalCritRatingCheckbx);
+                        self.statKey = "ITEM_MOD_CRIT_RATING";
+                      </OnLoad>
                     </Scripts>
                   </CheckButton>
 
                   <!-- Haste -->
-                  <CheckButton name="LB_PhysicalHasteRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                  <CheckButton name="LB_PhysicalHasteRatingCheckbox" inherits="LB_ConfigCheckButtonBase">
                     <Anchors>
                       <Anchor x="0" y="0" point="TOPLEFT" relativeTo="LB_PhysicalCritRatingCheckbox" relativePoint="BOTTOMLEFT" />
                     </Anchors>
                     <Scripts>
-                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.PhysicalHasteRatingCheckbox);</OnLoad>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.PhysicalHasteRatingCheckbox);
+                        self.statKey = "ITEM_MOD_HASTE_RATING";
+                      </OnLoad>
                     </Scripts>
                   </CheckButton>
 
                   <!-- Expertise -->
-                  <CheckButton name="LB_PhysicalExpertiseRatingCheckbox" inherits="InterfaceOptionsCheckButtonTemplate">
+                  <CheckButton name="LB_PhysicalExpertiseRatingCheckbox" inherits="LB_ConfigCheckButtonBase">
                     <Anchors>
                       <Anchor x="0" y="0" point="TOPLEFT" relativeTo="LB_PhysicalHasteRatingCheckbox" relativePoint="BOTTOMLEFT" />
                     </Anchors>
                     <Scripts>
-                      <OnLoad>_G[self:GetName().."Text"]:SetText(LB_CONF_STR.PhysicalExpertiseRatingCheckbox);</OnLoad>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.PhysicalExpertiseRatingCheckbox);
+                        self.statKey = "ITEM_MOD_EXPERTISE_RATING";
+                      </OnLoad>
                     </Scripts>
                   </CheckButton>
 
                 </Frames>
-              </Frame>              
+              </Frame>
 
             </Frames>
           </Frame>
