@@ -92,8 +92,7 @@ local function configFrame_OnCancel(_: ConfigFrame)
     end
 end
 
-local function configFrame_OnDefault(_: ConfigFrame)
-    print("Default called");
+local function configFrame_OnDefault(_: ConfigFrame)    
     -- set _currentToggleState, LB_Config AND LB.Config to _defaultConfig
     -- TODO: How do we handle other keys in the Config table? ¯\_(ツ)_/¯
     for k,v in pairs(_defaultConfig.DisplayToggles) do
@@ -112,16 +111,10 @@ local function loadCompleted(configFrame: ConfigFrame)
     configFrame.default = configFrame_OnDefault;
 
     -- Load from disk (or defaults)
-    if (not LB_Config) then
-        print("Loading default LB_Config");
+    if (not LB_Config) then        
         LB_Config = _defaultConfig;
     end    
-    LB.Config = LB_Config;
-
-    print("LB_Config.DisplayToggles:");
-    for k,v in pairs(LB_Config.DisplayToggles) do
-        print(k..": "..tostring(v));
-    end
+    LB.Config = LB_Config;        
 
     InterfaceOptions_AddCategory(configFrame);
 end

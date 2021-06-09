@@ -1,4 +1,10 @@
 |||||||||||||
+||| 1.7.1 ||| 2021-06-9
+|||||||||||||
+
++ Fix missing config.xml and remove debugging print statements.
+
+|||||||||||||
 ||| 1.7.0 ||| 2021-06-9
 |||||||||||||
 
