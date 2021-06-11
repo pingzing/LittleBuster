@@ -110,22 +110,22 @@ end
 
 -- These are used for the config frame under Interface -> Addons -> Little Buster.
 ruRU.ConfigStrings ={
-    DefensesHeader = "Defensive Stats",
-    DefenseRatingCheckbox = "Display converted Defense rating",
-    DodgeRatingCheckbox = "Display converted Dodge rating",
-    ParryRatingCheckbox = "Display converted Parry rating",
-    BlockRatingCheckbox = "Display converted Block rating",
+    DefensesHeader = "Защитные рейтинги",
+    DefenseRatingCheckbox = "Конвертировать рейтинг защиты",
+    DodgeRatingCheckbox = "Конвертировать рейтинг уклонения",
+    ParryRatingCheckbox = "Конвертировать рейтинг парирования",
+    BlockRatingCheckbox = "Конвертировать рейтинг блока щитом",
 
-    SpellsHeader = "Spell Stats",
-    SpellHitRatingCheckbox = "Display converted Spell Hit rating",
-    SpellCritRatingCheckbox = "Display converted Spell Crit rating",
-    SpellHasteRatingCheckbox = "Display converted Spell Haste rating",
+    SpellsHeader = "Рейтинги заклинаний",
+    SpellHitRatingCheckbox = "Конвертировать рейтинг меткости",
+    SpellCritRatingCheckbox = "Конвертировать рейтинг критического попадания",
+    SpellHasteRatingCheckbox = "Конвертировать рейтинг скорости",
 
-    PhysicalsHeader = "Melee and Ranged Stats",
-    PhysicalHitRatingCheckbox = "Display converted Hit rating",
-    PhysicalCritRatingCheckbx = "Display converted Crit rating",
-    PhysicalHasteRatingCheckbox = "Display converted Haste rating",
-    PhysicalExpertiseRatingCheckbox = "Display converted Expertise rating",
+    PhysicalsHeader = "Рейтинги ближнего и дальнего боя",
+    PhysicalHitRatingCheckbox = "Конвертировать рейтинг меткости",
+    PhysicalCritRatingCheckbx = "Конвертировать рейтинг критического попадания",
+    PhysicalHasteRatingCheckbox = "Конвертировать рейтинг скорости",
+    PhysicalExpertiseRatingCheckbox = "Конвертировать рейтинг мастерства",
 };
 
 LB.LocaleTables["ruRU"] = {};
