@@ -3,5 +3,5 @@ return {
     gen_target = "5.1",
     gen_compat = "off",
     source_dir = "src",
-    build_dir = "."
+    build_dir = "output"
 };
