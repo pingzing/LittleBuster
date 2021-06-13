@@ -20,6 +20,7 @@ strings/strings.esMX.lua
 strings/strings.ruRU.lua
 strings/strings.ptBR.lua
 strings/strings.frFR.lua
+strings/strings.zhCN.lua
 
 # Config
 config/config.xml 
