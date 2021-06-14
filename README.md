@@ -47,6 +47,6 @@ Supports tooltips with phrasing like:
 |deDE|🔷|Update as bugs are reported by users|
 |ptBR|🔷|Update as bugs are reported by users|
 |frFR|🔷|Update as bugs are reported by users|
+|zhCN|🔷|Update as bugs are reported by users|
 |koKR|❌|No plans to support unless assisted|
 |zhTW|❌|No plans to support unless assisted|
-|zhCN|❌|No plans to support unless assisted|

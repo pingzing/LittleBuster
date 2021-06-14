@@ -1,4 +1,12 @@
 |||||||||||||
+||| 1.8.0 ||| 2021-06-14
+|||||||||||||
+
++ Handle a few more edge cases in Russian (ruRU).
++ Add Russian translations for text on the config screen. Thanks to bu7cher for both of the above!
++ Add experimental Chinese (zhCN) translations, courtesy of Neo. Thanks!
+
+|||||||||||||
 ||| 1.7.1 ||| 2021-06-9
 |||||||||||||
 
