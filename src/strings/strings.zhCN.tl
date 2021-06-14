@@ -9,10 +9,13 @@ zhCN.AlternativePatterns = {
     ["ITEM_MOD_HIT_MELEE_RATING"] = {
         "使你的命中等级提高(%d+)",
         "近战命中等级提高(%d+)",
+        "命中等级提高(%d+)",
+        "近战命中等级提高(%d+)"
     },
     ["ITEM_MOD_HIT_RANGED_RATING"] = {
         "使你的命中等级提高(%d+)",
         "远程命中等级提高(%d+)",
+        "命中等级提高(%d+)"
     },
     ["ITEM_MOD_CRIT_RATING"] = {
         "使你的爆击等级提高(%d+)",
@@ -45,8 +48,11 @@ zhCN.AlternativePatterns = {
         "+(%d+) 法术爆击等级", -- Seen on gems, mostly
     },
     ["ITEM_MOD_HASTE_SPELL_RATING"] = { "法术急速等级提高(%d+)" },
-    ["ITEM_MOD_DEFENSE_SKILL_RATING"] = { "使你的防御等级提高(%d+)" },
-    ["ITEM_MOD_BLOCK_RATING"] = { "使你的盾牌格挡值提高(%d+)" },
+    ["ITEM_MOD_DEFENSE_SKILL_RATING"] = { "防御等级提高(%d+)" },
+    ["ITEM_MOD_BLOCK_RATING"] = { 
+        "使你的盾牌格挡值提高(%d+)",
+        "使你的盾牌格挡值提高(%d+点)"
+     },
     ["ITEM_MOD_DODGE_RATING"] = { 
         "使你的躲闪等级提高(%d+)", 
         "(%d+) 躲闪等级" 
@@ -57,7 +63,8 @@ zhCN.AlternativePatterns = {
 -- These are tried second.
 zhCN.GetShortStatPatterns = function(shortStatString: string, _: string): {string}
     return {
-        shortStatString .. "等级提高(%d+)", -- "...imcrase your parry rating by 72..."
+        shortStatString .. "等级提高(%d+点)", -- "...increase your parry rating by 72..."
+        shortStatString .. "等级提高(%d+)",
         "(%d+) " .. shortStatString .. " 等级", -- "...grant you 152 dodge rating..."
         "+(%d+) " .. shortStatString, -- +5 Agility or +5 Defense Rating
     };
