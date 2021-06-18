@@ -61,6 +61,11 @@ ptBR.ConfigStrings = {
     PhysicalExpertiseRatingCheckbox = "Display converted Expertise rating",
 };
 
+-- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
+ptBR.StatStrings = {
+    Dodge = "dodge",
+}
+
 LB.LocaleTables["ptBR"] = {};
 LB.LocaleTables["ptBR"].getLocaleTable = function(): LocaleTable
     return ptBR;

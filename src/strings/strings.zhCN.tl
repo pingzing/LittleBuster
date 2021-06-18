@@ -90,6 +90,11 @@ zhCN.ConfigStrings = {
     PhysicalExpertiseRatingCheckbox = "显示转换后的精准等级",
 };
 
+-- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
+zhCN.StatStrings = {
+    Dodge = "dodge",
+}
+
 LB.LocaleTables["zhCN"] = {};
 LB.LocaleTables["zhCN"].getLocaleTable = function(): LocaleTable
     return zhCN;

@@ -28,7 +28,7 @@ global LB_Config: Config = nil;
 -- Expose the config strings as a global so XML can see them
 global LB_CONF_STR = _locale.ConfigStrings;
 
-local _currentTogglesState: {StatKey:boolean} = {
+local _currentTogglesState: {ItemModKey:boolean} = {
     ["ITEM_MOD_DEFENSE_SKILL_RATING"] = true,
     ["ITEM_MOD_DODGE_RATING"] = true,
     ["ITEM_MOD_PARRY_RATING"] = true,
@@ -46,7 +46,7 @@ local _currentTogglesState: {StatKey:boolean} = {
     ["ITEM_MOD_CRIT_RANGED_RATING"] = true,
 }
 
-global function LB_Config_CheckButtonChanged(_: ConfigCheckButton, statKey: StatKey, isChecked: boolean)
+global function LB_Config_CheckButtonChanged(_: ConfigCheckButton, statKey: ItemModKey, isChecked: boolean)
     _currentTogglesState[statKey] = isChecked;
 end
 

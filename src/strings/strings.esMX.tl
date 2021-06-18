@@ -83,6 +83,11 @@ esMX.ConfigStrings = {
     PhysicalExpertiseRatingCheckbox = "Display converted Expertise rating",
 };
 
+-- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
+esMX.StatStrings = {
+    Dodge = "dodge",
+}
+
 LB.LocaleTables["esMX"] = {};
 LB.LocaleTables["esMX"].getLocaleTable = function(): LocaleTable
     return esMX;

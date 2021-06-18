@@ -32,7 +32,7 @@ local record TooltipState
 end
 
 local record LineModInfo
-    stat: StatKey
+    stat: ItemModKey
     statType: StatType
     startIndex: number
     endIndex: number
@@ -71,7 +71,7 @@ end
 -- `statType`: The type of the stat, i.e. whether it's a rating or just a value.
 --
 -- Returns `startIndex`, `endIndex`, `value`. On failure, returns `nil`, `nil`, `nil`.
-local function scanForStat(text: string, statKey: StatKey, _: StatType): {number, number, number}
+local function scanForStat(text: string, statKey: ItemModKey, _: StatType): {number, number, number}
     local lowercaseText: string = text:lower();
     local discoveredCapture: string = nil; -- A capture will usually contain just a number, but not necessarily.
     local successfulPattern: string = nil;
@@ -167,17 +167,21 @@ local function tryGenerateModifiedLine(text: string, statInfo: StatDetailInfo, i
         if (foundValue) then
             if (statInfo.type == "Rating") then
                 statValue = GetEffectFromRating(foundValue, StatKeyToRatingID[statInfo.kind]);
+                if (valueStart and valueEnd and statValue) then
+                    local currentColorCode: string = (select(3, string.find(text, "(|c%x%x%x%x%x%x%x%x)")) or _colorEnd) as string;
+                    local endFragment = StatKeyIsPercentage[statInfo.kind] and "%" or "";
+                    local formattedValue = _goldColor .. " (" .. format("%.2F", statValue) .. endFragment ..
+                                               ")" .. currentColorCode;
+                    return {valueStart, valueEnd, formattedValue};
+                end
+            elseif (statInfo.type == "Attribute") then
+                local attributeTable = LB.Attributes.GetAttributeTable(statInfo.kind);
+                local bonuses = attributeTable.GetBonusesString(foundValue);
+                local currentColorCode: string = (select(3, string.find(text, "(|c%x%x%x%x%x%x%x%x)")) or _colorEnd) as string;
+                local formattedValue = _goldColor .. " (" .. bonuses .. ")" .. currentColorCode;
+                return {valueStart, valueEnd, formattedValue};
             end
-            -- TODO: If it's an attribute, do attributey things
-        end
-
-        if (valueStart and valueEnd and statValue) then
-            local currentColorCode: string = (select(3, string.find(text, "(|c%x%x%x%x%x%x%x%x)")) or _colorEnd) as string;
-            local endFragment = StatKeyIsPercentage[statInfo.kind] and "%" or "";
-            local formattedValue = _goldColor .. " (" .. format("%.2F", statValue) .. endFragment ..
-                                       ")" .. currentColorCode;
-            return {valueStart, valueEnd, formattedValue};
-        end
+        end       
     end
 
     return {nil, nil, nil};

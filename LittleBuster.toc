@@ -10,7 +10,7 @@
 # Utilities
 strExtensions.lua
 mappings.lua
-statConversion.lua
+ratingConversion.lua
 
 # Localized strings
 strings/localeCore.lua
@@ -24,6 +24,10 @@ strings/strings.zhCN.lua
 
 # Config
 config/config.xml 
+
+# Attributes
+attributes/common.lua
+attributes/agility.lua
 
 # Entry point
 littleBuster.lua

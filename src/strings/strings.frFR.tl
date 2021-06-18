@@ -70,6 +70,11 @@ frFR.ConfigStrings = {
     PhysicalExpertiseRatingCheckbox = "Display converted Expertise rating",
 };
 
+-- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
+frFR.StatStrings = {
+    Dodge = "dodge",
+}
+
 LB.LocaleTables["frFR"] = {};
 LB.LocaleTables["frFR"].getLocaleTable = function(): LocaleTable
     return frFR;

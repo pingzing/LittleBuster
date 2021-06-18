@@ -20,6 +20,7 @@ LB.StatDetails = {
     [13] = { kind = "ITEM_MOD_BLOCK_RATING", type = "Rating" },
     [14] = { kind = "ITEM_MOD_DODGE_RATING", type = "Rating" },
     [15] = { kind = "ITEM_MOD_PARRY_RATING", type = "Rating" },
+    [16] = { kind = "ITEM_MOD_AGILITY", type = "Attribute" },
 };
 
 LB.ShortStatKeys = {
@@ -38,6 +39,7 @@ LB.ShortStatKeys = {
     ["ITEM_MOD_BLOCK_RATING"] = "ITEM_MOD_BLOCK_RATING_SHORT",
     ["ITEM_MOD_DODGE_RATING"] = "ITEM_MOD_DODGE_RATING_SHORT",
     ["ITEM_MOD_PARRY_RATING"] = "ITEM_MOD_PARRY_RATING_SHORT",
+    ["ITEM_MOD_AGILITY"] = "ITEM_MOD_AGILITY_SHORT",
 };
 
 -- Used for ratings only, to look up the key to pass to GetEffectFromRating().
@@ -93,4 +95,4 @@ LB.StatKeyIsPercentage = {
     ["ITEM_MOD_BLOCK_RATING"] = true,
     ["ITEM_MOD_DODGE_RATING"] = true,
     ["ITEM_MOD_PARRY_RATING"] = true,
-}
+};

@@ -128,6 +128,11 @@ ruRU.ConfigStrings ={
     PhysicalExpertiseRatingCheckbox = "Конвертировать рейтинг мастерства",
 };
 
+-- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
+ruRU.StatStrings = {
+    Dodge = "dodge",
+}
+
 LB.LocaleTables["ruRU"] = {};
 LB.LocaleTables["ruRU"].getLocaleTable = function(): LocaleTable
     return ruRU;
