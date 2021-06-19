@@ -81,6 +81,7 @@ frFR.ConfigStrings = {
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
 frFR.StatStrings = {
     Dodge = "Dodge",
+    Crit = "Crit",
 }
 
 LB.LocaleTables["frFR"] = {};
