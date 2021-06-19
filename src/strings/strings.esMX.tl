@@ -14,52 +14,58 @@ local esMX: LocaleTable = {};
 
 esMX.AlternativePatterns = {
     -- These patterns are tried first.
-    ["ITEM_MOD_HIT_RATING"] = { "(%d+ p%.) el golpe.", "(%d+) índice de golpe" },
+    ["ITEM_MOD_HIT_RATING"] = { 
+        {pattern = "(%d+ p%.) el golpe.", location="AfterValue"}, 
+        {pattern = "(%d+) índice de golpe", location="AfterValue"}, 
+    },
     ["ITEM_MOD_HIT_MELEE_RATING"] = {},
     ["ITEM_MOD_HIT_RANGED_RATING"] = {},
     ["ITEM_MOD_CRIT_RATING"] = {
-        "(%d+ p%.) el golpe crítico.",
-        "(%d+) índice de golpe crítico",
+        {pattern = "(%d+ p%.) el golpe crítico.", location="AfterValue"},
+        {pattern = "(%d+) índice de golpe crítico", location="AfterValue"},
     },
     ["ITEM_MOD_CRIT_MELEE_RATING"] = {},
     ["ITEM_MOD_CRIT_RANGED_RATING"] = {},
     ["ITEM_MOD_HASTE_RATING"] = {},
     ["ITEM_MOD_EXPERTISE_RATING"] = {},
-    ["ITEM_MOD_HIT_SPELL_RATING"] = { "índice de golpe con hechizos en (%d+ p%.)" },
+    ["ITEM_MOD_HIT_SPELL_RATING"] = { 
+        {pattern = "índice de golpe con hechizos en (%d+ p%.)", location="AfterValue"}, 
+    },
     ["ITEM_MOD_CRIT_SPELL_RATING"] = {
-        "(%d+ p%.) el golpe crítico con hechizos",
-        "(%d+) índice de golpe crítico con hechizos",
-        "índice de golpe crítico con hechizos en (%d+ p%.)",
+        {pattern = "(%d+ p%.) el golpe crítico con hechizos", location="AfterValue"},
+        {pattern = "(%d+) índice de golpe crítico con hechizos", location="AfterValue"},
+        {pattern = "índice de golpe crítico con hechizos en (%d+ p%.)", location="AfterValue"},
     },
     ["ITEM_MOD_HASTE_SPELL_RATING"] = {
-        "índice de celeridad con hechizos (%d+ p%.)",
-        "índice de celeridad con hechizos en (%d+ p%.)",
+        {pattern = "índice de celeridad con hechizos (%d+ p%.)", location="AfterValue"},
+        {pattern = "índice de celeridad con hechizos en (%d+ p%.)", location="AfterValue"},
     },
     ["ITEM_MOD_DEFENSE_SKILL_RATING"] = {
-        "Aumenta el índice de defensa en (%d+ p%.)",
-        "Aumenta el índice de defensa (%d+ p%.)",
-        "(%d+ p%.) la defensa.",
-        "(%d+) índice de defensa",
+        {pattern = "Aumenta el índice de defensa en (%d+ p%.)", location="AfterValue"},
+        {pattern = "Aumenta el índice de defensa (%d+ p%.)", location="AfterValue"},
+        {pattern = "(%d+ p%.) la defensa.", location="AfterValue"},
+        {pattern = "(%d+) índice de defensa", location="AfterValue"},
     },
     ["ITEM_MOD_BLOCK_RATING"] = {
-        "índice de bloqueo con escudo en (%d+ p%.)",
-        "índice de bloqueo en (%d+ p%.)",
-        "(%d+ p%.) el bloqueo con escudo.",
+        {pattern = "índice de bloqueo con escudo en (%d+ p%.)", location="AfterValue"},
+        {pattern = "índice de bloqueo en (%d+ p%.)", location="AfterValue"},
+        {pattern = "(%d+ p%.) el bloqueo con escudo.", location="AfterValue"},
     },
     ["ITEM_MOD_DODGE_RATING"] = {},
-    ["ITEM_MOD_PARRY_RATING"] = { "Aumenta tu índice de parada" },
+    ["ITEM_MOD_PARRY_RATING"] = {},
+    ["ITEM_MOD_AGILITY"] = {},
 
 };
 
 -- These are tried second.
-esMX.GetShortStatPatterns = function(shortStatString: string, _: string): {string}
+esMX.GetShortStatPatterns = function(shortStatString: string, _: string): {SearchPattern}
     -- Pay VERY close attention to the accent over the i.
     -- it is actually í and not i.
     return {
-        "índice de " .. shortStatString .. " (%d+ p%.)",
-        "índice de " .. shortStatString .. " en (%d+ p%.)",
-        "(%d+ p%.) tu índice de " .. shortStatString,
-        "(%d+ p%.) de índice de " .. shortStatString,
+        {pattern = "índice de " .. shortStatString .. " (%d+ p%.)", location="AfterValue"},
+        {pattern = "índice de " .. shortStatString .. " en (%d+ p%.)", location="AfterValue"},
+        {pattern = "(%d+ p%.) tu índice de " .. shortStatString, location="AfterValue"},
+        {pattern = "(%d+ p%.) de índice de " .. shortStatString, location="AfterValue"},
     };
 end
 
@@ -81,11 +87,18 @@ esMX.ConfigStrings = {
     PhysicalCritRatingCheckbx = "Display converted Crit rating",
     PhysicalHasteRatingCheckbox = "Display converted Haste rating",
     PhysicalExpertiseRatingCheckbox = "Display converted Expertise rating",
+
+    AttributesHeader = "Attributes",
+    AgilityCheckbox = "Scan for Agility and...",
+    AgiDodgeCheck = "...display Dodge bonus",
+    AgiCritCheck = "...display Crit bonus",
+    AgiArmorCheck = "...display Armor bonus",
+    AgiAPCheck = "...display Attack Power bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
 esMX.StatStrings = {
-    Dodge = "dodge",
+    Dodge = "Dodge",
 }
 
 LB.LocaleTables["esMX"] = {};

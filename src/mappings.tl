@@ -96,3 +96,15 @@ LB.StatKeyIsPercentage = {
     ["ITEM_MOD_DODGE_RATING"] = true,
     ["ITEM_MOD_PARRY_RATING"] = true,
 };
+
+LB.ClassNameToId = {
+    ["WARRIOR"] = 1,
+    ["PALADIN"] = 2,
+    ["HUNTER"] = 3,
+    ["ROGUE"] = 4,
+    ["PRIEST"] = 5,
+    ["SHAMAN"] = 6,
+    ["WARLOCK"] = 8,
+    ["MAGE"] = 7,
+    ["DRUID"] = 9
+};

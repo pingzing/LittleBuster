@@ -14,30 +14,30 @@ ptBR.AlternativePatterns = {
     ["ITEM_MOD_HASTE_RATING"] = {},
     ["ITEM_MOD_EXPERTISE_RATING"] = {},
     ["ITEM_MOD_HIT_SPELL_RATING"] = {
-        "(%d+) sua taxa de acerto de feitiços",
-        "(%d+) a taxa de acerto de feitiços",
-        "(%d+) taxa de acerto de feitiço",
+        {pattern = "(%d+) sua taxa de acerto de feitiços", location = "AfterValue"},
+        {pattern = "(%d+) a taxa de acerto de feitiços", location = "AfterValue"},
+        {pattern = "(%d+) taxa de acerto de feitiço", location = "AfterValue"},
     },
     ["ITEM_MOD_CRIT_SPELL_RATING"] = {
-        "(%d+) a taxa de acerto crítico de feitiços",
-        "(%d+) taxa de acerto crítico de feitiço",
+        {pattern = "(%d+) a taxa de acerto crítico de feitiços", location = "AfterValue"},
+        {pattern = "(%d+) taxa de acerto crítico de feitiço", location = "AfterValue"},
     },
     ["ITEM_MOD_HASTE_SPELL_RATING"] = {},
     ["ITEM_MOD_DEFENSE_SKILL_RATING"] = {},
     ["ITEM_MOD_BLOCK_RATING"] = {},
     ["ITEM_MOD_DODGE_RATING"] = {},
     ["ITEM_MOD_PARRY_RATING"] = {},
-
+    ["ITEM_MOD_AGILITY"] = {},
 }
 
 -- These are tried second.
-ptBR.GetShortStatPatterns = function(shortStatString: string, _: string) : {string}
+ptBR.GetShortStatPatterns = function(shortStatString: string, _: string) : {SearchPattern}
     return {
-        "(%d+) a taxa de "..shortStatString,
-        "(%d+) a sua taxa de "..shortStatString,
-        "(%d+) de taxa de "..shortStatString,
-        "(%d+) sua taxa de "..shortStatString,
-        "(%d+) taxa de "..shortStatString, -- gems, mostly
+        {pattern = "(%d+) a taxa de "..shortStatString, location = "AfterValue"},
+        {pattern = "(%d+) a sua taxa de "..shortStatString, location = "AfterValue"},
+        {pattern = "(%d+) de taxa de "..shortStatString, location = "AfterValue"},
+        {pattern = "(%d+) sua taxa de "..shortStatString, location = "AfterValue"},
+        {pattern = "(%d+) taxa de "..shortStatString, location = "AfterValue"}, -- gems, mostly
     };
 end
 
@@ -59,11 +59,18 @@ ptBR.ConfigStrings = {
     PhysicalCritRatingCheckbx = "Display converted Crit rating",
     PhysicalHasteRatingCheckbox = "Display converted Haste rating",
     PhysicalExpertiseRatingCheckbox = "Display converted Expertise rating",
+
+    AttributesHeader = "Attributes",
+    AgilityCheckbox = "Scan for Agility and...",
+    AgiDodgeCheck = "...display Dodge bonus",
+    AgiCritCheck = "...display Crit bonus",
+    AgiArmorCheck = "...display Armor bonus",
+    AgiAPCheck = "...display Attack Power bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
 ptBR.StatStrings = {
-    Dodge = "dodge",
+    Dodge = "Dodge",
 }
 
 LB.LocaleTables["ptBR"] = {};

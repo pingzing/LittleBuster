@@ -20,6 +20,7 @@ local _defaultConfig: Config = {
         ["ITEM_MOD_CRIT_MELEE_RATING"] = true,
         ["ITEM_MOD_CRIT_RANGED_RATING"] = true,
         ["ITEM_MOD_AGILITY"] = true,
+        ["Agility-Crit"] = true,
     }
 };
 
@@ -29,7 +30,7 @@ global LB_Config: Config = nil;
 -- Expose the config strings as a global so XML can see them
 global LB_CONF_STR = _locale.ConfigStrings;
 
-local _currentTogglesState: {ItemModKey:boolean} = {
+local _currentTogglesState: {ConfigToggle:boolean} = {
     ["ITEM_MOD_DEFENSE_SKILL_RATING"] = true,
     ["ITEM_MOD_DODGE_RATING"] = true,
     ["ITEM_MOD_PARRY_RATING"] = true,
@@ -46,11 +47,9 @@ local _currentTogglesState: {ItemModKey:boolean} = {
     ["ITEM_MOD_CRIT_MELEE_RATING"] = true,
     ["ITEM_MOD_CRIT_RANGED_RATING"] = true,
     ["ITEM_MOD_AGILITY"] = true,
-}
-
-global function LB_Config_CheckButtonChanged(_: ConfigCheckButton, statKey: ItemModKey, isChecked: boolean)
-    _currentTogglesState[statKey] = isChecked;
-end
+    ["Agility-Dodge"] = true, -- does not correspond directly to a stat    
+    ["Agility-Crit"] = true,
+};
 
 local function drawCurrentState()
     -- Defenses
@@ -71,7 +70,21 @@ local function drawCurrentState()
     LB_PhysicalExpertiseRatingCheckbox:SetChecked(_currentTogglesState["ITEM_MOD_EXPERTISE_RATING"]);
 
     -- Attributes
+    ---- Agility
     LB_AgilityCheckbox:SetChecked(_currentTogglesState["ITEM_MOD_AGILITY"]);
+    local agilityChecked = LB_AgilityCheckbox:GetChecked();
+    ---- Agility sub-items
+    LB_AgilityDodgeCheckbox:SetChecked(_currentTogglesState["Agility-Dodge"]);
+    LB_AgilityDodgeCheckbox:SetEnabled(agilityChecked);
+    LB_AgilityCritCheckbox:SetChecked(_currentTogglesState["Agility-Crit"])
+    LB_AgilityCritCheckbox:SetEnabled(agilityChecked);
+
+end
+
+global function LB_Config_CheckButtonChanged(_: ConfigCheckButton, statKey: ItemModKey, isChecked: boolean)
+    -- TODO: Make this invalidate the caches we're storing over in the main file
+    _currentTogglesState[statKey] = isChecked;
+    drawCurrentState();
 end
 
 local function configFrame_OnRefresh(_: ConfigFrame)
@@ -119,7 +132,7 @@ local function loadCompleted(configFrame: ConfigFrame)
     if (not LB_Config) then        
         LB_Config = _defaultConfig;
     end    
-    LB.Config = LB_Config;        
+    LB.Config = LB_Config;
 
     InterfaceOptions_AddCategory(configFrame);
 end

@@ -203,12 +203,23 @@ end
 
 global enum LocaleStatKey
     "Dodge"
+    "Crit"
+end
+
+global enum InjectLocation
+    "AfterValue"
+    "PatternEnd"
+end
+
+global record SearchPattern
+    pattern: string
+    location: InjectLocation
 end
 
 global record LocaleTable
     -- Stat-conversion related things
-    AlternativePatterns: {string:{string}}
-    GetShortStatPatterns: function(string, string): {string}
+    AlternativePatterns: {string:{SearchPattern}}
+    GetShortStatPatterns: function(string, string): {SearchPattern}
     StatStrings: {LocaleStatKey:string}
     getLocaleTable: function(): LocaleTable
 
@@ -228,8 +239,29 @@ global record StatDetailInfo
 end
 
 -- Config stuff
+global enum ConfigToggle
+    "ITEM_MOD_CRIT_SPELL_RATING"
+    "ITEM_MOD_HIT_SPELL_RATING"
+    "ITEM_MOD_HASTE_SPELL_RATING"
+    "ITEM_MOD_CRIT_RANGED_RATING"
+    "ITEM_MOD_HIT_RANGED_RATING"
+    "ITEM_MOD_CRIT_MELEE_RATING"
+    "ITEM_MOD_HIT_MELEE_RATING"
+    "ITEM_MOD_EXPERTISE_RATING"
+    "ITEM_MOD_HIT_RATING"
+    "ITEM_MOD_CRIT_RATING"
+    "ITEM_MOD_HASTE_RATING"
+    "ITEM_MOD_DEFENSE_SKILL_RATING"
+    "ITEM_MOD_BLOCK_RATING"
+    "ITEM_MOD_DODGE_RATING"
+    "ITEM_MOD_PARRY_RATING"
+    "ITEM_MOD_AGILITY"
+    "Agility-Dodge"
+    "Agility-Crit"
+end
+
 global record Config
-    DisplayToggles: {ItemModKey:boolean}
+    DisplayToggles: {ConfigToggle:boolean}
 end
 
 -- Checkboxes in config.xml
@@ -245,6 +277,8 @@ global LB_PhysicalCritRatingCheckbox: ConfigCheckButton
 global LB_PhysicalHasteRatingCheckbox: ConfigCheckButton
 global LB_PhysicalExpertiseRatingCheckbox: ConfigCheckButton
 global LB_AgilityCheckbox: ConfigCheckButton
+global LB_AgilityDodgeCheckbox: ConfigCheckButton
+global LB_AgilityCritCheckbox: ConfigCheckButton
 
 -- Attributes stuff
 
@@ -290,6 +324,7 @@ global record SharedTable
     RatingIDToStatKey: {number:ItemModKey}
     StatKeyToRatingID: {ItemModKey:number}
     StatKeyIsPercentage: {ItemModKey:boolean}
+    ClassNameToId: {ClassEnum:number}
 
     -- ratingConversion.tl
     GetEffectFromRating: function(rating: number, statId: number): number

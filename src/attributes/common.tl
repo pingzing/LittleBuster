@@ -303,8 +303,7 @@ local _classStatModTable: {ClassEnum:{AuraModEnum:{number:StatModDetails}}} = {
                 },
             },
         },
-        -- Druid: Nurturing Instinct (Rank 2) - 2,14
-        --        Increases your healing spells by up to 25%/50% of your Strength.
+        -- Druid: Nurturing Instinct (Rank 2) - 2,14        
         -- 2.4.0 Increases your healing spells by up to 50%/100% of your Agility, and increases healing done to you by 10%/20% while in Cat form.
         ["ADD_HEALING_MOD_AGI"] = {
             [1] = {

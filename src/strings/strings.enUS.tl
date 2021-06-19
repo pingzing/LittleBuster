@@ -5,59 +5,78 @@ local enUS: LocaleTable = {};
 
 enUS.AlternativePatterns = {
     -- These patterns are tried first.
-    ["ITEM_MOD_HIT_RATING"] = { "increases your hit rating by (%d+)." },
+    ["ITEM_MOD_HIT_RATING"] = { 
+        {pattern = "increases your hit rating by (%d+).", location = "AfterValue"},
+    },
     ["ITEM_MOD_HIT_MELEE_RATING"] = {
-        "increases your hit rating by (%d+).",
-        "melee hit rating by (%d+)",
+        {pattern = "increases your hit rating by (%d+).", location = "AfterValue"},
+        {pattern = "melee hit rating by (%d+)", location = "AfterValue"},
     },
     ["ITEM_MOD_HIT_RANGED_RATING"] = {
-        "increases your hit rating by (%d+).",
-        "ranged hit rating by (%d+)",
+        {pattern = "increases your hit rating by (%d+).", location = "AfterValue"},
+        {pattern = "ranged hit rating by (%d+)", location = "AfterValue"},
     },
     ["ITEM_MOD_CRIT_RATING"] = {
-        "increases your critical strike rating by (%d+).",
-        "critical strike rating by (%d+)",
-        "crit rating by (%d+)",
-        "(%d+) critical rating", -- Seen on gems, mostly
+        {pattern = "increases your critical strike rating by (%d+).", location = "AfterValue"},
+        {pattern = "critical strike rating by (%d+)", location = "AfterValue"},
+        {pattern = "crit rating by (%d+)", location = "AfterValue"},
+        {pattern = "(%d+) critical rating", location = "AfterValue"}, -- Seen on gems, mostly
+        {pattern = "(%d+) crit rating", location = "AfterValue"}, -- occasionally seen on gems
     },
     ["ITEM_MOD_CRIT_MELEE_RATING"] = {
-        "increases your critical strike rating by (%d+).",
-        "melee critical strike rating by (%d+)",
-        "melee crit rating by (%d+)",
+        {pattern = "increases your critical strike rating by (%d+).", location = "AfterValue"},
+        {pattern = "melee critical strike rating by (%d+)", location = "AfterValue"},
+        {pattern = "melee crit rating by (%d+)", location = "AfterValue"},
     },
     ["ITEM_MOD_CRIT_RANGED_RATING"] = {
-        "increases your critical strike rating by (%d+).",
-        "ranged crit rating by (%d+)",
+        {pattern = "increases your critical strike rating by (%d+).", location = "AfterValue"},
+        {pattern = "ranged crit rating by (%d+)", location = "AfterValue"},
     },
-    ["ITEM_MOD_HASTE_RATING"] = { "increases your haste rating by (%d+)." },
-    ["ITEM_MOD_EXPERTISE_RATING"] = { "increases expertise rating by (%d+)." },
+    ["ITEM_MOD_HASTE_RATING"] = { 
+        {pattern = "increases your haste rating by (%d+).", location = "AfterValue"},  
+    },
+    ["ITEM_MOD_EXPERTISE_RATING"] = { 
+        {pattern = "increases expertise rating by (%d+).", location = "AfterValue"},
+    },
     ["ITEM_MOD_HIT_SPELL_RATING"] = {
-        "increases your spell hit rating by (%d+).",
-        "spell hit rating by (%d+)",
-        "(%d+) spell hit rating", -- Seen on gems, mostly
+        {pattern = "increases your spell hit rating by (%d+).", location = "AfterValue"},
+        {pattern = "spell hit rating by (%d+)", location = "AfterValue"},
+        {pattern = "(%d+) spell hit rating", location = "AfterValue"}, -- Seen on gems, mostly
     },
     ["ITEM_MOD_CRIT_SPELL_RATING"] = {
-        "increases your spell critical strike rating by (%d+).",
-        "spell critical strike rating by (%d+)",
-        "spell crit rating by (%d+)",
-        "(%d+) spell critical strike rating",
-        "(%d+) spell critical rating",
-        "(%d+) spell crit rating", -- Seen on gems, mostly
+        {pattern = "increases your spell critical strike rating by (%d+).", location = "AfterValue"},
+        {pattern = "spell critical strike rating by (%d+)", location = "AfterValue"},
+        {pattern = "spell crit rating by (%d+)", location = "AfterValue"},
+        {pattern = "(%d+) spell critical strike rating", location = "AfterValue"},
+        {pattern = "(%d+) spell critical rating", location = "AfterValue"},
+        {pattern = "(%d+) spell crit rating", location = "AfterValue"}, -- Seen on gems, mostly
     },
-    ["ITEM_MOD_HASTE_SPELL_RATING"] = { "spell haste rating by (%d+)" },
-    ["ITEM_MOD_DEFENSE_SKILL_RATING"] = { "increases defense rating by (%d+)." },
-    ["ITEM_MOD_BLOCK_RATING"] = { "increases your block rating by (%d+)." },
-    ["ITEM_MOD_DODGE_RATING"] = { "increases dodge rating by (%d+).", "(%d+) dodge rating" },
+    ["ITEM_MOD_HASTE_SPELL_RATING"] = { 
+        {pattern = "spell haste rating by (%d+)", location = "AfterValue"},
+    },
+    ["ITEM_MOD_DEFENSE_SKILL_RATING"] = { 
+        {pattern = "increases defense rating by (%d+).", location = "AfterValue"},
+    },
+    ["ITEM_MOD_BLOCK_RATING"] = { 
+        {pattern = "increases your block rating by (%d+).", location = "AfterValue"},
+    },
+    ["ITEM_MOD_DODGE_RATING"] = { 
+        {pattern = "increases dodge rating by (%d+).", location = "AfterValue"},
+        {pattern ="(%d+) dodge rating", location = "AfterValue"},
+    },
     ["ITEM_MOD_PARRY_RATING"] = {},
-    ["ITEM_MOD_AGILITY"] = {},
+    ["ITEM_MOD_AGILITY"] = {
+        {pattern = "+(%d+) agility", location = "PatternEnd"},
+        {pattern = "agility by (%d+)", location = "AfterValue"},
+    },
 }
 
 -- These are tried second.
-enUS.GetShortStatPatterns = function(shortStatString: string, _: string): {string}
+enUS.GetShortStatPatterns = function(shortStatString: string, _: string): {SearchPattern}
     return {
-        shortStatString .. " rating by (%d+)", -- "...imcrase your parry rating by 72..."
-        "(%d+) " .. shortStatString .. " rating", -- "...grant you 152 dodge rating..."
-        "+(%d+) " .. shortStatString, -- +5 Agility or +5 Defense Rating
+        {pattern = shortStatString .. " rating by (%d+)", location = "AfterValue"},
+        { pattern ="(%d+) " .. shortStatString .. " rating", location = "AfterValue"},
+        { pattern ="+(%d+) " .. shortStatString, location = "AfterValue"},
     };
 end
 
@@ -81,13 +100,17 @@ enUS.ConfigStrings = {
     PhysicalExpertiseRatingCheckbox = "Display converted Expertise rating",
 
     AttributesHeader = "Attributes",
-    AgilityCheckbox = "Scan for Agility",
-    AgiDodgeCheck = "Display dodge from Agility",
+    AgilityCheckbox = "Scan for Agility and...",
+    AgiDodgeCheck = "...display Dodge bonus",
+    AgiCritCheck = "...display Crit bonus",
+    AgiArmorCheck = "...display Armor bonus",
+    AgiAPCheck = "...display Attack Power bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
 enUS.StatStrings = {
     Dodge = "Dodge",
+    Crit = "Crit",
 }
 
 LB.LocaleTables["enUS"] = {};

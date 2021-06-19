@@ -340,8 +340,32 @@
                       </OnLoad>
                     </Scripts>
                   </CheckButton>
+                  
+                  <!-- Agility - Dodge -->
+                  <CheckButton name = "LB_AgilityDodgeCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor point="TOPLEFT" x="15" relativeTo="LB_AgilityCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.AgiDodgeCheck);
+                        self.statKey="Agility-Dodge";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
 
-                  <!-- TODO: How do we represent each sub-bonus an attribute can give? -->
+                  <!-- Agility - Crit -->
+                  <CheckButton name = "LB_AgilityCritCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor point="TOPLEFT" relativeTo="LB_AgilityDodgeCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.AgiCritCheck);
+                        self.statKey="Agility-Crit";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
 
                 </Frames>
               </Frame>

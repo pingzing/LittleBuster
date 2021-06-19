@@ -20,6 +20,7 @@ deDE.AlternativePatterns = {
     ["ITEM_MOD_BLOCK_RATING"] = {},
     ["ITEM_MOD_DODGE_RATING"] = {},
     ["ITEM_MOD_PARRY_RATING"] = {},
+    ["ITEM_MOD_AGILITY"] = {},
 };
 
 -- Because the German short stat strings are never used directly--just their conjugated forms x.x
@@ -39,15 +40,16 @@ local conjugatedShortStats: {string:string} = {
     ["ITEM_MOD_BLOCK_RATING"] = "block",
     ["ITEM_MOD_DODGE_RATING"] = "ausweich",
     ["ITEM_MOD_PARRY_RATING"] = "parier",
+    ["ITEM_MOD_AGILITY"] = "",
 }
 
 -- These are tried second.
-deDE.GetShortStatPatterns = function(shortStatString: string, statKey: string) : {string}
+deDE.GetShortStatPatterns = function(shortStatString: string, statKey: string) : {SearchPattern}
     return {
-        "(%d+) "..conjugatedShortStats[statKey], -- rarer proc format
-        shortStatString .. "wertung um (%d+)",
-        conjugatedShortStats[statKey] .. "wertung um (%d+)",
-        conjugatedShortStats[statKey].."wertung %d+ sek. lang um (%d+)", -- see this a lot on procs, trinkets, etc
+        {pattern = "(%d+) "..conjugatedShortStats[statKey], location = "AfterValue"}, -- rarer proc format
+        {pattern = shortStatString .. "wertung um (%d+)", location = "AfterValue"},
+        {pattern = conjugatedShortStats[statKey] .. "wertung um (%d+)", location = "AfterValue"},
+        {pattern = conjugatedShortStats[statKey].."wertung %d+ sek. lang um (%d+)", location = "AfterValue"}, -- see this a lot on procs, trinkets, etc
     };
 end
 
@@ -69,11 +71,18 @@ deDE.ConfigStrings = {
     PhysicalCritRatingCheckbx = "Display converted Crit rating",
     PhysicalHasteRatingCheckbox = "Display converted Haste rating",
     PhysicalExpertiseRatingCheckbox = "Display converted Expertise rating",
+
+    AttributesHeader = "Attributes",
+    AgilityCheckbox = "Scan for Agility and...",
+    AgiDodgeCheck = "...display Dodge bonus",
+    AgiCritCheck = "...display Crit bonus",
+    AgiArmorCheck = "...display Armor bonus",
+    AgiAPCheck = "...display Attack Power bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
 deDE.StatStrings = {
-    Dodge = "dodge",
+    Dodge = "Dodge",
 }
 
 LB.LocaleTables["deDE"] = {};

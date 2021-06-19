@@ -5,68 +5,79 @@ local zhCN: LocaleTable = {};
 
 zhCN.AlternativePatterns = {
     -- These patterns are tried first.
-    ["ITEM_MOD_HIT_RATING"] = { "使你的命中等级提高(%d+)" },
+    ["ITEM_MOD_HIT_RATING"] = { 
+        {pattern = "使你的命中等级提高(%d+)", location="AfterValue"},
+    },
     ["ITEM_MOD_HIT_MELEE_RATING"] = {
-        "使你的命中等级提高(%d+)",
-        "近战命中等级提高(%d+)",
-        "命中等级提高(%d+)",
-        "近战命中等级提高(%d+)"
+        {pattern = "使你的命中等级提高(%d+)", location="AfterValue"},
+        {pattern = "近战命中等级提高(%d+)", location="AfterValue"},
+        {pattern = "命中等级提高(%d+)", location="AfterValue"},
+        {pattern = "近战命中等级提高(%d+)", location="AfterValue"},
     },
     ["ITEM_MOD_HIT_RANGED_RATING"] = {
-        "使你的命中等级提高(%d+)",
-        "远程命中等级提高(%d+)",
-        "命中等级提高(%d+)"
+        {pattern = "使你的命中等级提高(%d+)", location="AfterValue"},
+        {pattern = "远程命中等级提高(%d+)", location="AfterValue"},
+        {pattern = "命中等级提高(%d+)", location="AfterValue"},
     },
     ["ITEM_MOD_CRIT_RATING"] = {
-        "使你的爆击等级提高(%d+)",
-        "爆击等级提高(%d+)",
-        "爆击等级提高(%d+)",
-        "+(%d+)爆击", -- Seen on gems, mostly
+        {pattern = "使你的爆击等级提高(%d+)", location="AfterValue"},
+        {pattern = "爆击等级提高(%d+)", location="AfterValue"},
+        {pattern = "爆击等级提高(%d+)", location="AfterValue"},
+        {pattern = "+(%d+)爆击", location="AfterValue"}, -- Seen on gems, mostly
     },
     ["ITEM_MOD_CRIT_MELEE_RATING"] = {
-        "使你的爆击等级提高(%d+)",
-        "近战爆击等级提高(%d+)",
-        "近战爆击等级提高(%d+)",
+        {pattern = "使你的爆击等级提高(%d+)", location="AfterValue"},
+        {pattern = "近战爆击等级提高(%d+)", location="AfterValue"},
+        {pattern = "近战爆击等级提高(%d+)", location="AfterValue"},
     },
     ["ITEM_MOD_CRIT_RANGED_RATING"] = {
-        "使你的爆击等级提高(%d+)",
-        "远程爆击等级提高(%d+)",
+        {pattern = "使你的爆击等级提高(%d+)", location="AfterValue"},
+        {pattern = "远程爆击等级提高(%d+)", location="AfterValue"},
     },
-    ["ITEM_MOD_HASTE_RATING"] = { "使你的急速等级提高(%d+)" },
-    ["ITEM_MOD_EXPERTISE_RATING"] = { "使你的精准等级提高(%d+)" },
+    ["ITEM_MOD_HASTE_RATING"] = { 
+        {pattern = "使你的急速等级提高(%d+)", location="AfterValue"}, 
+    },
+    ["ITEM_MOD_EXPERTISE_RATING"] = { 
+        {pattern = "使你的精准等级提高(%d+)", location="AfterValue"},
+    },
     ["ITEM_MOD_HIT_SPELL_RATING"] = {
-        "使你的法术命中等级提高(%d+)",
-        "法术命中等级提高(%d+)",
-        "+(%d+) 法术命中等级", -- Seen on gems, mostly
+        {pattern = "使你的法术命中等级提高(%d+)", location="AfterValue"},
+        {pattern = "法术命中等级提高(%d+)", location="AfterValue"},
+        {pattern = "+(%d+) 法术命中等级", location="AfterValue"}, -- Seen on gems, mostly
     },
     ["ITEM_MOD_CRIT_SPELL_RATING"] = {
-        "使你的法术爆击等级提高(%d+)",
-        "法术爆击等级提高(%d+)",
-        "法术爆击等级提高(%d+)",
-        "(%d+) 法术爆击等级",
-        "(%d+) 法术爆击等级",
-        "+(%d+) 法术爆击等级", -- Seen on gems, mostly
+        {pattern = "使你的法术爆击等级提高(%d+)", location="AfterValue"},
+        {pattern = "法术爆击等级提高(%d+)", location="AfterValue"},
+        {pattern = "法术爆击等级提高(%d+)", location="AfterValue"},
+        {pattern = "(%d+) 法术爆击等级", location="AfterValue"},
+        {pattern = "(%d+) 法术爆击等级", location="AfterValue"},
+        {pattern = "+(%d+) 法术爆击等级", location="AfterValue"}, -- Seen on gems, mostly
     },
-    ["ITEM_MOD_HASTE_SPELL_RATING"] = { "法术急速等级提高(%d+)" },
-    ["ITEM_MOD_DEFENSE_SKILL_RATING"] = { "防御等级提高(%d+)" },
+    ["ITEM_MOD_HASTE_SPELL_RATING"] = { 
+        {pattern = "法术急速等级提高(%d+)", location="AfterValue"},
+    },
+    ["ITEM_MOD_DEFENSE_SKILL_RATING"] = { 
+        {pattern = "防御等级提高(%d+)", location="AfterValue"},
+    },
     ["ITEM_MOD_BLOCK_RATING"] = { 
-        "使你的盾牌格挡值提高(%d+)",
-        "使你的盾牌格挡值提高(%d+点)"
+        {pattern = "使你的盾牌格挡值提高(%d+)", location="AfterValue"},
+        {pattern = "使你的盾牌格挡值提高(%d+点)", location="AfterValue"},
      },
     ["ITEM_MOD_DODGE_RATING"] = { 
-        "使你的躲闪等级提高(%d+)", 
-        "(%d+) 躲闪等级" 
+        {pattern = "使你的躲闪等级提高(%d+)", location="AfterValue"}, 
+        {pattern = "(%d+) 躲闪等级", location="AfterValue"},
     },
     ["ITEM_MOD_PARRY_RATING"] = {},
+    ["ITEM_MOD_AGILITY"] = {},
 }
 
 -- These are tried second.
-zhCN.GetShortStatPatterns = function(shortStatString: string, _: string): {string}
+zhCN.GetShortStatPatterns = function(shortStatString: string, _: string): {SearchPattern}
     return {
-        shortStatString .. "等级提高(%d+点)", -- "...increase your parry rating by 72..."
-        shortStatString .. "等级提高(%d+)",
-        "(%d+) " .. shortStatString .. " 等级", -- "...grant you 152 dodge rating..."
-        "+(%d+) " .. shortStatString, -- +5 Agility or +5 Defense Rating
+        {pattern = shortStatString .. "等级提高(%d+点)", location = "AfterValue"}, -- "...increase your parry rating by 72..."
+        {pattern = shortStatString .. "等级提高(%d+)", location = "AfterValue"},
+        {pattern = "(%d+) " .. shortStatString .. " 等级", location = "AfterValue"}, -- "...grant you 152 dodge rating..."
+        {pattern = "+(%d+) " .. shortStatString, location = "AfterValue"}, -- +5 Agility or +5 Defense Rating
     };
 end
 
@@ -88,11 +99,18 @@ zhCN.ConfigStrings = {
     PhysicalCritRatingCheckbx = "显示转换后的爆击等级",
     PhysicalHasteRatingCheckbox = "显示转换后的急速等级",
     PhysicalExpertiseRatingCheckbox = "显示转换后的精准等级",
+
+    AttributesHeader = "Attributes",
+    AgilityCheckbox = "Scan for Agility and...",
+    AgiDodgeCheck = "...display Dodge bonus",
+    AgiCritCheck = "...display Crit bonus",
+    AgiArmorCheck = "...display Armor bonus",
+    AgiAPCheck = "...display Attack Power bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
 zhCN.StatStrings = {
-    Dodge = "dodge",
+    Dodge = "Dodge",
 }
 
 LB.LocaleTables["zhCN"] = {};

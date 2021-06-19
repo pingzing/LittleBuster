@@ -9,44 +9,45 @@ frFR.AlternativePatterns = {
     ["ITEM_MOD_HIT_MELEE_RATING"] = {},
     ["ITEM_MOD_HIT_RANGED_RATING"] = {},
     ["ITEM_MOD_CRIT_RATING"] = {
-        "(%d+) le score de coup critique",
-        "score de coup critique de (%d+)",
-        "(%d+) au score de coup critique", -- gems
+        {pattern = "(%d+) le score de coup critique", location="AfterValue"},
+        {pattern = "score de coup critique de (%d+)", location="AfterValue"},
+        {pattern = "(%d+) au score de coup critique", location="AfterValue"}, -- gems
     },
     ["ITEM_MOD_CRIT_MELEE_RATING"] = {},
     ["ITEM_MOD_CRIT_RANGED_RATING"] = {},
     ["ITEM_MOD_HASTE_RATING"] = {},
     ["ITEM_MOD_EXPERTISE_RATING"] = {
-        "(%d+) le score d’expertise" -- note the stupid curly apostrophe
+        {pattern = "(%d+) le score d’expertise", location="AfterValue"}, -- note the stupid curly apostrophe
     },
     ["ITEM_MOD_HIT_SPELL_RATING"] = {
-        "score de toucher des sorts de (%d+)",
+        {pattern = "score de toucher des sorts de (%d+)", location="AfterValue"},
     },
     ["ITEM_MOD_CRIT_SPELL_RATING"] = {
-        "(%d+) le score de coup critique des sorts",
-        "(%d+) au score de critique des sorts", -- gems
-        "(%d+) au score de coup critique des sorts",
-        "score de coup critique des sorts de (%d+)"
+        {pattern = "(%d+) le score de coup critique des sorts", location="AfterValue"},
+        {pattern = "(%d+) au score de critique des sorts", location="AfterValue"}, -- gems
+        {pattern = "(%d+) au score de coup critique des sorts", location="AfterValue"},
+        {pattern = "score de coup critique des sorts de (%d+)", location="AfterValue"},
     },
     ["ITEM_MOD_HASTE_SPELL_RATING"] = {},
     ["ITEM_MOD_DEFENSE_SKILL_RATING"] = {},
     ["ITEM_MOD_BLOCK_RATING"] = {},
     ["ITEM_MOD_DODGE_RATING"] = {
-        "(%d+) le score d’esquive", -- note the stupid curly apostrophe
-        "(%d+) le score d'esquive",
-        "score d'esquive de (%d+)",
-        "(%d+) au score d'esquive",
+        {pattern = "(%d+) le score d’esquive", location="AfterValue"}, -- note the stupid curly apostrophe
+        {pattern = "(%d+) le score d'esquive", location="AfterValue"},
+        {pattern = "score d'esquive de (%d+)", location="AfterValue"},
+        {pattern = "(%d+) au score d'esquive", location="AfterValue"},
     },
     ["ITEM_MOD_PARRY_RATING"] = {},
+    ["ITEM_MOD_AGILITY"] = {},
 };
 
 -- These are tried second.
-frFR.GetShortStatPatterns = function(shortStatString: string, _: string) : {string}
+frFR.GetShortStatPatterns = function(shortStatString: string, _: string) : {SearchPattern}
     return {
-        "(%d+) le score de " .. shortStatString,
-        "score de " .. shortStatString .. " augmenté de (%d+)",
-        "score de ".. shortStatString .. " de (%d+)",
-        "(%d+) au score de ".. shortStatString, -- mostly seen on gems
+        {pattern = "(%d+) le score de " .. shortStatString, location="AfterValue"},
+        {pattern = "score de " .. shortStatString .. " augmenté de (%d+)", location="AfterValue"},
+        {pattern = "score de ".. shortStatString .. " de (%d+)", location="AfterValue"},
+        {pattern = "(%d+) au score de ".. shortStatString, location="AfterValue"}, -- mostly seen on gems
     };
 end
 
@@ -68,11 +69,18 @@ frFR.ConfigStrings = {
     PhysicalCritRatingCheckbx = "Display converted Crit rating",
     PhysicalHasteRatingCheckbox = "Display converted Haste rating",
     PhysicalExpertiseRatingCheckbox = "Display converted Expertise rating",
+
+    AttributesHeader = "Attributes",
+    AgilityCheckbox = "Scan for Agility and...",
+    AgiDodgeCheck = "...display Dodge bonus",
+    AgiCritCheck = "...display Crit bonus",
+    AgiArmorCheck = "...display Armor bonus",
+    AgiAPCheck = "...display Attack Power bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
 frFR.StatStrings = {
-    Dodge = "dodge",
+    Dodge = "Dodge",
 }
 
 LB.LocaleTables["frFR"] = {};
