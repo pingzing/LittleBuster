@@ -94,12 +94,16 @@ esMX.ConfigStrings = {
     AgiCritCheck = "...display Crit bonus",
     AgiArmorCheck = "...display Armor bonus",
     AgiAPCheck = "...display Attack Power bonus",
+    AgiRAPCheck = "...display Ranged Attack Power bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
 esMX.StatStrings = {
     Dodge = "Dodge",
     Crit = "Crit",
+    AttackPower = "AP",
+    RangedAttackPower = "RAP",
+    Armor = "Armor",
 }
 
 LB.LocaleTables["esMX"] = {};

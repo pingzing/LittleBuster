@@ -1383,11 +1383,18 @@ local _allStatModTable: {AuraModEnum:{number:StatModDetails}} = {
     },
 }
 
+-- TODO: Need to make Teal happy with all my usages of GetSpellInfo() and tabley things.
+
 local function adjustStatModifier(statModInfo: StatModAdjustment, race: RaceEnum, table: {number:StatModDetails}, modifier: number): number
     for _, case in pairs(table) do
         local ok = true;
+        -- Working around Teal struggling with Global function return values that are tuples.
+        local buffName: string = nil;
+        if (case.buff) then
+            buffName = case.buff as string; -- Taking advantage of the fact that arg 1 is a string
+        end
         if ok and case.condition and not loadstring("return "..case.condition)[1]() then ok = nil end
-        if ok and case.buff and not AuraUtil.FindAuraByName(case.buff[1], "player") then ok = nil end
+        if ok and case.buff and not AuraUtil.FindAuraByName(buffName, "player") then ok = nil end
         if ok and case.stance and case.stance ~= getStanceIcon() then ok = nil end
         if ok and case.race and case.race ~= race then ok = nil end
         if ok then
@@ -1397,7 +1404,7 @@ local function adjustStatModifier(statModInfo: StatModAdjustment, race: RaceEnum
                 rank = GetTalentInfo(case.tab, case.num)[5];
             -- No talent, but we have a buff:
             elseif case.buff then
-                rank = getPlayerBuffRank(case.buff[1]);
+                rank = getPlayerBuffRank(buffName);
             -- no talent but all other given conditions are satisfied
             elseif case.condition or case.stance or case.race then
                 rank = 1;

@@ -21,6 +21,9 @@ local _defaultConfig: Config = {
         ["ITEM_MOD_CRIT_RANGED_RATING"] = true,
         ["ITEM_MOD_AGILITY"] = true,
         ["Agility-Crit"] = true,
+        ["Agility-AP"] = false,
+        ["Agility-RAP"] = false,
+        ["Agility-Armor"] = false,
     }
 };
 
@@ -47,8 +50,11 @@ local _currentTogglesState: {ConfigToggle:boolean} = {
     ["ITEM_MOD_CRIT_MELEE_RATING"] = true,
     ["ITEM_MOD_CRIT_RANGED_RATING"] = true,
     ["ITEM_MOD_AGILITY"] = true,
-    ["Agility-Dodge"] = true, -- does not correspond directly to a stat    
+    ["Agility-Dodge"] = false,
     ["Agility-Crit"] = true,
+    ["Agility-AP"] = false,
+    ["Agility-RAP"] = false,
+    ["Agility-Armor"] = false,
 };
 
 local function drawCurrentState()
@@ -78,6 +84,10 @@ local function drawCurrentState()
     LB_AgilityDodgeCheckbox:SetEnabled(agilityChecked);
     LB_AgilityCritCheckbox:SetChecked(_currentTogglesState["Agility-Crit"])
     LB_AgilityCritCheckbox:SetEnabled(agilityChecked);
+    LB_AgilityAPCheckbox:SetChecked(_currentTogglesState["Agility-AP"]);
+    LB_AgilityAPCheckbox:SetEnabled(agilityChecked);
+    LB_AgilityArmorCheckbox:SetChecked(_currentTogglesState["Agility-Armor"]);
+    LB_AgilityArmorCheckbox:SetEnabled(agilityChecked);
 
 end
 
@@ -89,7 +99,7 @@ end
 
 local function configFrame_OnRefresh(_: ConfigFrame)
     -- Called whenever the entire Interface panel opens, or Default is pressed
-    -- Use this init the UI.           
+    -- Use this init the UI.
     for k,v in pairs(LB.Config.DisplayToggles) do
         _currentTogglesState[k] = v;
     end 
@@ -112,7 +122,6 @@ end
 
 local function configFrame_OnDefault(_: ConfigFrame)    
     -- set _currentToggleState, LB_Config AND LB.Config to _defaultConfig
-    -- TODO: How do we handle other keys in the Config table? ¯\_(ツ)_/¯
     for k,v in pairs(_defaultConfig.DisplayToggles) do
         _currentTogglesState[k] = v;
         LB_Config.DisplayToggles[k] = v;
@@ -131,14 +140,20 @@ local function loadCompleted(configFrame: ConfigFrame)
     -- Load from disk (or defaults)
     if (not LB_Config) then        
         LB_Config = _defaultConfig;
-    end    
+    end
+    --Run through each of the default values. If we have a key that doesn't exist in LB.Config, set it to the default
+    for k,v in pairs(_defaultConfig.DisplayToggles) do
+        if LB_Config.DisplayToggles[k] == nil then
+            LB_Config.DisplayToggles[k] = v;
+        end
+    end
     LB.Config = LB_Config;
 
     InterfaceOptions_AddCategory(configFrame);
 end
 
 function LB_ConfigRootFrame_OnEvent(self: ConfigFrame, _: string, ...)
-    -- Safe to assume this is ADDON_LOADED, is it's the only even we register for.
+    -- Safe to assume this is ADDON_LOADED, is it's the only event we register for.
     local addonName = ... as string;
     if (addonName == "LittleBuster") then
         loadCompleted(self);    

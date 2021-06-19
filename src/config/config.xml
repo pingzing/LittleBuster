@@ -95,7 +95,7 @@
         <!-- The frame hosted by the ScrollFrame -->
         <ScrollChild>
           <Frame name="LB_ConfigScrollChild">
-            <Size x="585" y="525" />
+            <Size x="585" y="585" />
             <Frames>
 
               <!-- Addon title, etc -->
@@ -241,7 +241,7 @@
               </Frame>
 
               <Frame name="LB_ConfigPhysicalsContainer">
-                <Size x="575" y="125" />
+                <Size x="575" y="120" />
                 <Anchors>
                   <Anchor x="0" y="-10" point="TOPLEFT" relativeTo="LB_ConfigSpellsContainer" relativePoint="BOTTOMLEFT" />
                 </Anchors>
@@ -313,7 +313,7 @@
 
               <!-- Attribute stuff -->
               <Frame name="LB_ConfigAttributesContainer">
-                <Size x="575" y="95" />
+                <Size x="575" y="175" />
                 <Anchors>
                   <Anchor x="0" y="-10" point="TOPLEFT" relativeTo="LB_ConfigPhysicalsContainer" relativePoint="BOTTOMLEFT" />
                 </Anchors>
@@ -363,6 +363,45 @@
                       <OnLoad>
                         _G[self:GetName().."Text"]:SetText(LB_CONF_STR.AgiCritCheck);
                         self.statKey="Agility-Crit";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Agility - AP -->
+                  <CheckButton name = "LB_AgilityAPCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor point="TOPLEFT" relativeTo="LB_AgilityCritCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.AgiAPCheck);
+                        self.statKey="Agility-AP";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Agility - RAP -->
+                  <CheckButton name = "LB_AgilityRAPCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor point="TOPLEFT" relativeTo="LB_AgilityAPCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.AgiRAPCheck);
+                        self.statKey="Agility-RAP";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Agility - Armor -->
+                  <CheckButton name = "LB_AgilityArmorCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor point="TOPLEFT" relativeTo="LB_AgilityRAPCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.AgiArmorCheck);
+                        self.statKey="Agility-Armor";
                       </OnLoad>
                     </Scripts>
                   </CheckButton>

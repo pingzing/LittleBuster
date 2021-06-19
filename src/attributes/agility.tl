@@ -98,6 +98,30 @@ local _critPerAgi: {number:{number:number}} = {
    [73] = {0.0287, 0.0378, 0.0238, 0.0233, 0.0372, 0.0377, 0.0389, 0.0379, 0.0383, },
 }
 
+local _apPerAgi: {ClassEnum:number} = {
+    ["WARRIOR"] = 0,
+    ["PALADIN"] = 0,
+    ["HUNTER"] = 1,
+    ["ROGUE"] = 1,
+    ["PRIEST"] = 0,
+    ["SHAMAN"] = 0,
+    ["MAGE"] = 0,
+    ["WARLOCK"] = 0,
+    ["DRUID"] = 0,
+};
+
+local _rapPerAgi: {ClassEnum:number} = {
+    ["WARRIOR"] = 1,
+    ["PALADIN"] = 1,
+    ["HUNTER"] = 1,
+    ["ROGUE"] = 1,
+    ["PRIEST"] = 0,
+    ["SHAMAN"] = 0,
+    ["MAGE"] = 0,
+    ["WARLOCK"] = 0,
+    ["DRUID"] = 0
+};
+
 
 local function getDodgeFromAgi(agi: number, class: ClassEnum, race: RaceEnum): number
     -- First determine how much Agility contributes to the player's total dodge:
@@ -127,33 +151,93 @@ local function getCritFromAgi(agi: number, class: ClassEnum, level: number): num
     return agi * _critPerAgi[level][classId];
 end
 
-function getBonusesString(value: number): string
+local function getAPFromAgi(agi: number, class: ClassEnum): number
+    local apPerAgi: number = 0;
+    if (class == "DRUID" and GetShapeshiftForm() == 2) then -- Cat form
+        apPerAgi = 1;
+    else
+        apPerAgi = _apPerAgi[class];
+    end
+
+    return agi * apPerAgi;
+end
+
+local function getRAPFromAgi(agi: number, class: ClassEnum): number
+    local rapPerAgi: number = _rapPerAgi[class];
+    return agi * rapPerAgi;
+end
+
+local function getArmorFromAgi(agi: number, class: ClassEnum, race: RaceEnum): number
+    local statMod = GetStatMod("MOD_ARMOR", class, race);
+    print("ArmorStatMod is: "..statMod);
+    local armorPerAgi = 2 * statMod;
+    return agi * armorPerAgi;
+end
+
+function getBonusesString(agility: number): string
     local config = loadConfig();
 
-    -- First, make sure the user has anything even enabled:
+    -- First, make sure the user doesn't have everything disabled:
     if (not config["Agility-Dodge"] 
-        and not config["Agility-Crit"]) then
+        and not config["Agility-Crit"]
+        and not config["Agility-AP"]
+        and not config["Agility-RAP"]
+        and not config["Agility-Armor"]) then
         return nil;
-    end
+    end    
+
     local statStrings: {string} = {};
 
     local playerClass = ({UnitClass("player")} as {string, ClassEnum, number})[2];
     local playerRace = ({UnitRace("player")} as {string, RaceEnum, number})[2];
     local playerLevel = UnitLevel("player");
 
+    -- TODO: Make this toggle-able
+    -- Get the amount of agility that +X agility actually grants us
+    local modifiedAgility = agility * GetStatMod("MOD_AGI", playerClass, playerRace);
+    modifiedAgility = math.floor(modifiedAgility);
+
     -- Dodge
     if (config["Agility-Dodge"]) then
-        local dodgeFromAgi = getDodgeFromAgi(value, playerClass, playerRace);
-        local dodgeString = format("%.2f", dodgeFromAgi) .. "% " .. _locale.StatStrings.Dodge;
+        local dodgeFromAgi = getDodgeFromAgi(modifiedAgility, playerClass, playerRace);
+        local dodgeString = format("%.2F", dodgeFromAgi) .. "% " .. _locale.StatStrings.Dodge;
         table.insert(statStrings, dodgeString);
     end    
 
     --Crit
     if (config["Agility-Crit"]) then
-        local critFromAgi = getCritFromAgi(value, playerClass, playerLevel);
+        local critFromAgi = getCritFromAgi(modifiedAgility, playerClass, playerLevel);
         local critString = format("%.2F", critFromAgi) .. "% " .. _locale.StatStrings.Crit;
         table.insert(statStrings, critString);
     end
+
+    -- AP
+    if (config["Agility-AP"]) then
+        local apFromAgi = getAPFromAgi(modifiedAgility, playerClass);
+        if (apFromAgi > 0) then            
+            local apString = format("%.1F", apFromAgi).._locale.StatStrings.AttackPower;
+            table.insert(statStrings, apString);
+        end
+    end
+
+    -- RAP
+    if(config["Agility-RAP"]) then
+        local rapFromAgi = getRAPFromAgi(modifiedAgility, playerClass);
+        if rapFromAgi > 0 then
+            local rapString = format("%.1F", rapFromAgi).._locale.StatStrings.RangedAttackPower;
+            table.insert(statStrings, rapString);
+        end
+    end
+
+    -- Armor
+    if(config["Agility-Armor"]) then
+        local armorFromAgi = getArmorFromAgi(modifiedAgility, playerClass);
+        if (armorFromAgi > 0) then
+            local armorString = format("%.1F ", armorFromAgi).._locale.StatStrings.Armor;
+            table.insert(statStrings, armorString);
+        end
+    end
+
     return table.concat(statStrings, ", ");
 end
 

@@ -204,6 +204,9 @@ end
 global enum LocaleStatKey
     "Dodge"
     "Crit"
+    "AttackPower"
+    "RangedAttackPower"
+    "Armor"
 end
 
 global enum InjectLocation
@@ -258,6 +261,9 @@ global enum ConfigToggle
     "ITEM_MOD_AGILITY"
     "Agility-Dodge"
     "Agility-Crit"
+    "Agility-AP"
+    "Agility-RAP"
+    "Agility-Armor"
 end
 
 global record Config
@@ -279,6 +285,9 @@ global LB_PhysicalExpertiseRatingCheckbox: ConfigCheckButton
 global LB_AgilityCheckbox: ConfigCheckButton
 global LB_AgilityDodgeCheckbox: ConfigCheckButton
 global LB_AgilityCritCheckbox: ConfigCheckButton
+global LB_AgilityAPCheckbox: ConfigCheckButton
+global LB_AgilityRAPCheckbox: ConfigCheckButton
+global LB_AgilityArmorCheckbox: ConfigCheckButton
 
 -- Attributes stuff
 
