@@ -241,7 +241,7 @@
               </Frame>
 
               <Frame name="LB_ConfigPhysicalsContainer">
-                <Size x="575" y="95" />
+                <Size x="575" y="125" />
                 <Anchors>
                   <Anchor x="0" y="-10" point="TOPLEFT" relativeTo="LB_ConfigSpellsContainer" relativePoint="BOTTOMLEFT" />
                 </Anchors>
@@ -307,6 +307,41 @@
                       </OnLoad>
                     </Scripts>
                   </CheckButton>
+
+                </Frames>
+              </Frame>
+
+              <!-- Attribute stuff -->
+              <Frame name="LB_ConfigAttributesContainer">
+                <Size x="575" y="95" />
+                <Anchors>
+                  <Anchor x="0" y="-10" point="TOPLEFT" relativeTo="LB_ConfigPhysicalsContainer" relativePoint="BOTTOMLEFT" />
+                </Anchors>
+                <Frames>
+
+                  <!-- Header -->
+                  <Frame name="LB_ConfigAttributesHeader" inherits="LB_ConfigSubheaderTextFrame">
+                    <Scripts>
+                      <OnLoad>
+                        self.Text:SetText(LB_CONF_STR.AttributesHeader);
+                      </OnLoad>
+                    </Scripts>
+                  </Frame>
+
+                  <!-- Agility -->
+                  <CheckButton name="LB_AgilityCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor x="5" y="-5" point="TOPLEFT" relativeTo="LB_ConfigAttributesHeader" relativePoint="BOTTOMLEFT" />
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.AgilityCheckbox);
+                        self.statKey = "ITEM_MOD_AGILITY";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- TODO: How do we represent each sub-bonus an attribute can give? -->
 
                 </Frames>
               </Frame>

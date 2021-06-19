@@ -75,7 +75,7 @@ local function scanForStat(text: string, statKey: ItemModKey, _: StatType): {num
     local lowercaseText: string = text:lower();
     local discoveredCapture: string = nil; -- A capture will usually contain just a number, but not necessarily.
     local successfulPattern: string = nil;
-
+        
     -- First, try the alternatives we've noted to deal with weird cases where Blizzard-defined keys don't work
     for _, pattern in ipairs(_locale.AlternativePatterns[statKey]) do
         discoveredCapture = string.match(lowercaseText, pattern:lower());
@@ -84,7 +84,7 @@ local function scanForStat(text: string, statKey: ItemModKey, _: StatType): {num
             break
         end
     end
-
+    
     -- If that didn't work, try the short stat phrases that use the Blizzard _SHORT key as a building block.
     if (discoveredCapture == nil) then
         local shortStatKey = ShortStatKeys[statKey];
@@ -164,7 +164,7 @@ local function tryGenerateModifiedLine(text: string, statInfo: StatDetailInfo, i
     local valueEnd = found[2];
     local foundValue = found[3];
     if (not (indicesProcessed[valueStart])) then
-        if (foundValue) then
+        if (foundValue) then            
             if (statInfo.type == "Rating") then
                 statValue = GetEffectFromRating(foundValue, StatKeyToRatingID[statInfo.kind]);
                 if (valueStart and valueEnd and statValue) then

@@ -19,6 +19,7 @@ local _defaultConfig: Config = {
         ["ITEM_MOD_HIT_RANGED_RATING"] = true,
         ["ITEM_MOD_CRIT_MELEE_RATING"] = true,
         ["ITEM_MOD_CRIT_RANGED_RATING"] = true,
+        ["ITEM_MOD_AGILITY"] = true,
     }
 };
 
@@ -44,6 +45,7 @@ local _currentTogglesState: {ItemModKey:boolean} = {
     ["ITEM_MOD_HIT_RANGED_RATING"] = true,
     ["ITEM_MOD_CRIT_MELEE_RATING"] = true,
     ["ITEM_MOD_CRIT_RANGED_RATING"] = true,
+    ["ITEM_MOD_AGILITY"] = true,
 }
 
 global function LB_Config_CheckButtonChanged(_: ConfigCheckButton, statKey: ItemModKey, isChecked: boolean)
@@ -67,6 +69,9 @@ local function drawCurrentState()
     LB_PhysicalCritRatingCheckbox:SetChecked(_currentTogglesState["ITEM_MOD_CRIT_RATING"]);
     LB_PhysicalHasteRatingCheckbox:SetChecked(_currentTogglesState["ITEM_MOD_HASTE_RATING"]);
     LB_PhysicalExpertiseRatingCheckbox:SetChecked(_currentTogglesState["ITEM_MOD_EXPERTISE_RATING"]);
+
+    -- Attributes
+    LB_AgilityCheckbox:SetChecked(_currentTogglesState["ITEM_MOD_AGILITY"]);
 end
 
 local function configFrame_OnRefresh(_: ConfigFrame)
@@ -119,7 +124,7 @@ local function loadCompleted(configFrame: ConfigFrame)
     InterfaceOptions_AddCategory(configFrame);
 end
 
-function LB_ConfigRootFrame_OnEvent(self: ConfigFrame, event: string, ...)
+function LB_ConfigRootFrame_OnEvent(self: ConfigFrame, _: string, ...)
     -- Safe to assume this is ADDON_LOADED, is it's the only even we register for.
     local addonName = ... as string;
     if (addonName == "LittleBuster") then

@@ -1,5 +1,5 @@
 local args = {...} as {string, SharedTable};
-local LB = args[2];
+local LB: SharedTable = args[2];
 
 LB.Attributes = {};
 LB.Attributes.Core = {};
@@ -1418,7 +1418,7 @@ end
 
 -- Gets all current talents and buffs and returns the current modifier for the player
 -- for the given stat for the given class and race.
-local function getStatInfo(stat: AuraModEnum, class: ClassEnum, race: RaceEnum): number
+local function getStatInfo(stat: AuraModEnum, class: ClassEnum, race: RaceEnum): number    
     local statModInfo: StatModAdjustment = _statModInfo[stat];
     local mod = statModInfo.initialValue;    
     -- Class specific mods

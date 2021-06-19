@@ -49,6 +49,7 @@ enUS.AlternativePatterns = {
     ["ITEM_MOD_BLOCK_RATING"] = { "increases your block rating by (%d+)." },
     ["ITEM_MOD_DODGE_RATING"] = { "increases dodge rating by (%d+).", "(%d+) dodge rating" },
     ["ITEM_MOD_PARRY_RATING"] = {},
+    ["ITEM_MOD_AGILITY"] = {},
 }
 
 -- These are tried second.
@@ -78,11 +79,15 @@ enUS.ConfigStrings = {
     PhysicalCritRatingCheckbx = "Display converted Crit rating",
     PhysicalHasteRatingCheckbox = "Display converted Haste rating",
     PhysicalExpertiseRatingCheckbox = "Display converted Expertise rating",
+
+    AttributesHeader = "Attributes",
+    AgilityCheckbox = "Scan for Agility",
+    AgiDodgeCheck = "Display dodge from Agility",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
 enUS.StatStrings = {
-    Dodge = "dodge",
+    Dodge = "Dodge",
 }
 
 LB.LocaleTables["enUS"] = {};

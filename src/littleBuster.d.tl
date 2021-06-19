@@ -75,6 +75,9 @@ end
 global function GetCombatRating(ratingId: number): number
 end
 
+global function UnitStat(unitId: string, statId: number): number
+end
+
 global record FontString
     GetText: function(FontString): string
     SetText: function(FontString, string)
@@ -241,6 +244,7 @@ global LB_PhysicalHitRatingCheckbox: ConfigCheckButton
 global LB_PhysicalCritRatingCheckbox: ConfigCheckButton
 global LB_PhysicalHasteRatingCheckbox: ConfigCheckButton
 global LB_PhysicalExpertiseRatingCheckbox: ConfigCheckButton
+global LB_AgilityCheckbox: ConfigCheckButton
 
 -- Attributes stuff
 
