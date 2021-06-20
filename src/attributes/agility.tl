@@ -14,7 +14,7 @@ local function loadConfig(): {ConfigToggle: boolean}
             _config = LB.Config.DisplayToggles;
             return _config;
         else 
-            return nil; -- Addon isn't done laoding yet, and Config isn't populated
+            return nil; -- Addon isn't done loading yet, and Config isn't populated
         end
     end
 end
@@ -169,13 +169,15 @@ end
 
 local function getArmorFromAgi(agi: number, class: ClassEnum, race: RaceEnum): number
     local statMod = GetStatMod("MOD_ARMOR", class, race);
-    print("ArmorStatMod is: "..statMod);
     local armorPerAgi = 2 * statMod;
     return agi * armorPerAgi;
 end
 
 function getBonusesString(agility: number): string
     local config = loadConfig();
+    if (not config) then
+        return nil;
+    end
 
     -- First, make sure the user doesn't have everything disabled:
     if (not config["Agility-Dodge"] 
