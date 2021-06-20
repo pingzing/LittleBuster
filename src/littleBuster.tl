@@ -144,33 +144,6 @@ local function scanForStat(text: string, statKey: ItemModKey, _: StatType): Stat
     return nil;
 end
 
--- Take all the conversion data we found in the tooltip, and use it generate
--- rewritten tooltip lines.
-local function modifyLines(statsFound: {number:LineData}): {number:string}
-    local modifiedLines = {};
-    for lineNum, lineData in pairs(statsFound) do
-        -- Because we're mutating the line, all the indices will be off once we start changing it.
-        -- Track how much we've changed it with this offset.
-        local indexOffset = 0;
-        local currentLine = lineData.originalText;
-        -- Sort lineData.modifications so that we mutate stats in the order they appear        
-        table.sort(lineData.modifications, function(modA: LineModInfo, modB: LineModInfo): boolean
-            return modA.startIndex < modB.startIndex;
-        end)
-        for _, statData in ipairs(lineData.modifications) do
-            local prevLen = currentLine:len();
-            currentLine = currentLine:sub(1, statData.endIndex - 1 + indexOffset) ..
-                              statData.formattedString ..
-                              currentLine:sub(statData.endIndex + indexOffset);
-            local lenDiff = currentLine:len() - prevLen;
-            indexOffset = indexOffset + lenDiff;
-        end
-        modifiedLines[lineNum] = currentLine;
-    end
-
-    return modifiedLines;
-end
-
 -- Take a tooltip's text and see if we can find the given stat. If we do,
 -- we'll return its indices, and a formatted string the caller can insert wherever it likes.
 local function tryGenerateModifiedLine(text: string, statInfo: StatDetailInfo, indicesProcessed: {number:boolean}): {number, number, string}
@@ -210,6 +183,33 @@ local function tryGenerateModifiedLine(text: string, statInfo: StatDetailInfo, i
     end
 
     return {nil, nil, nil};
+end
+
+-- Take all the conversion data we found in the tooltip, and use it generate
+-- rewritten tooltip lines.
+local function modifyLines(statsFound: {number:LineData}): {number:string}
+    local modifiedLines = {};
+    for lineNum, lineData in pairs(statsFound) do
+        -- Because we're mutating the line, all the indices will be off once we start changing it.
+        -- Track how much we've changed it with this offset.
+        local indexOffset = 0;
+        local currentLine = lineData.originalText;
+        -- Sort lineData.modifications so that we mutate stats in the order they appear        
+        table.sort(lineData.modifications, function(modA: LineModInfo, modB: LineModInfo): boolean
+            return modA.startIndex < modB.startIndex;
+        end)
+        for _, statData in ipairs(lineData.modifications) do
+            local prevLen = currentLine:len();
+            currentLine = currentLine:sub(1, statData.endIndex - 1 + indexOffset) ..
+                              statData.formattedString ..
+                              currentLine:sub(statData.endIndex + indexOffset);
+            local lenDiff = currentLine:len() - prevLen;
+            indexOffset = indexOffset + lenDiff;
+        end
+        modifiedLines[lineNum] = currentLine;
+    end
+
+    return modifiedLines;
 end
 
 local function generateModifiedTooltipLines(tooltip: Tooltip): {number:string}

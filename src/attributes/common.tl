@@ -1401,7 +1401,8 @@ local function adjustStatModifier(statModInfo: StatModAdjustment, race: RaceEnum
             local rank: number;
              -- If we're looking at a talent:
              if case.tab and case.num then
-                rank = GetTalentInfo(case.tab, case.num)[5];
+                local talentInfo = {GetTalentInfo(case.tab, case.num)} as {string, number, number, number, number, number, number, number};
+                rank = talentInfo[5];
             -- No talent, but we have a buff:
             elseif case.buff then
                 rank = getPlayerBuffRank(buffName);
@@ -1418,7 +1419,7 @@ local function adjustStatModifier(statModInfo: StatModAdjustment, race: RaceEnum
             end
         end
     end
-
+    
     return modifier;
 end
 

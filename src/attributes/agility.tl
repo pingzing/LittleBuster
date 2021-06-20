@@ -167,10 +167,8 @@ local function getRAPFromAgi(agi: number, class: ClassEnum): number
     return agi * rapPerAgi;
 end
 
-local function getArmorFromAgi(agi: number, class: ClassEnum, race: RaceEnum): number
-    local statMod = GetStatMod("MOD_ARMOR", class, race);
-    local armorPerAgi = 2 * statMod;
-    return agi * armorPerAgi;
+local function getArmorFromAgi(agi: number): number
+    return agi * 2; -- Armor from agi doesn't seem to be affected by +Armor% modifiers.
 end
 
 function getBonusesString(agility: number): string
@@ -233,7 +231,7 @@ function getBonusesString(agility: number): string
 
     -- Armor
     if(config["Agility-Armor"]) then
-        local armorFromAgi = getArmorFromAgi(modifiedAgility, playerClass);
+        local armorFromAgi = getArmorFromAgi(modifiedAgility);
         if (armorFromAgi > 0) then
             local armorString = format("%.1F ", armorFromAgi).._locale.StatStrings.Armor;
             table.insert(statStrings, armorString);
