@@ -178,6 +178,7 @@ local function tryGenerateModifiedLine(text: string, statInfo: StatDetailInfo, i
     -- Parse the stat value and its location out of the tooltip line.
     local found = scanForStat(text, statInfo.kind, statInfo.type);
     if (found and not (indicesProcessed[found.valueStart]) and found.valueFound) then
+        -- Ratings and attributes get treated differently, as ratings only ever map to one thing
         if (statInfo.type == "Rating") then
             statValue = GetEffectFromRating(found.valueFound, StatKeyToRatingID[statInfo.kind]);
             if (found.valueStart and found.valueEnd and statValue) then
@@ -191,6 +192,7 @@ local function tryGenerateModifiedLine(text: string, statInfo: StatDetailInfo, i
                     return {found.patternStart, found.patternEnd, formattedValue};
                 end
             end
+        -- Whereas attributes can map to many things
         elseif (statInfo.type == "Attribute") then
             local attributeTable = LB.Attributes.GetAttributeTable(statInfo.kind);
             local bonuses = attributeTable.GetBonusesString(found.valueFound);
