@@ -1,4 +1,18 @@
 |||||||||||||
+||| 1.9.0 ||| 2021-06-20
+|||||||||||||
+
++ First pass at attribute -> stat conversion. Currently only handles Agility. Agility is broken down into:
+    - Bonuses to Dodge
+    - Bonuses to Crit
+    - Bonuses to AP
+    - Bonuses to RAP
+    - Bonuses to Armor
+  Each of these can be individually toggled from the options menu under Settings -> Interface -> Addons -> Little Buster. 
+  Note that none of the new attribute functionality has been localized, and will display in English for all locales.
++ Minor fixes to Chinese (zhCN) localization.
+
+|||||||||||||
 ||| 1.8.0 ||| 2021-06-14
 |||||||||||||
 
