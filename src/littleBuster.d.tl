@@ -267,6 +267,7 @@ global enum ConfigToggle
 end
 
 global record Config
+    ConfigVersion: number
     DisplayToggles: {ConfigToggle:boolean}
 end
 

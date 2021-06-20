@@ -112,7 +112,7 @@ local _apPerAgi: {ClassEnum:number} = {
 
 local _rapPerAgi: {ClassEnum:number} = {
     ["WARRIOR"] = 1,
-    ["PALADIN"] = 1,
+    ["PALADIN"] = 0,
     ["HUNTER"] = 1,
     ["ROGUE"] = 1,
     ["PRIEST"] = 0,

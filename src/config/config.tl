@@ -3,6 +3,7 @@ local LB: SharedTable = args[2];
 
 local _locale = LB.GetLocaleTable(GetLocale());
 local _defaultConfig: Config = {
+    ConfigVersion = 1.9,
     DisplayToggles = {
         ["ITEM_MOD_DEFENSE_SKILL_RATING"] = true,
         ["ITEM_MOD_DODGE_RATING"] = true,
@@ -86,6 +87,8 @@ local function drawCurrentState()
     LB_AgilityCritCheckbox:SetEnabled(agilityChecked);
     LB_AgilityAPCheckbox:SetChecked(_currentTogglesState["Agility-AP"]);
     LB_AgilityAPCheckbox:SetEnabled(agilityChecked);
+    LB_AgilityRAPCheckbox:SetChecked(_currentTogglesState["Agility-RAP"]);
+    LB_AgilityRAPCheckbox:SetEnabled(agilityChecked);
     LB_AgilityArmorCheckbox:SetChecked(_currentTogglesState["Agility-Armor"]);
     LB_AgilityArmorCheckbox:SetEnabled(agilityChecked);
 
@@ -141,7 +144,15 @@ local function loadCompleted(configFrame: ConfigFrame)
     if (not LB_Config) then        
         LB_Config = _defaultConfig;
     end
+
     --Run through each of the default values. If we have a key that doesn't exist in LB.Config, set it to the default
+    -- Top-level keys
+    for k,v in pairs(_defaultConfig as {string:any}) do 
+        if (LB_Config as {string:any})[k] == nil then
+            (LB_Config as {string:any})[k] = v;
+        end
+    end
+    -- Display Toggles
     for k,v in pairs(_defaultConfig.DisplayToggles) do
         if LB_Config.DisplayToggles[k] == nil then
             LB_Config.DisplayToggles[k] = v;
