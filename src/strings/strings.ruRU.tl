@@ -75,7 +75,8 @@ ruRU.AlternativePatterns = {
         {pattern = "рейтинга парирования атак на (%d+) ед.", location = "AfterValue"},
     },
     ["ITEM_MOD_AGILITY"] = {
-        { pattern = "+(%d+) к ловкости", location = "PatternEnd" }
+        { pattern = "+(%d+) к ловкости", location = "PatternEnd" },
+        { pattern = "ловкости на (%d+)", location = "AfterValue" }
     },
 
 };
