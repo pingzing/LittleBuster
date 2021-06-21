@@ -53,7 +53,10 @@ esMX.AlternativePatterns = {
     },
     ["ITEM_MOD_DODGE_RATING"] = {},
     ["ITEM_MOD_PARRY_RATING"] = {},
-    ["ITEM_MOD_AGILITY"] = {},
+    ["ITEM_MOD_AGILITY"] = {
+        { pattern = "+(%d+) agilidad", location = "PatternEnd" },
+        { pattern = "(%d+) p. la agilidad", location = "AfterValue" }
+    },
 
 };
 

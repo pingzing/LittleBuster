@@ -21,7 +21,9 @@ deDE.AlternativePatterns = {
     ["ITEM_MOD_DODGE_RATING"] = {},
     ["ITEM_MOD_PARRY_RATING"] = {},
     ["ITEM_MOD_AGILITY"] = {
-        { pattern = "+(%d+) beweglichkeit", location = "PatternEnd" }
+        { pattern = "+(%d+) beweglichkeit", location = "PatternEnd" },
+        { pattern = "beweglichkeit um (%d+)", location = "AfterValue" },
+        { pattern = "beweglichkeit .+ um (%d+)", location = "AfterValue" },
     },
 };
 
