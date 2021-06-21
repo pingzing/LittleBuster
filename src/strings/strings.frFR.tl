@@ -38,7 +38,10 @@ frFR.AlternativePatterns = {
         {pattern = "(%d+) au score d'esquive", location="AfterValue"},
     },
     ["ITEM_MOD_PARRY_RATING"] = {},
-    ["ITEM_MOD_AGILITY"] = {},
+    ["ITEM_MOD_AGILITY"] = {
+        { pattern = "+(%d+) agilité", location = "PatternEnd" },
+        { pattern = "l'agilité de (%d+)", location = "AfterValue" },
+    },
 };
 
 -- These are tried second.
