@@ -27,7 +27,10 @@ ptBR.AlternativePatterns = {
     ["ITEM_MOD_BLOCK_RATING"] = {},
     ["ITEM_MOD_DODGE_RATING"] = {},
     ["ITEM_MOD_PARRY_RATING"] = {},
-    ["ITEM_MOD_AGILITY"] = {},
+    ["ITEM_MOD_AGILITY"] = {
+        { pattern = "+(%d+) agilidade", location = "PatternEnd" },
+        { pattern = "(%d+) a agilidade", location = "AfterValue" },
+    },
 }
 
 -- These are tried second.
