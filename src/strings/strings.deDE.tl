@@ -20,7 +20,9 @@ deDE.AlternativePatterns = {
     ["ITEM_MOD_BLOCK_RATING"] = {},
     ["ITEM_MOD_DODGE_RATING"] = {},
     ["ITEM_MOD_PARRY_RATING"] = {},
-    ["ITEM_MOD_AGILITY"] = {},
+    ["ITEM_MOD_AGILITY"] = {
+        { pattern = "+(%d+) beweglichkeit", location = "PatternEnd" }
+    },
 };
 
 -- Because the German short stat strings are never used directly--just their conjugated forms x.x
@@ -40,7 +42,7 @@ local conjugatedShortStats: {string:string} = {
     ["ITEM_MOD_BLOCK_RATING"] = "block",
     ["ITEM_MOD_DODGE_RATING"] = "ausweich",
     ["ITEM_MOD_PARRY_RATING"] = "parier",
-    ["ITEM_MOD_AGILITY"] = "",
+    ["ITEM_MOD_AGILITY"] = "beweglichkeit",
 }
 
 -- These are tried second.

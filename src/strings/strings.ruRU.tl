@@ -74,7 +74,9 @@ ruRU.AlternativePatterns = {
         {pattern = "+(%d+) к рейтингу парирования", location = "AfterValue"},
         {pattern = "рейтинга парирования атак на (%d+) ед.", location = "AfterValue"},
     },
-    ["ITEM_MOD_AGILITY"] = {},
+    ["ITEM_MOD_AGILITY"] = {
+        { pattern = "+(%d+) к ловкости", location = "PatternEnd" }
+    },
 
 };
 
@@ -95,7 +97,7 @@ local conjugatedShortStats: {string:string} = {
     ["ITEM_MOD_BLOCK_RATING"] = "блока",
     ["ITEM_MOD_DODGE_RATING"] = "уклонения",
     ["ITEM_MOD_PARRY_RATING"] = "парирования",
-    ["ITEM_MOD_AGILITY"] = "",
+    ["ITEM_MOD_AGILITY"] = "ловкости",
 }
 
 -- These are tried second.
