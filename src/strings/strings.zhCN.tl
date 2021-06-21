@@ -68,7 +68,10 @@ zhCN.AlternativePatterns = {
         {pattern = "(%d+) 躲闪等级", location="AfterValue"},
     },
     ["ITEM_MOD_PARRY_RATING"] = {},
-    ["ITEM_MOD_AGILITY"] = {},
+    ["ITEM_MOD_AGILITY"] = {
+        { pattern = "+(%d+) 敏捷", location = "PatternEnd" },
+        { pattern = "敏捷.+(%d+)点", location = "AfterValue"  },
+    },
 }
 
 -- These are tried second.
