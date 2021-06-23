@@ -137,16 +137,16 @@ ruRU.ConfigStrings ={
     AgiDodgeCheck = "бонус к уклонению",
     AgiCritCheck = "бонус к критическому попаданию",
     AgiArmorCheck = "бонус к броне",
-    AgiAPCheck = "бонус к силе атаки (СА)",
-    AgiRAPCheck = "бонус к силе атаки дальнего боя (САДБ)",
+    AgiAPCheck = "бонус к силе атаки (AP)",
+    AgiRAPCheck = "бонус к силе атаки дальнего боя (RAP)",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
 ruRU.StatStrings = {
     Dodge = "уклон.",
     Crit = "крит.",
-    AttackPower = "СА",
-    RangedAttackPower = "САДБ",
+    AttackPower = "AP", -- use english well-established abbreviation for AttackPower
+    RangedAttackPower = "RAP", -- and for RangedAttackPower
     Armor = "брони",
 }
 
