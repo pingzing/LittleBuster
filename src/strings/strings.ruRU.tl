@@ -132,22 +132,22 @@ ruRU.ConfigStrings ={
     PhysicalHasteRatingCheckbox = "Конвертировать рейтинг скорости",
     PhysicalExpertiseRatingCheckbox = "Конвертировать рейтинг мастерства",
 
-    AttributesHeader = "Attributes",
-    AgilityCheckbox = "Scan for Agility and...",
-    AgiDodgeCheck = "...display Dodge bonus",
-    AgiCritCheck = "...display Crit bonus",
-    AgiArmorCheck = "...display Armor bonus",
-    AgiAPCheck = "...display Attack Power bonus",
-    AgiRAPCheck = "...display Ranged Attack Power bonus",
+    AttributesHeader = "Характеристики",
+    AgilityCheckbox = "Конвертировать ловкость",
+    AgiDodgeCheck = "бонус к уклонению",
+    AgiCritCheck = "бонус к критическому попаданию",
+    AgiArmorCheck = "бонус к броне",
+    AgiAPCheck = "бонус к силе атаки (AP)",
+    AgiRAPCheck = "бонус к силе атаки дальнего боя (RAP)",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
 ruRU.StatStrings = {
-    Dodge = "Dodge",
-    Crit = "Crit",
-    AttackPower = "AP",
-    RangedAttackPower = "RAP",
-    Armor = "Armor",
+    Dodge = "уклон.",
+    Crit = "крит.",
+    AttackPower = "AP", -- use english well-established abbreviation for AttackPower
+    RangedAttackPower = "RAP", -- and for RangedAttackPower
+    Armor = "брони",
 }
 
 LB.LocaleTables["ruRU"] = {};

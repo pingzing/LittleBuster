@@ -215,7 +215,7 @@ function getBonusesString(agility: number): string
     if (config["Agility-AP"]) then
         local apFromAgi = getAPFromAgi(modifiedAgility, playerClass);
         if (apFromAgi > 0) then            
-            local apString = format("%.1F", apFromAgi) .. " " .. _locale.StatStrings.AttackPower;
+            local apString = format("%u", apFromAgi) .. " " .. _locale.StatStrings.AttackPower;
             table.insert(statStrings, apString);
         end
     end
@@ -224,7 +224,7 @@ function getBonusesString(agility: number): string
     if(config["Agility-RAP"]) then
         local rapFromAgi = getRAPFromAgi(modifiedAgility, playerClass);
         if rapFromAgi > 0 then
-            local rapString = format("%.1F", rapFromAgi).. " " .. _locale.StatStrings.RangedAttackPower;
+            local rapString = format("%u", rapFromAgi).. " " .. _locale.StatStrings.RangedAttackPower;
             table.insert(statStrings, rapString);
         end
     end
@@ -233,7 +233,7 @@ function getBonusesString(agility: number): string
     if(config["Agility-Armor"]) then
         local armorFromAgi = getArmorFromAgi(modifiedAgility);
         if (armorFromAgi > 0) then
-            local armorString = format("%.1F ", armorFromAgi).._locale.StatStrings.Armor;
+            local armorString = format("%u ", armorFromAgi).._locale.StatStrings.Armor;
             table.insert(statStrings, armorString);
         end
     end
