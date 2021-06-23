@@ -28,7 +28,7 @@ end
 global function getfenv(_: number): {string:any}
 end
 
-global function loadstring(luaCode: string, chunkName: string | nil): {function, string}
+global function loadstring(_luaCode: string, _chunkName: string | nil): {function, string}
 end
 
 global record AuraUtil
@@ -44,38 +44,38 @@ end
 global function GetDodgeChance(): number
 end
 
-global function UnitDefense(unit: string): {number, number};
+global function UnitDefense(_unit: string): {number, number};
 end
 
 global function GetLocale(): string
 end
 
 -- Returns `name` (localized), `rank`, `icon` (file ID), `castTime`, `minRange`, `maxRange`, `spellId`
-global function GetSpellInfo(spellId: number) : {string, number, number, number, number, number, number}
+global function GetSpellInfo(_spellId: number) : {string, number, number, number, number, number, number}
 end
 
-global function GetShapeshiftForm(flag: boolean | nil) : number
+global function GetShapeshiftForm(_flag: boolean | nil) : number
 end
 
-global function GetShapeshiftFormInfo(index: number): {string, number, number, number}
+global function GetShapeshiftFormInfo(_index: number): {string, number, number, number}
 end
 
-global function GetSpellSubtext(spellId: number): string
+global function GetSpellSubtext(_spellId: number): string
 end
 
-global function GetTalentInfo(tabIndex: number, talentIndex: number): {string, number, number, number, number, number, number, number}
+global function GetTalentInfo(_tabIndex: number, _talentIndex: number): {string, number, number, number, number, number, number, number}
 end
 
-global function UnitClass(unitId: string): {string, ClassEnum, number}
+global function UnitClass(_unitId: string): {string, ClassEnum, number}
 end
 
-global function UnitRace(unitId: string): {string, RaceEnum, number}
+global function UnitRace(_unitId: string): {string, RaceEnum, number}
 end
 
-global function GetCombatRating(ratingId: number): number
+global function GetCombatRating(_ratingId: number): number
 end
 
-global function UnitStat(unitId: string, statId: number): number
+global function UnitStat(_unitId: string, _statId: number): number
 end
 
 global record FontString
@@ -165,6 +165,7 @@ global enum ItemModKey
     "ITEM_MOD_DODGE_RATING"
     "ITEM_MOD_PARRY_RATING"
     "ITEM_MOD_AGILITY"
+    "ITEM_MOD_INTELLECT"
 end
 
 global enum AuraModEnum
@@ -207,6 +208,12 @@ global enum LocaleStatKey
     "AttackPower"
     "RangedAttackPower"
     "Armor"
+
+    "Mana"
+    "SpellCrit"
+    "SpellDamage"
+    "Healing"
+    "ManaRegen"
 end
 
 global enum InjectLocation
@@ -264,6 +271,14 @@ global enum ConfigToggle
     "Agility-AP"
     "Agility-RAP"
     "Agility-Armor"
+    "ITEM_MOD_INTELLECT"
+    "Intellect-Mana"
+    "Intellect-SpellCrit"
+    "Intellect-SpellDamage" -- from talents
+    "Intellect-Healing" -- from talents
+    "Intellect-ManaRegen" -- from talents
+    "Intellect-RangedAP" -- from talents (yes, really)
+    "Intellect-Armor" -- from talents (mages, amirite?)
 end
 
 global record Config
@@ -283,12 +298,19 @@ global LB_PhysicalHitRatingCheckbox: ConfigCheckButton
 global LB_PhysicalCritRatingCheckbox: ConfigCheckButton
 global LB_PhysicalHasteRatingCheckbox: ConfigCheckButton
 global LB_PhysicalExpertiseRatingCheckbox: ConfigCheckButton
+-- Agility
 global LB_AgilityCheckbox: ConfigCheckButton
 global LB_AgilityDodgeCheckbox: ConfigCheckButton
 global LB_AgilityCritCheckbox: ConfigCheckButton
 global LB_AgilityAPCheckbox: ConfigCheckButton
 global LB_AgilityRAPCheckbox: ConfigCheckButton
 global LB_AgilityArmorCheckbox: ConfigCheckButton
+-- Intellect
+global LB_IntellectCheckbox: ConfigCheckButton
+global LB_IntellectManaCheckbox: ConfigCheckButton
+global LB_IntellectSpellCritCheckbox: ConfigCheckButton
+global LB_IntellectSpellDamageCheckbox: ConfigCheckButton
+global LB_IntellectHealingCheckbox: ConfigCheckButton
 
 -- Attributes stuff
 
@@ -309,6 +331,7 @@ global record StatModDetails
 end
 
 global record CoreAttributeTable
+    LoadConfig: function(): {ConfigToggle : boolean}
     GetStatMod: function(stat: AuraModEnum, class: ClassEnum, race: RaceEnum): number
     GetBaseDodge: function(class: ClassEnum): number
 end
@@ -320,6 +343,7 @@ end
 global record Attributes
     Core: CoreAttributeTable
     Agility: AttributeTable
+    Intellect: AttributeTable
     GetAttributeTable: function(ItemModKey): AttributeTable
 end
 

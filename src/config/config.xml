@@ -95,7 +95,7 @@
         <!-- The frame hosted by the ScrollFrame -->
         <ScrollChild>
           <Frame name="LB_ConfigScrollChild">
-            <Size x="585" y="585" />
+            <Size x="585" y="626" />
             <Frames>
 
               <!-- Addon title, etc -->
@@ -313,7 +313,7 @@
 
               <!-- Attribute stuff -->
               <Frame name="LB_ConfigAttributesContainer">
-                <Size x="575" y="175" />
+                <Size x="575" y="296" />
                 <Anchors>
                   <Anchor x="0" y="-10" point="TOPLEFT" relativeTo="LB_ConfigPhysicalsContainer" relativePoint="BOTTOMLEFT" />
                 </Anchors>
@@ -344,7 +344,7 @@
                   <!-- Agility - Dodge -->
                   <CheckButton name = "LB_AgilityDodgeCheckbox" inherits="LB_ConfigCheckButtonBase">
                     <Anchors>
-                      <Anchor point="TOPLEFT" x="15" relativeTo="LB_AgilityCheckbox" relativePoint="BOTTOMLEFT"/>
+                      <Anchor x="15" point="TOPLEFT" relativeTo="LB_AgilityCheckbox" relativePoint="BOTTOMLEFT"/>
                     </Anchors>
                     <Scripts>
                       <OnLoad>
@@ -405,6 +405,71 @@
                       </OnLoad>
                     </Scripts>
                   </CheckButton>
+
+                  <!-- Intellect -->
+                  <CheckButton name="LB_IntellectCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor x="-15" y="0" point="TOPLEFT" relativeTo="LB_AgilityArmorCheckbox" relativePoint="BOTTOMLEFT" />
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectCheckbox);
+                        self.statKey = "ITEM_MOD_INTELLECT";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                <!-- Intellect - Mana -->
+                <CheckButton name = "LB_IntellectManaCheckbox" inherits="LB_ConfigCheckButtonBase">
+                  <Anchors>
+                    <Anchor x="15" point="TOPLEFT" relativeTo="LB_IntellectCheckbox" relativePoint="BOTTOMLEFT"/>
+                  </Anchors>
+                  <Scripts>
+                    <OnLoad>
+                      _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectManaCheckbox);
+                      self.statKey="Intellect-Mana";
+                    </OnLoad>
+                  </Scripts>
+                </CheckButton>
+
+                <!-- Intellect - Spell Crit -->
+                <CheckButton name = "LB_IntellectSpellCritCheckbox" inherits="LB_ConfigCheckButtonBase">
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="LB_IntellectManaCheckbox" relativePoint="BOTTOMLEFT"/>
+                  </Anchors>
+                  <Scripts>
+                    <OnLoad>
+                      _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectSpellCritCheckbox);
+                      self.statKey="Intellect-SpellCrit";
+                    </OnLoad>
+                  </Scripts>
+                </CheckButton>
+
+                <!-- Intellect - Spell Crit -->
+                <CheckButton name = "LB_IntellectSpellDamageCheckbox" inherits="LB_ConfigCheckButtonBase">
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="LB_IntellectSpellCritCheckbox" relativePoint="BOTTOMLEFT"/>
+                  </Anchors>
+                  <Scripts>
+                    <OnLoad>
+                      _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectSpellDamageCheckbox);
+                      self.statKey="Intellect-SpellDamage";
+                    </OnLoad>
+                  </Scripts>
+                </CheckButton>
+
+                <!-- Intellect - Healing -->
+                <CheckButton name = "LB_IntellectHealingCheckbox" inherits="LB_ConfigCheckButtonBase">
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="LB_IntellectSpellDamageCheckbox" relativePoint="BOTTOMLEFT"/>
+                  </Anchors>
+                  <Scripts>
+                    <OnLoad>
+                      _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectHealingCheckbox);
+                      self.statKey="Intellect-Healing";
+                    </OnLoad>
+                  </Scripts>
+                </CheckButton>
 
                 </Frames>
               </Frame>

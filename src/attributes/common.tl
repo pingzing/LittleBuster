@@ -4,6 +4,7 @@ local LB: SharedTable = args[2];
 LB.Attributes = {};
 LB.Attributes.Core = {};
 LB.Attributes.Agility = {};
+LB.Attributes.Intellect = {};
 
 -- Many of the calculations and code in here courtesy of the original RatingBuster, and Whitetooth@Cenarius(US).
 
@@ -1423,9 +1424,24 @@ local function adjustStatModifier(statModInfo: StatModAdjustment, race: RaceEnum
     return modifier;
 end
 
+local _config: {ConfigToggle : boolean};
+local function loadConfig(): {ConfigToggle: boolean}
+    if (_config) then
+        return _config;
+    else
+        if (LB.Config) then
+            _config = LB.Config.DisplayToggles;
+            return _config;
+        else 
+            return nil; -- Addon isn't done loading yet, and Config isn't populated
+        end
+    end
+end
+LB.Attributes.Core.LoadConfig = loadConfig;
+
 -- Gets all current talents and buffs and returns the current modifier for the player
 -- for the given stat for the given class and race.
-local function getStatInfo(stat: AuraModEnum, class: ClassEnum, race: RaceEnum): number    
+local function getStatMod(stat: AuraModEnum, class: ClassEnum, race: RaceEnum): number    
     local statModInfo: StatModAdjustment = _statModInfo[stat];
     local mod = statModInfo.initialValue;    
     -- Class specific mods
@@ -1441,15 +1457,19 @@ local function getStatInfo(stat: AuraModEnum, class: ClassEnum, race: RaceEnum):
 
     return mod + statModInfo.finalAdjust
 end
-LB.Attributes.Core.GetStatMod = getStatInfo;
+LB.Attributes.Core.GetStatMod = getStatMod;
 
 local function getBaseDodge(class: ClassEnum): number
     return _classBaseDodge[class];
 end
 LB.Attributes.Core.GetBaseDodge = getBaseDodge;
 
-LB.Attributes.GetAttributeTable = function(stat: ItemModKey): AttributeTable
+local function getAttributeTable(stat: ItemModKey): AttributeTable
     if stat == "ITEM_MOD_AGILITY" then
         return LB.Attributes.Agility;
     end
+    if stat == "ITEM_MOD_INTELLECT" then
+        return LB.Attributes.Intellect;
+    end
 end
+LB.Attributes.GetAttributeTable = getAttributeTable;

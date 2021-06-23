@@ -25,6 +25,14 @@ local _defaultConfig: Config = {
         ["Agility-AP"] = false,
         ["Agility-RAP"] = false,
         ["Agility-Armor"] = false,
+        ["ITEM_MOD_INTELLECT"] = true,
+        ["Intellect-Mana"] = true,
+        ["Intellect-SpellCrit"] = true,
+        ["Intellect-SpellDamage"] = false,
+        ["Intellect-Healing"] = false,
+        ["Intellect-ManaRegen"] = false,
+        ["Intellect-RangedAP"] = false,
+        ["Intellect-Armor"] = false,
     }
 };
 
@@ -56,6 +64,14 @@ local _currentTogglesState: {ConfigToggle:boolean} = {
     ["Agility-AP"] = false,
     ["Agility-RAP"] = false,
     ["Agility-Armor"] = false,
+    ["ITEM_MOD_INTELLECT"] = true,
+    ["Intellect-Mana"] = true,
+    ["Intellect-SpellCrit"] = true,
+    ["Intellect-SpellDamage"] = false,
+    ["Intellect-Healing"] = false,
+    ["Intellect-ManaRegen"] = false,
+    ["Intellect-RangedAP"] = false,
+    ["Intellect-Armor"] = false,
 };
 
 local function drawCurrentState()
@@ -91,6 +107,17 @@ local function drawCurrentState()
     LB_AgilityRAPCheckbox:SetEnabled(agilityChecked);
     LB_AgilityArmorCheckbox:SetChecked(_currentTogglesState["Agility-Armor"]);
     LB_AgilityArmorCheckbox:SetEnabled(agilityChecked);
+
+    ---- Intellect
+    LB_IntellectCheckbox:SetChecked(_currentTogglesState["ITEM_MOD_INTELLECT"]);
+    local intellectChecked = LB_IntellectCheckbox:GetChecked();
+    ---- Intellect sub-items
+    LB_IntellectManaCheckbox:SetChecked(_currentTogglesState["Intellect-Mana"]);
+    LB_IntellectManaCheckbox:SetEnabled(intellectChecked);
+    LB_IntellectSpellCritCheckbox:SetChecked(_currentTogglesState["Intellect-SpellCrit"]);
+    LB_IntellectSpellCritCheckbox:SetEnabled(intellectChecked);
+    LB_IntellectSpellDamageCheckbox:SetChecked(_currentTogglesState["Intellect-SpellDamage"]);
+    LB_IntellectSpellDamageCheckbox:SetEnabled(intellectChecked);
 
 end
 

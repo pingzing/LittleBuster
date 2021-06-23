@@ -21,6 +21,7 @@ LB.StatDetails = {
     [14] = { kind = "ITEM_MOD_DODGE_RATING", type = "Rating" },
     [15] = { kind = "ITEM_MOD_PARRY_RATING", type = "Rating" },
     [16] = { kind = "ITEM_MOD_AGILITY", type = "Attribute" },
+    [17] = { kind = "ITEM_MOD_INTELLECT", type = "Attribute" },
 };
 
 LB.ShortStatKeys = {
@@ -40,6 +41,7 @@ LB.ShortStatKeys = {
     ["ITEM_MOD_DODGE_RATING"] = "ITEM_MOD_DODGE_RATING_SHORT",
     ["ITEM_MOD_PARRY_RATING"] = "ITEM_MOD_PARRY_RATING_SHORT",
     ["ITEM_MOD_AGILITY"] = "ITEM_MOD_AGILITY_SHORT",
+    ["ITEM_MOD_INTELLECT"] = "ITEM_MOD_INTELLECT_SHORT",
 };
 
 -- Used for ratings only, to look up the key to pass to GetEffectFromRating().

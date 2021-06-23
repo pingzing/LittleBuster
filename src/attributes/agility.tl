@@ -1,23 +1,9 @@
 local args = {...} as {string, SharedTable};
 local LB: SharedTable = args[2];
-local _config: {ConfigToggle: boolean} = nil;
 local _locale = LB.GetLocaleTable(GetLocale());
 
 local GetStatMod = LB.Attributes.Core.GetStatMod;
 local GetBaseDodge = LB.Attributes.Core.GetBaseDodge;
-
-local function loadConfig(): {ConfigToggle: boolean}
-    if (_config) then
-        return _config;
-    else
-        if (LB.Config) then
-            _config = LB.Config.DisplayToggles;
-            return _config;
-        else 
-            return nil; -- Addon isn't done loading yet, and Config isn't populated
-        end
-    end
-end
 
 -- Many of the calculations, tables, values, etc, in here courtesy of StatLogic, and Whitetooth@Cenarius(US).
 
@@ -171,8 +157,9 @@ local function getArmorFromAgi(agi: number): number
     return agi * 2; -- Armor from agi doesn't seem to be affected by +Armor% modifiers.
 end
 
+-- TODO: Maybe, MAYBE also break down derived-stats, I.E. healing/SP gained from AP which Agility grants
 function getBonusesString(agility: number): string
-    local config = loadConfig();
+    local config = LB.Attributes.Core.LoadConfig();
     if (not config) then
         return nil;
     end
@@ -215,7 +202,7 @@ function getBonusesString(agility: number): string
     if (config["Agility-AP"]) then
         local apFromAgi = getAPFromAgi(modifiedAgility, playerClass);
         if (apFromAgi > 0) then            
-            local apString = format("%u", apFromAgi) .. " " .. _locale.StatStrings.AttackPower;
+            local apString = format("%d", apFromAgi) .. " " .. _locale.StatStrings.AttackPower;
             table.insert(statStrings, apString);
         end
     end
@@ -224,7 +211,7 @@ function getBonusesString(agility: number): string
     if(config["Agility-RAP"]) then
         local rapFromAgi = getRAPFromAgi(modifiedAgility, playerClass);
         if rapFromAgi > 0 then
-            local rapString = format("%u", rapFromAgi).. " " .. _locale.StatStrings.RangedAttackPower;
+            local rapString = format("%d", rapFromAgi).. " " .. _locale.StatStrings.RangedAttackPower;
             table.insert(statStrings, rapString);
         end
     end
@@ -233,7 +220,7 @@ function getBonusesString(agility: number): string
     if(config["Agility-Armor"]) then
         local armorFromAgi = getArmorFromAgi(modifiedAgility);
         if (armorFromAgi > 0) then
-            local armorString = format("%u ", armorFromAgi).._locale.StatStrings.Armor;
+            local armorString = format("%d ", armorFromAgi).._locale.StatStrings.Armor;
             table.insert(statStrings, armorString);
         end
     end
