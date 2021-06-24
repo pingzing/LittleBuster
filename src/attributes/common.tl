@@ -662,7 +662,6 @@ local _classStatModTable: {ClassEnum:{AuraModEnum:{number:StatModDetails}}} = {
                 ["rank"] = {
                     0.1, 0.2, 0.3,
                 },
-                ["condition"] = "wowBuildNo >= '7382'",
             },
         },
         -- Mage: Mind Mastery (Rank 5) - 1,22

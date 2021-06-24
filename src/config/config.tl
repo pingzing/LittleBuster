@@ -122,6 +122,14 @@ local function drawCurrentState()
     LB_IntellectSpellCritCheckbox:SetEnabled(intellectChecked);
     LB_IntellectSpellDamageCheckbox:SetChecked(_currentTogglesState["Intellect-SpellDamage"]);
     LB_IntellectSpellDamageCheckbox:SetEnabled(intellectChecked);
+    LB_IntellectHealingCheckbox:SetChecked(_currentTogglesState["Intellect-Healing"]);
+    LB_IntellectHealingCheckbox:SetEnabled(intellectChecked);
+    LB_IntellectManaRegenCheckbox:SetChecked(_currentTogglesState["Intellect-ManaRegen"]);
+    LB_IntellectManaRegenCheckbox:SetEnabled(intellectChecked);
+    LB_IntellectRangedAPCheckbox:SetChecked(_currentTogglesState["Intellect-RangedAP"]);
+    LB_IntellectRangedAPCheckbox:SetEnabled(intellectChecked);
+    LB_IntellectArmorCheckbox:SetChecked(_currentTogglesState["Intellect-Armor"]);
+    LB_IntellectArmorCheckbox:SetEnabled(intellectChecked);
 
 end
 
@@ -192,9 +200,16 @@ local function loadCompleted(configFrame: ConfigFrame)
         settingsVersion = tostring(settingsVersion);
         LB_Config.ConfigVersion = settingsVersion;
     end
-    local splitVer: {string} = {strsplit(".", settingsVersion)};
-    local major = splitVer[1];
-    local minor = splitVer[2];
+
+    -- TODO: Do stuff based on versions retrieved from disk versus what we have in the default table
+    local storedVersion: {string, string} = {strsplit(".", settingsVersion)};
+    local currentVersion: {string, string} = {strsplit(".", _defaultConfig.ConfigVersion)};
+    if (storedVersion[1] < currentVersion[1]) then
+        -- Oh no, a major version upgrade happened under our noses
+    end
+    if (storedVersion[2] < currentVersion[2]) then
+        -- Just a minor version bump
+    end
 
     -- Display Toggles
     for k,v in pairs(_defaultConfig.DisplayToggles) do

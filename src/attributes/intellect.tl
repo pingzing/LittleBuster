@@ -106,6 +106,25 @@ local function getHealingFromInt(int: number, class: ClassEnum, race: RaceEnum):
     return int * healingPerInt;
 end
 
+local function getManaRegenFromInt(int: number, class: ClassEnum, race: RaceEnum): number
+    local regenPerInt = GetStatMod("ADD_MANA_REG_MOD_INT", class, race);
+    return int * regenPerInt;
+end
+
+local function getRangedAPFromInt(int: number, class: ClassEnum, race: RaceEnum): number
+    local rapPerInt = GetStatMod("ADD_RANGED_AP_MOD_INT", class, race);
+    -- Not sure if these next two are multiplicative or additive, but hunters can't have a 
+    -- talent that grants both modifiers simultaneously so ¯\_(ツ)_/¯
+    rapPerInt = rapPerInt * GetStatMod("MOD_RANGED_AP", class, race);
+    rapPerInt = rapPerInt * GetStatMod("MOD_AP", class, race); -- because in TBC, AP adds to both Melee AP and Ranged AP
+    return int * rapPerInt;
+end
+
+local function getArmorFromInt(int: number, class: ClassEnum, race: RaceEnum): number
+    local armorPerInt = GetStatMod("ADD_ARMOR_MOD_INT", class, race);
+    return int * armorPerInt;
+end
+
 local function getBonusesString(intellect: number): string
     local config = LB.Attributes.Core.LoadConfig();
     if (not config) then
@@ -116,7 +135,9 @@ local function getBonusesString(intellect: number): string
     if (not config["Intellect-Mana"]
         and not config["Intellect-SpellCrit"]
         and not config["Intellect-SpellDamage"]
-        and not config["Intellect-Healing"]) then
+        and not config["Intellect-Healing"]
+        and not config["Intellect-ManaRegen"]
+        and not config["Intellect-RangedAP"]) then
             return nil;
     end
 
@@ -163,6 +184,32 @@ local function getBonusesString(intellect: number): string
         if (healingFromInt > 0) then
             local healingString = format("%d", healingFromInt) .. " " .. _locale.StatStrings.Healing;
             table.insert(statStrings, healingString);
+        end
+    end
+
+    -- Mana regen
+    if(config["Intellect-ManaRegen"]) then
+        local regenFromInt = getManaRegenFromInt(modifiedInt, playerClass, playerRace);
+        if (regenFromInt > 0) then
+            local regenString = format("%d", regenFromInt) .. " " .. _locale.StatStrings.ManaRegen;
+            table.insert(statStrings, regenString);
+        end
+    end
+
+    -- Ranged AP
+    if (config["Intellect-RangedAP"]) then
+        local rapFromInt = getRangedAPFromInt(modifiedInt, playerClass, playerRace);
+        if (rapFromInt > 0) then
+            local rapString = format("%d", rapFromInt) .. " " .. _locale.StatStrings.RangedAP;
+            table.insert(statStrings, rapString);
+        end
+    end
+
+    if (config["Intellect-Armor"]) then
+        local armorFromInt = getArmorFromInt(modifiedInt, playerClass, playerRace);
+        if (armorFromInt > 0) then
+            local armorString = format("%d", armorFromInt) .. " " .. _locale.StatStrings.Armor;
+            table.insert(statStrings, armorString);
         end
     end
 

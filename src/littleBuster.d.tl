@@ -316,6 +316,9 @@ global LB_IntellectManaCheckbox: ConfigCheckButton
 global LB_IntellectSpellCritCheckbox: ConfigCheckButton
 global LB_IntellectSpellDamageCheckbox: ConfigCheckButton
 global LB_IntellectHealingCheckbox: ConfigCheckButton
+global LB_IntellectManaRegenCheckbox: ConfigCheckButton
+global LB_IntellectRangedAPCheckbox: ConfigCheckButton
+global LB_IntellectArmorCheckbox: ConfigCheckButton
 
 -- Attributes stuff
 

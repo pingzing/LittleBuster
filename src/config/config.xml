@@ -484,6 +484,45 @@
                   </Scripts>
                 </CheckButton>
 
+                <!-- Intellect - Mana Regen -->
+                <CheckButton name = "LB_IntellectManaRegenCheckbox" inherits="LB_ConfigCheckButtonBase">
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="LB_IntellectHealingCheckbox" relativePoint="BOTTOMLEFT"/>
+                  </Anchors>
+                  <Scripts>
+                    <OnLoad>
+                      _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectManaRegenCheckbox);
+                      self.statKey="Intellect-ManaRegen";
+                    </OnLoad>
+                  </Scripts>
+                </CheckButton>
+
+                <!-- Intellect - Ranged AP-->
+                <CheckButton name = "LB_IntellectRangedAPCheckbox" inherits="LB_ConfigCheckButtonBase">
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="LB_IntellectManaRegenCheckbox" relativePoint="BOTTOMLEFT"/>
+                  </Anchors>
+                  <Scripts>
+                    <OnLoad>
+                      _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectRangedAPCheckbox);
+                      self.statKey="Intellect-RangedAP";
+                    </OnLoad>
+                  </Scripts>
+                </CheckButton>
+
+                <!-- Intellect - Armor-->
+                <CheckButton name = "LB_IntellectArmorCheckbox" inherits="LB_ConfigCheckButtonBase">
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="LB_IntellectRangedAPCheckbox" relativePoint="BOTTOMLEFT"/>
+                  </Anchors>
+                  <Scripts>
+                    <OnLoad>
+                      _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectArmorCheckbox);
+                      self.statKey="Intellect-Armor";
+                    </OnLoad>
+                  </Scripts>
+                </CheckButton>                
+
                 </Frames>
               </Frame>
 
