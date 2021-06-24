@@ -3,7 +3,7 @@ local LB: SharedTable = args[2];
 
 local _locale = LB.GetLocaleTable(GetLocale());
 local _defaultConfig: Config = {
-    ConfigVersion = 1.9,
+    ConfigVersion = "1.10",
     DisplayToggles = {
         ["ITEM_MOD_DEFENSE_SKILL_RATING"] = true,
         ["ITEM_MOD_DODGE_RATING"] = true,
@@ -25,6 +25,7 @@ local _defaultConfig: Config = {
         ["Agility-AP"] = false,
         ["Agility-RAP"] = false,
         ["Agility-Armor"] = false,
+        ["Agility-Healing"] = false,
         ["ITEM_MOD_INTELLECT"] = true,
         ["Intellect-Mana"] = true,
         ["Intellect-SpellCrit"] = true,
@@ -64,6 +65,7 @@ local _currentTogglesState: {ConfigToggle:boolean} = {
     ["Agility-AP"] = false,
     ["Agility-RAP"] = false,
     ["Agility-Armor"] = false,
+    ["Agility-Healing"] = false,
     ["ITEM_MOD_INTELLECT"] = true,
     ["Intellect-Mana"] = true,
     ["Intellect-SpellCrit"] = true,
@@ -107,6 +109,8 @@ local function drawCurrentState()
     LB_AgilityRAPCheckbox:SetEnabled(agilityChecked);
     LB_AgilityArmorCheckbox:SetChecked(_currentTogglesState["Agility-Armor"]);
     LB_AgilityArmorCheckbox:SetEnabled(agilityChecked);
+    LB_AgilityHealingCheckbox:SetChecked(_currentTogglesState["Agility-Healing"]);
+    LB_AgilityHealingCheckbox:SetEnabled(agilityChecked);
 
     ---- Intellect
     LB_IntellectCheckbox:SetChecked(_currentTogglesState["ITEM_MOD_INTELLECT"]);
@@ -179,6 +183,19 @@ local function loadCompleted(configFrame: ConfigFrame)
             (LB_Config as {string:any})[k] = v;
         end
     end
+
+    -- Check version stuff
+    local settingsVersion = LB_Config.ConfigVersion;
+
+    -- Fix original version being stored as a number instead of a string. dur.
+    if (type(settingsVersion) == "number") then
+        settingsVersion = tostring(settingsVersion);
+        LB_Config.ConfigVersion = settingsVersion;
+    end
+    local splitVer: {string} = {strsplit(".", settingsVersion)};
+    local major = splitVer[1];
+    local minor = splitVer[2];
+
     -- Display Toggles
     for k,v in pairs(_defaultConfig.DisplayToggles) do
         if LB_Config.DisplayToggles[k] == nil then

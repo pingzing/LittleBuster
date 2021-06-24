@@ -28,6 +28,9 @@ end
 global function getfenv(_: number): {string:any}
 end
 
+global function strsplit(_sep: string, _string: string, _pieces: number): string...
+end
+
 global function loadstring(_luaCode: string, _chunkName: string | nil): {function, string}
 end
 
@@ -271,6 +274,7 @@ global enum ConfigToggle
     "Agility-AP"
     "Agility-RAP"
     "Agility-Armor"
+    "Agility-Healing" -- ah, feral druids
     "ITEM_MOD_INTELLECT"
     "Intellect-Mana"
     "Intellect-SpellCrit"
@@ -282,7 +286,7 @@ global enum ConfigToggle
 end
 
 global record Config
-    ConfigVersion: number
+    ConfigVersion: string
     DisplayToggles: {ConfigToggle:boolean}
 end
 
@@ -305,6 +309,7 @@ global LB_AgilityCritCheckbox: ConfigCheckButton
 global LB_AgilityAPCheckbox: ConfigCheckButton
 global LB_AgilityRAPCheckbox: ConfigCheckButton
 global LB_AgilityArmorCheckbox: ConfigCheckButton
+global LB_AgilityHealingCheckbox: ConfigCheckButton
 -- Intellect
 global LB_IntellectCheckbox: ConfigCheckButton
 global LB_IntellectManaCheckbox: ConfigCheckButton

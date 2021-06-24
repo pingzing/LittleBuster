@@ -133,29 +133,37 @@ local function getBonusesString(intellect: number): string
     -- Mana
     if (config["Intellect-Mana"]) then
         local manaFromInt = getManaFromInt(modifiedInt, playerClass, playerRace);
-        local manaString = format("%d", manaFromInt) .. " " .. _locale.StatStrings.Mana;
-        table.insert(statStrings, manaString);
+        if (manaFromInt > 0) then
+            local manaString = format("%d", manaFromInt) .. " " .. _locale.StatStrings.Mana;
+            table.insert(statStrings, manaString);
+        end
     end
 
     -- Spell Crit
     if (config["Intellect-SpellCrit"]) then
         local spellCritFromInt = getSpellCritFromInt(modifiedInt, playerClass, playerLevel);
-        local spellCritString = format("%.2F", spellCritFromInt) .. "% " .. _locale.StatStrings.SpellCrit;
-        table.insert(statStrings, spellCritString);
+        if (spellCritFromInt > 0) then
+            local spellCritString = format("%.2F", spellCritFromInt) .. "% " .. _locale.StatStrings.SpellCrit;
+            table.insert(statStrings, spellCritString);
+        end
     end
 
     -- Spell Damage
     if (config["Intellect-SpellDamage"]) then
         local spellDamageFromInt = getSpellDamageFromtInt(modifiedInt, playerClass, playerRace);
-        local spellDamageString = format("%d", spellDamageFromInt) .. " " .. _locale.StatStrings.SpellDamage;
-        table.insert(statStrings, spellDamageString);
+        if (spellDamageFromInt > 0) then
+            local spellDamageString = format("%d", spellDamageFromInt) .. " " .. _locale.StatStrings.SpellDamage;
+            table.insert(statStrings, spellDamageString);
+        end
     end
 
     -- Healing
     if (config["Intellect-Healing"]) then
         local healingFromInt = getHealingFromInt(modifiedInt, playerClass, playerRace);
-        local healingString = format("%d", healingFromInt) .. " " .. _locale.StatStrings.Healing;
-        table.insert(statStrings, healingString);
+        if (healingFromInt > 0) then
+            local healingString = format("%d", healingFromInt) .. " " .. _locale.StatStrings.Healing;
+            table.insert(statStrings, healingString);
+        end
     end
 
     return table.concat(statStrings, ", ");

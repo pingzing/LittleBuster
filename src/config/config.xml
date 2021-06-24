@@ -406,10 +406,23 @@
                     </Scripts>
                   </CheckButton>
 
+                  <!-- Agility - Healing -->
+                  <CheckButton name = "LB_AgilityHealingCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor point="TOPLEFT" relativeTo="LB_AgilityArmorCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.AgilityHealingCheckbox);
+                        self.statKey="Agility-Healing";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
                   <!-- Intellect -->
                   <CheckButton name="LB_IntellectCheckbox" inherits="LB_ConfigCheckButtonBase">
                     <Anchors>
-                      <Anchor x="-15" y="0" point="TOPLEFT" relativeTo="LB_AgilityArmorCheckbox" relativePoint="BOTTOMLEFT" />
+                      <Anchor x="-15" y="0" point="TOPLEFT" relativeTo="LB_AgilityHealingCheckbox" relativePoint="BOTTOMLEFT" />
                     </Anchors>
                     <Scripts>
                       <OnLoad>

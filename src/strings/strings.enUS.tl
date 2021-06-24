@@ -110,6 +110,7 @@ enUS.ConfigStrings = {
     AgiArmorCheck = "...display Armor bonus",
     AgiAPCheck = "...display Attack Power bonus",
     AgiRAPCheck = "...display Ranged Attack Power bonus",
+    AgilityHealingCheckbox = "...display Healing bonus",
 
     IntellectCheckbox = "Scan for Intellect and...",
     IntellectManaCheckbox = "...display Mana bonus",

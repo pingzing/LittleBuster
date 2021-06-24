@@ -157,6 +157,11 @@ local function getArmorFromAgi(agi: number): number
     return agi * 2; -- Armor from agi doesn't seem to be affected by +Armor% modifiers.
 end
 
+local function getHealingFromAgi(agi: number, class: ClassEnum, race: RaceEnum): number
+    local healingPerAgi = GetStatMod("ADD_HEALING_MOD_AGI", class, race);
+    return agi * healingPerAgi;
+end
+
 -- TODO: Maybe, MAYBE also break down derived-stats, I.E. healing/SP gained from AP which Agility grants
 function getBonusesString(agility: number): string
     local config = LB.Attributes.Core.LoadConfig();
@@ -169,7 +174,8 @@ function getBonusesString(agility: number): string
         and not config["Agility-Crit"]
         and not config["Agility-AP"]
         and not config["Agility-RAP"]
-        and not config["Agility-Armor"]) then
+        and not config["Agility-Armor"]
+        and not config["Agility-Healing"]) then
         return nil;
     end    
 
@@ -222,6 +228,15 @@ function getBonusesString(agility: number): string
         if (armorFromAgi > 0) then
             local armorString = format("%d ", armorFromAgi).._locale.StatStrings.Armor;
             table.insert(statStrings, armorString);
+        end
+    end
+
+    -- Healing
+    if (config["Agility-Healing"]) then
+        local healingFromAgi = getHealingFromAgi(modifiedAgility);
+        if (healingFromAgi > 0) then
+            local healingString = format("%d", healingFromAgi) .. _locale.StatStrings.Healing;
+            table.insert(statStrings, healingString);
         end
     end
 
