@@ -1,6 +1,7 @@
 local args = {...} as {string, SharedTable};
 local LB: SharedTable = args[2];
 
+-- Initialize sub-tables to that they're ready for the individual files to fill them in.
 LB.Attributes = {};
 LB.Attributes.Core = {};
 LB.Attributes.Agility = {};

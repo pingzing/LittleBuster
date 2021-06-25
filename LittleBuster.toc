@@ -21,6 +21,7 @@ strings/strings.ruRU.lua
 strings/strings.ptBR.lua
 strings/strings.frFR.lua
 strings/strings.zhCN.lua
+strings/strings.zhTW.lua
 
 # Config
 config/config.xml 
