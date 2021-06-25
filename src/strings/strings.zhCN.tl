@@ -72,15 +72,19 @@ zhCN.AlternativePatterns = {
         { pattern = "+(%d+) 敏捷", location = "PatternEnd" },
         { pattern = "敏捷.+(%d+)点", location = "AfterValue"  },
     },
+    ["ITEM_MOD_INTELLECT"] = {
+        { pattern ="+(%d+) 智力", location = "PatternEnd" },
+        { pattern = "智力.+(%d+点)", location = "AfterValue" },
+    }
 }
 
 -- These are tried second.
-zhCN.GetShortStatPatterns = function(shortStatString: string, _: string): {SearchPattern}
+zhCN.GetShortStatPatterns = function(shortStatString: string, _statKey: string): {SearchPattern}
     return {
-        {pattern = shortStatString .. "等级提高(%d+点)", location = "AfterValue"}, -- "...increase your parry rating by 72..."
+        {pattern = shortStatString .. "等级提高(%d+点)", location = "AfterValue"},
         {pattern = shortStatString .. "等级提高(%d+)", location = "AfterValue"},
-        {pattern = "(%d+) " .. shortStatString .. " 等级", location = "AfterValue"}, -- "...grant you 152 dodge rating..."
-        {pattern = "+(%d+) " .. shortStatString, location = "AfterValue"}, -- +5 Agility or +5 Defense Rating
+        {pattern = "(%d+) " .. shortStatString .. " 等级", location = "AfterValue"},
+        {pattern = "+(%d+) " .. shortStatString, location = "AfterValue"},
     };
 end
 
@@ -110,6 +114,16 @@ zhCN.ConfigStrings = {
     AgiArmorCheck = "...display Armor bonus",
     AgiAPCheck = "...display Attack Power bonus",
     AgiRAPCheck = "...display Ranged Attack Power bonus",
+    AgilityHealingCheckbox = "...display Healing bonus",
+
+    IntellectCheckbox = "Scan for Intellect and...",
+    IntellectManaCheckbox = "...display Mana bonus",
+    IntellectSpellCritCheckbox = "...display Spell Crit bonus",
+    IntellectSpellDamageCheckbox = "...display Spell Damage bonus",
+    IntellectHealingCheckbox = "...display Healing bonus",
+    IntellectManaRegenCheckbox = "...display Mana Regen bonus",
+    IntellectRangedAPCheckbox = "...display Ranged Attack Power bonus",
+    IntellectArmorCheckbox = "...display Armor bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -119,6 +133,12 @@ zhCN.StatStrings = {
     AttackPower = "AP",
     RangedAttackPower = "RAP",
     Armor = "Armor",
+
+    Mana = "Mana",
+    SpellCrit = "Spell Crit",
+    SpellDamage = "Spell Damage",
+    Healing = "Healing",
+    ManaRegen = "MP5",
 }
 
 LB.LocaleTables["zhCN"] = {};

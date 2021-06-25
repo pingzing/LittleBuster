@@ -76,7 +76,7 @@ enUS.AlternativePatterns = {
 }
 
 -- These are tried second.
-enUS.GetShortStatPatterns = function(shortStatString: string, _: string): {SearchPattern}
+enUS.GetShortStatPatterns = function(shortStatString: string, _statKey: string): {SearchPattern}
     return {
         {pattern = shortStatString .. " rating by (%d+)", location = "AfterValue"},
         { pattern ="(%d+) " .. shortStatString .. " rating", location = "AfterValue"},
