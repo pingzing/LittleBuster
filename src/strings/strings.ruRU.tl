@@ -139,6 +139,15 @@ ruRU.ConfigStrings ={
     AgiArmorCheck = "бонус к броне",
     AgiAPCheck = "бонус к силе атаки (AP)",
     AgiRAPCheck = "бонус к силе атаки дальнего боя (RAP)",
+
+    IntellectCheckbox = "Конвертировать интеллект",
+    IntellectManaCheckbox = "бонус маны",
+    IntellectSpellCritCheckbox = "бонус к критическому попаданию",
+    IntellectSpellDamageCheckbox = "бонус к урону заклинаниями (SPD)",
+    IntellectHealingCheckbox = "бонус к лечению (BH)",
+    IntellectManaRegenCheckbox = "бонус к регенерации маны (MP5)",
+    IntellectRangedAPCheckbox = "бонус к силе атаки дальнего боя (RAP)",
+    IntellectArmorCheckbox = "бонус к броне",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -148,6 +157,12 @@ ruRU.StatStrings = {
     AttackPower = "AP", -- use english well-established abbreviation for AttackPower
     RangedAttackPower = "RAP", -- and for RangedAttackPower
     Armor = "брони",
+
+    Mana = "маны",
+    SpellCrit = "крит.",
+    SpellDamage = "SPD",
+    Healing = "BH",
+    ManaRegen = "MP5",
 }
 
 LB.LocaleTables["ruRU"] = {};
