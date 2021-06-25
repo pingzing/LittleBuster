@@ -78,7 +78,11 @@ ruRU.AlternativePatterns = {
         { pattern = "+(%d+) к ловкости", location = "PatternEnd" },
         { pattern = "ловкости на (%d+)", location = "AfterValue" }
     },
+    ["ITEM_MOD_INTELLECT"] = {
+        { pattern = "+(%d+) к интеллекту", location = "PatternEnd" },
+        { pattern = "интеллекта.+(%d+ ед%.)", location = "AfterValue" },
 
+    }
 };
 
 -- Because the Russian short stat strings are never used directly--just the conjugated forms
@@ -99,6 +103,7 @@ local conjugatedShortStats: {string:string} = {
     ["ITEM_MOD_DODGE_RATING"] = "уклонения",
     ["ITEM_MOD_PARRY_RATING"] = "парирования",
     ["ITEM_MOD_AGILITY"] = "ловкости",
+    ["ITEM_MOD_INTELLECT"] = "интеллекту"
 }
 
 -- These are tried second.
@@ -139,6 +144,7 @@ ruRU.ConfigStrings ={
     AgiArmorCheck = "бонус к броне",
     AgiAPCheck = "бонус к силе атаки (AP)",
     AgiRAPCheck = "бонус к силе атаки дальнего боя (RAP)",
+    AgilityHealingCheckbox = "...display Healing bonus",
 
     IntellectCheckbox = "Конвертировать интеллект",
     IntellectManaCheckbox = "бонус маны",
