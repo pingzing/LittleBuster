@@ -25,6 +25,10 @@ deDE.AlternativePatterns = {
         { pattern = "beweglichkeit um (%d+)", location = "AfterValue" },
         { pattern = "beweglichkeit .+ um (%d+)", location = "AfterValue" },
     },
+    ["ITEM_MOD_INTELLECT"] = {
+        { pattern = "+(%d+) intelligenz", location = "PatternEnd" }, -- Gear
+        { pattern = "intelligenz.+um (%d+)", location = "AfterValue" }, -- Elixirs, etc
+    },
 };
 
 -- Because the German short stat strings are never used directly--just their conjugated forms x.x
@@ -45,6 +49,7 @@ local conjugatedShortStats: {string:string} = {
     ["ITEM_MOD_DODGE_RATING"] = "ausweich",
     ["ITEM_MOD_PARRY_RATING"] = "parier",
     ["ITEM_MOD_AGILITY"] = "beweglichkeit",
+    ["ITEM_MOD_INTELLECT"] = "intelligenz"
 }
 
 -- These are tried second.
@@ -83,6 +88,16 @@ deDE.ConfigStrings = {
     AgiArmorCheck = "...display Armor bonus",
     AgiAPCheck = "...display Attack Power bonus",
     AgiRAPCheck = "...display Ranged Attack Power bonus",
+    AgilityHealingCheckbox = "...display Healing bonus",
+
+    IntellectCheckbox = "Scan for Intellect and...",
+    IntellectManaCheckbox = "...display Mana bonus",
+    IntellectSpellCritCheckbox = "...display Spell Crit bonus",
+    IntellectSpellDamageCheckbox = "...display Spell Damage bonus",
+    IntellectHealingCheckbox = "...display Healing bonus",
+    IntellectManaRegenCheckbox = "...display Mana Regen bonus",
+    IntellectRangedAPCheckbox = "...display Ranged Attack Power bonus",
+    IntellectArmorCheckbox = "...display Armor bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -92,6 +107,12 @@ deDE.StatStrings = {
     AttackPower = "AP",
     RangedAttackPower = "RAP",
     Armor = "Armor",
+
+    Mana = "Mana",
+    SpellCrit = "Spell Crit",
+    SpellDamage = "Spell Damage",
+    Healing = "Healing",
+    ManaRegen = "MP5",
 }
 
 LB.LocaleTables["deDE"] = {};
