@@ -42,6 +42,11 @@ frFR.AlternativePatterns = {
         { pattern = "+(%d+) agilité", location = "PatternEnd" },
         { pattern = "l'agilité de (%d+)", location = "AfterValue" },
     },
+    ["ITEM_MOD_INTELLECT"] = {
+        { pattern = "+(%d+) intelligence", location = "PatternEnd" },
+        { pattern = "l'intelligence de (%d+)", location = "AfterValue" },
+        { pattern = "l'intelligence.+(%d+)", location = "AfterValue" },
+    }
 };
 
 -- These are tried second.
@@ -80,6 +85,16 @@ frFR.ConfigStrings = {
     AgiArmorCheck = "...display Armor bonus",
     AgiAPCheck = "...display Attack Power bonus",
     AgiRAPCheck = "...display Ranged Attack Power bonus",
+    AgilityHealingCheckbox = "...display Healing bonus",
+
+    IntellectCheckbox = "Scan for Intellect and...",
+    IntellectManaCheckbox = "...display Mana bonus",
+    IntellectSpellCritCheckbox = "...display Spell Crit bonus",
+    IntellectSpellDamageCheckbox = "...display Spell Damage bonus",
+    IntellectHealingCheckbox = "...display Healing bonus",
+    IntellectManaRegenCheckbox = "...display Mana Regen bonus",
+    IntellectRangedAPCheckbox = "...display Ranged Attack Power bonus",
+    IntellectArmorCheckbox = "...display Armor bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -89,6 +104,12 @@ frFR.StatStrings = {
     AttackPower = "AP",
     RangedAttackPower = "RAP",
     Armor = "Armor",
+
+    Mana = "Mana",
+    SpellCrit = "Spell Crit",
+    SpellDamage = "Spell Damage",
+    Healing = "Healing",
+    ManaRegen = "MP5",
 }
 
 LB.LocaleTables["frFR"] = {};
