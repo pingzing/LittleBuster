@@ -40,11 +40,14 @@ zhTW.AlternativePatterns = {
     ["ITEM_MOD_AGILITY"] = {
         { pattern = "+(%d+)敏捷", location = "PatternEnd" },
     },
-    ["ITEM_MOD_INTELLECT"] = {}
+    ["ITEM_MOD_INTELLECT"] = {
+        { pattern ="+(%d+)智力", location = "PatternEnd" },
+        { pattern = "智力.+(%d+)", location = "AfterValue" },
+    }
 }
 
 -- These are tried second.
-zhTW.GetShortStatPatterns = function(shortStatString: string, statKey: string): {SearchPattern}
+zhTW.GetShortStatPatterns = function(shortStatString: string, _: string): {SearchPattern}
     return {
         { pattern = "提高(%d+點)" .. shortStatString .. "。" , location = "AfterValue" },
         { pattern = "提高" .. shortStatString .. "(%d+點)。", location = "AfterValue" },
