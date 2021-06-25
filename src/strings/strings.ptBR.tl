@@ -31,6 +31,10 @@ ptBR.AlternativePatterns = {
         { pattern = "+(%d+) agilidade", location = "PatternEnd" },
         { pattern = "(%d+) a agilidade", location = "AfterValue" },
     },
+    ["ITEM_MOD_INTELLECT"] = {
+        { pattern = "+(%d+) intelecto", location = "PatternEnd" },
+        { pattern = "(%d+) o intelecto", location = "PatternEnd" },
+    },
 }
 
 -- These are tried second.
@@ -70,6 +74,16 @@ ptBR.ConfigStrings = {
     AgiArmorCheck = "...display Armor bonus",
     AgiAPCheck = "...display Attack Power bonus",
     AgiRAPCheck = "...display Ranged Attack Power bonus",
+    AgilityHealingCheckbox = "...display Healing bonus",
+
+    IntellectCheckbox = "Scan for Intellect and...",
+    IntellectManaCheckbox = "...display Mana bonus",
+    IntellectSpellCritCheckbox = "...display Spell Crit bonus",
+    IntellectSpellDamageCheckbox = "...display Spell Damage bonus",
+    IntellectHealingCheckbox = "...display Healing bonus",
+    IntellectManaRegenCheckbox = "...display Mana Regen bonus",
+    IntellectRangedAPCheckbox = "...display Ranged Attack Power bonus",
+    IntellectArmorCheckbox = "...display Armor bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -79,6 +93,12 @@ ptBR.StatStrings = {
     AttackPower = "AP",
     RangedAttackPower = "RAP",
     Armor = "Armor",
+
+    Mana = "Mana",
+    SpellCrit = "Spell Crit",
+    SpellDamage = "Spell Damage",
+    Healing = "Healing",
+    ManaRegen = "MP5",
 }
 
 LB.LocaleTables["ptBR"] = {};
