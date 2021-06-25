@@ -157,8 +157,7 @@ local function tryGenerateModifiedLine(text: string, statInfo: StatDetailInfo, i
             if (found.valueStart and found.valueEnd and statValue) then
                 local currentColorCode: string = (select(3, string.find(text, "(|c%x%x%x%x%x%x%x%x)")) or _colorEnd) as string;
                 local endFragment = StatKeyIsPercentage[statInfo.kind] and "%" or "";
-                local formattedValue = _goldColor .. " (" .. format("%.2F", statValue) .. endFragment ..
-                                            ")" .. currentColorCode;
+                local formattedValue = _goldColor .. " (" .. format("%.2F", statValue) .. endFragment .. ")" .. currentColorCode;
                 if (found.patternUsed.location == "AfterValue") then
                     return {found.valueStart, found.valueEnd, formattedValue};
                 elseif (found.patternUsed.location == "PatternEnd") then
