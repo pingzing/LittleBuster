@@ -6,17 +6,20 @@ local _goldColor = "|cfffffe8b"; -- r = 1.0, g = 0.996,  b = 0.545,
 local _colorEnd = "|r";
 
 -- Localize globals for sanity's sake:
--- mappings.lua
+-- mappings
 local StatDetails = LB.StatDetails;
 local ShortStatKeys = LB.ShortStatKeys;
 local StatKeyToRatingID = LB.StatKeyToRatingID;
 local StatKeyIsPercentage = LB.StatKeyIsPercentage;
 
--- statConversion.lua
+-- statConversion
 local GetEffectFromRating = LB.GetEffectFromRating;
 
--- localeCore.lua
+-- localeCore
 local GetLocaleTable = LB.GetLocaleTable;
+
+-- attributesCore
+local GetAttributeTable = LB.Attributes.GetAttributeTable;
 
 local enum TooltipType
     "GameTooltip"
@@ -166,7 +169,7 @@ local function tryGenerateModifiedLine(text: string, statInfo: StatDetailInfo, i
             end
         -- Whereas attributes can map to many things
         elseif (statInfo.type == "Attribute") then
-            local attributeTable = LB.Attributes.GetAttributeTable(statInfo.kind);
+            local attributeTable = GetAttributeTable(statInfo.kind);
             local bonuses = attributeTable.GetBonusesString(found.valueFound);
             if (not bonuses) then
                 return {nil, nil, nil};
