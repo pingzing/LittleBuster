@@ -2,8 +2,11 @@ local args = {...} as {string, SharedTable};
 local LB: SharedTable = args[2];
 local _locale = LB.GetLocaleTable(GetLocale());
 
+local LoadConfig = LB.Attributes.Core.LoadConfig;
 local GetStatMod = LB.Attributes.Core.GetStatMod;
 local GetBaseDodge = LB.Attributes.Core.GetBaseDodge;
+local BlizzRound = LB.BlizzRound;
+local GetEffectFromRating = LB.GetEffectFromRating;
 
 -- Many of the calculations, tables, values, etc, in here courtesy of StatLogic, and Whitetooth@Cenarius(US).
 
@@ -114,7 +117,7 @@ local function getDodgeFromAgi(agi: number, class: ClassEnum, race: RaceEnum): n
     local currentLevel = UnitLevel("player");
     local currentAgi = UnitStat("player", 2);
     local dodgeRating = GetCombatRating(CR_DODGE);
-    local dodgeFromRating = LB.GetEffectFromRating(dodgeRating, CR_DODGE);
+    local dodgeFromRating = GetEffectFromRating(dodgeRating, CR_DODGE);
 
     local def = {UnitDefense("player")} as {number, number};
     local totalDefense = def[1] + def[2];
@@ -164,7 +167,7 @@ end
 
 -- TODO: Maybe, MAYBE also break down derived-stats, I.E. healing/SP gained from AP which Agility grants
 function getBonusesString(agility: number): string
-    local config = LB.Attributes.Core.LoadConfig();
+    local config = LoadConfig();
     if (not config) then
         return nil;
     end
@@ -188,7 +191,7 @@ function getBonusesString(agility: number): string
     -- TODO: Make this toggle-able
     -- Get the amount of agility that +X agility actually grants us
     local modifiedAgility = agility * GetStatMod("MOD_AGI", playerClass, playerRace);
-    modifiedAgility = LB.BlizzRound(modifiedAgility);
+    modifiedAgility = BlizzRound(modifiedAgility);
 
     -- Dodge
     if (config["Agility-Dodge"]) then

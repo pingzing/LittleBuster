@@ -3,7 +3,9 @@ local LB: SharedTable = args[2];
 local _config: {ConfigToggle: boolean} = nil;
 local _locale = LB.GetLocaleTable(GetLocale());
 
+local LoadConfig = LB.Attributes.Core.LoadConfig;
 local GetStatMod = LB.Attributes.Core.GetStatMod;
+local BlizzRound = LB.BlizzRound;
 
 -- Many of the calculations, tables, values, etc, in here courtesy of StatLogic, and Whitetooth@Cenarius(US).
 
@@ -126,7 +128,7 @@ local function getArmorFromInt(int: number, class: ClassEnum, race: RaceEnum): n
 end
 
 local function getBonusesString(intellect: number): string
-    local config = LB.Attributes.Core.LoadConfig();
+    local config = LoadConfig();
     if (not config) then
         return nil;
     end
@@ -149,7 +151,7 @@ local function getBonusesString(intellect: number): string
 
     -- TODO: Make this toggle-able
     local modifiedInt = intellect * GetStatMod("MOD_INT", playerClass, playerRace);
-    modifiedInt = LB.BlizzRound(modifiedInt);
+    modifiedInt = BlizzRound(modifiedInt);
 
     -- Mana
     if (config["Intellect-Mana"]) then
