@@ -25,6 +25,9 @@ global enum RaceEnum
     "BloodElf"
 end
 
+-- Shapeshift IDs
+global CAT_FORM: number
+
 global function getfenv(_: number): {string:any}
 end
 

@@ -202,7 +202,7 @@ local function getBonusesString(intellect: number): string
     if (config["Intellect-RangedAP"]) then
         local rapFromInt = getRangedAPFromInt(modifiedInt, playerClass, playerRace);
         if (rapFromInt > 0) then
-            local rapString = format("%d", rapFromInt) .. " " .. _locale.StatStrings.RangedAP;
+            local rapString = format("%d", rapFromInt) .. " " .. _locale.StatStrings.RangedAttackPower;
             table.insert(statStrings, rapString);
         end
     end

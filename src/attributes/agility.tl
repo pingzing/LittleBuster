@@ -142,7 +142,7 @@ end
 
 local function getAPFromAgi(agi: number, class: ClassEnum): number
     local apPerAgi: number = 0;
-    if (class == "DRUID" and GetShapeshiftForm() == 2) then -- Cat form
+    if (class == "DRUID" and GetShapeshiftForm() == 3) then -- Cat form... probably. Disagrees with CAT_FORM, but ¯\_(ツ)_/¯
         apPerAgi = 1;
     else
         apPerAgi = _apPerAgi[class];
@@ -236,9 +236,9 @@ function getBonusesString(agility: number): string
 
     -- Healing
     if (config["Agility-Healing"]) then
-        local healingFromAgi = getHealingFromAgi(modifiedAgility);
+        local healingFromAgi = getHealingFromAgi(modifiedAgility, playerClass, playerRace);
         if (healingFromAgi > 0) then
-            local healingString = format("%d", healingFromAgi) .. _locale.StatStrings.Healing;
+            local healingString = format("%d", healingFromAgi) .. " " .. _locale.StatStrings.Healing;
             table.insert(statStrings, healingString);
         end
     end
