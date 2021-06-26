@@ -149,7 +149,6 @@ local function getBonusesString(intellect: number): string
 
     -- TODO: Make this toggle-able
     local modifiedInt = intellect * GetStatMod("MOD_INT", playerClass, playerRace);
-    modifiedInt = math.floor(modifiedInt);
 
     -- Mana
     if (config["Intellect-Mana"]) then

@@ -357,6 +357,9 @@ end
 
 -- This is the type of the shared table WoW gives us as the second arg to each script file
 global record SharedTable
+    -- mathExtensions.table
+    BlizzRound: function(x: number): number
+
     -- strExtensions.tl
     strStartsWith: function(string, string): boolean
 

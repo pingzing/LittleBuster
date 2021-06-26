@@ -10,10 +10,10 @@
    - Mana Regen (from talents)
    - Ranged Attack Power (from talents)
    - Armor (from talents)
-+ Added support for the Feral Druid talent Nurturing Instinct (Agility -> Healing)
    Each of these can be individually toggled from the options menu under Settings -> Interface -> Addons -> Little Buster. 
++ Added support for the Feral Druid talent Nurturing Instinct (Agility -> Healing)
 + Added partial support for Chinese (Traditional) (zhTW locale). Many thanks to 阿斯蘭 for their hard work!
-+ Updated Russian (ruRU) localization to add translations for Agility and Intellect conversion in tooltips and on the interface page.
++ Updated Russian (ruRU) localization to add translations for Agility and Intellect conversion in tooltips and on the interface page. Continued thanks to bu7cher for these!
 
 |||||||||||||
 ||| 1.9.1 ||| 2021-06-22

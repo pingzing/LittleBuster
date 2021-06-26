@@ -188,7 +188,7 @@ function getBonusesString(agility: number): string
     -- TODO: Make this toggle-able
     -- Get the amount of agility that +X agility actually grants us
     local modifiedAgility = agility * GetStatMod("MOD_AGI", playerClass, playerRace);
-    modifiedAgility = math.floor(modifiedAgility);
+    modifiedAgility = LB.BlizzRound(modifiedAgility);
 
     -- Dodge
     if (config["Agility-Dodge"]) then
