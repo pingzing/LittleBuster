@@ -2,7 +2,7 @@
 ## Title: LittleBuster
 ## Notes: Break those ratings down into actual percentages.
 ## Author: PingZing
-## Version: 1.10.0
+## Version: 1.10.1
 ## SavedVariablesPerCharacter: LB_Config
 ## X-Email: psychozagal@gmail.com
 ## X-License: GPL v3

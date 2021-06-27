@@ -1,4 +1,12 @@
 |||||||||||||
+||| 1.10.1 ||| 2021-06-27
+|||||||||||||
+
++ Druid Cat Form should now be reliably detected.
++ Fixed several crashes around more obscure Int and Agi conversions.
++ Fixed small rounding errors that appeared when affected with attribute multiplier buffs or talents.
+
+|||||||||||||
 ||| 1.10.0 ||| 2021-06-25
 |||||||||||||
 
