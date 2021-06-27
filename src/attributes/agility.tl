@@ -142,7 +142,7 @@ end
 
 local function getAPFromAgi(agi: number, class: ClassEnum): number
     local apPerAgi: number = 0;
-    if (class == "DRUID" and GetShapeshiftForm() == 3) then -- Cat form... probably. Disagrees with CAT_FORM, but ¯\_(ツ)_/¯
+    if (class == "DRUID" and GetShapeshiftFormID() == CAT_FORM) then
         apPerAgi = 1;
     else
         apPerAgi = _apPerAgi[class];

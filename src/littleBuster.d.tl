@@ -66,6 +66,9 @@ end
 global function GetShapeshiftFormInfo(_index: number): {string, number, number, number}
 end
 
+global function GetShapeshiftFormID(): number
+end
+
 global function GetSpellSubtext(_spellId: number): string
 end
 
