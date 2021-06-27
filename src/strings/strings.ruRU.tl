@@ -37,6 +37,7 @@ ruRU.AlternativePatterns = {
     ["ITEM_MOD_HIT_SPELL_RATING"] = {
         {pattern = "меткость %(заклинания%) %+(%d+)", location = "AfterValue"}, -- Because consistency is for the weak. JFC.
         {pattern = "Повышение на (%d+)%% рейтинга меткости заклинаний.", location = "AfterValue"},
+        { pattern = "+(%d+) к рейтингу меткости заклинаний", location = "AfterValue" } -- Gems
     },
     ["ITEM_MOD_CRIT_SPELL_RATING"] = {
         {pattern = "критический удар %(заклинания%) %+(%d+)", location = "AfterValue"}, -- screwwww consistencyyyyyyy

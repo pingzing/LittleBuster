@@ -5,6 +5,7 @@
 + Druid Cat Form should now be reliably detected.
 + Fixed several crashes around more obscure Int and Agi conversions.
 + Fixed small rounding errors that appeared when affected with attribute multiplier buffs or talents.
++ Fixed issue in Russian where Spell Hit on gems was being detected as Melee/Ranged Hit.
 
 |||||||||||||
 ||| 1.10.0 ||| 2021-06-25
