@@ -145,7 +145,7 @@ ruRU.ConfigStrings ={
     AgiArmorCheck = "бонус к броне",
     AgiAPCheck = "бонус к силе атаки (AP)",
     AgiRAPCheck = "бонус к силе атаки дальнего боя (RAP)",
-    AgilityHealingCheckbox = "...display Healing bonus",
+    AgilityHealingCheckbox = "бонус к лечению (BH)",
 
     IntellectCheckbox = "Конвертировать интеллект",
     IntellectManaCheckbox = "бонус маны",
