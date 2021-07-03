@@ -10,9 +10,9 @@
   - Spell Damage (from talents)
   - Healing (from talents)
   Each of these can be individually toggled from the options menu under Settings -> Interface -> Addons -> Little Buster. 
-  + Added Russian translations for Agility -> Healing. (Thanks bu7cher!)
-  + Addressed certain edge cases where two attributes are increased by the same numeric value (such as Elixir of the Sages) not converting both stats.
-  + Fixed a few detection errors in various languages around agility and intellect in elixir tooltips.
++ Added Russian translations for Agility -> Healing. (Thanks bu7cher!)
++ Addressed certain edge cases where two attributes are increased by the same numeric value (such as Elixir of the Sages) not converting both stats.
++ Fixed a few detection errors in various languages around agility and intellect in elixir tooltips.
 
 |||||||||||||
 ||| 1.10.1 ||| 2021-06-27
