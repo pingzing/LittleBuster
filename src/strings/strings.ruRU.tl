@@ -44,6 +44,7 @@ ruRU.AlternativePatterns = {
         {pattern = "повышает рейтинг критического эффекта заклинаний на (%d+)", location = "AfterValue"},
         {pattern = "+(%d+) к рейтингу критического эффекта заклинаний", location = "AfterValue"},
         {pattern = "+(%d+) к рейтингу критического удара заклинаниями", location = "AfterValue"}, -- Seen on gems, mostly
+        { pattern = "рейтинга критического эффекта заклинаний на (%d+ ед%.)", location = "AfterValue" }, -- Adept's Elixir, maybe some others too
     },
     ["ITEM_MOD_HASTE_SPELL_RATING"] = {
         {pattern = "рейтинг скорости заклинаний на (%d+)", location = "AfterValue"},
