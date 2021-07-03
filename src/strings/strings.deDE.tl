@@ -17,7 +17,9 @@ deDE.AlternativePatterns = {
     ["ITEM_MOD_CRIT_SPELL_RATING"] = {},
     ["ITEM_MOD_HASTE_SPELL_RATING"] = {},
     ["ITEM_MOD_DEFENSE_SKILL_RATING"] = {},
-    ["ITEM_MOD_BLOCK_RATING"] = {},
+    ["ITEM_MOD_BLOCK_RATING"] = {
+        { pattern = "blockwertung um (%d+)", location = "AfterValue" },
+    },
     ["ITEM_MOD_DODGE_RATING"] = {},
     ["ITEM_MOD_PARRY_RATING"] = {},
     ["ITEM_MOD_AGILITY"] = {
@@ -29,6 +31,10 @@ deDE.AlternativePatterns = {
         { pattern = "+(%d+) intelligenz", location = "PatternEnd" }, -- Gear
         { pattern = "intelligenz.+um (%d+)", location = "AfterValue" }, -- Elixirs, etc
     },
+    ["ITEM_MOD_SPIRIT"] = {
+        { pattern = "+(%d+) willenskraft", location = "PatternEnd" },
+        { pattern = "willenskraft.+um (%d+)", location = "AfterValue" },
+    }
 };
 
 -- Because the German short stat strings are never used directly--just their conjugated forms x.x
@@ -45,11 +51,12 @@ local conjugatedShortStats: {string:string} = {
     ["ITEM_MOD_CRIT_SPELL_RATING"] = "kritische",
     ["ITEM_MOD_HASTE_SPELL_RATING"] = "zaubertempo",
     ["ITEM_MOD_DEFENSE_SKILL_RATING"] = "verteidigungs",
-    ["ITEM_MOD_BLOCK_RATING"] = "block",
+    ["ITEM_MOD_BLOCK_RATING"] = "doNotUse", -- This tends to collide with "XX Block" (i.e. a shield's innate block value), so let's just use the alternative pattern above
     ["ITEM_MOD_DODGE_RATING"] = "ausweich",
     ["ITEM_MOD_PARRY_RATING"] = "parier",
     ["ITEM_MOD_AGILITY"] = "beweglichkeit",
-    ["ITEM_MOD_INTELLECT"] = "intelligenz"
+    ["ITEM_MOD_INTELLECT"] = "intelligenz",
+    ["ITEM_MOD_SPIRIT"] = "willenskraft"
 }
 
 -- These are tried second.
@@ -98,6 +105,13 @@ deDE.ConfigStrings = {
     IntellectManaRegenCheckbox = "...display Mana Regen bonus",
     IntellectRangedAPCheckbox = "...display Ranged Attack Power bonus",
     IntellectArmorCheckbox = "...display Armor bonus",
+
+    SpiritCheckbox = "Scan for Spirit and...",
+    SpiritManaRegenNotCastingCheckbox = "...display Mana Regen while not casting",
+    SpiritManaRegenCastingCheckbox = "...display Mana Regen while casting",
+    SpiritHealthRegenCheckbox = "...display Health Regen bonus",
+    SpiritSpellDamageCheckbox = "...display Spell Damage bonus",
+    SpiritHealingCheckbox = "...display Healing bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -113,6 +127,8 @@ deDE.StatStrings = {
     SpellDamage = "Spell Damage",
     Healing = "Healing",
     ManaRegen = "MP5",
+
+    HealthRegen = "HP5"
 }
 
 LB.LocaleTables["deDE"] = {};
