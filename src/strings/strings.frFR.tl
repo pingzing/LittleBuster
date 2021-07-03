@@ -40,12 +40,16 @@ frFR.AlternativePatterns = {
     ["ITEM_MOD_PARRY_RATING"] = {},
     ["ITEM_MOD_AGILITY"] = {
         { pattern = "+(%d+) agilité", location = "PatternEnd" },
-        { pattern = "l'agilité de (%d+)", location = "AfterValue" },
+        { pattern = "l'agilité.+de (%d+)", location = "AfterValue" },
+        { pattern = "agilité de (%d+)", location = "AfterValue" },
     },
     ["ITEM_MOD_INTELLECT"] = {
         { pattern = "+(%d+) intelligence", location = "PatternEnd" },
-        { pattern = "l'intelligence de (%d+)", location = "AfterValue" },
-        { pattern = "l'intelligence.+(%d+)", location = "AfterValue" },
+        { pattern = "l'intelligence.+de (%d+)", location = "AfterValue" },
+    },
+    ["ITEM_MOD_SPIRIT"] = {
+        { pattern = "+(%d+) esprit", location = "PatternEnd" },
+        { pattern = "l'esprit.+de (%d+)", location = "AfterValue" },
     }
 };
 
@@ -95,6 +99,13 @@ frFR.ConfigStrings = {
     IntellectManaRegenCheckbox = "...display Mana Regen bonus",
     IntellectRangedAPCheckbox = "...display Ranged Attack Power bonus",
     IntellectArmorCheckbox = "...display Armor bonus",
+
+    SpiritCheckbox = "Scan for Spirit and...",
+    SpiritManaRegenNotCastingCheckbox = "...display Mana Regen while not casting",
+    SpiritManaRegenCastingCheckbox = "...display Mana Regen while casting",
+    SpiritHealthRegenCheckbox = "...display Health Regen bonus",
+    SpiritSpellDamageCheckbox = "...display Spell Damage bonus",
+    SpiritHealingCheckbox = "...display Healing bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -110,6 +121,8 @@ frFR.StatStrings = {
     SpellDamage = "Spell Damage",
     Healing = "Healing",
     ManaRegen = "MP5",
+
+    HealthRegen = "HP5"
 }
 
 LB.LocaleTables["frFR"] = {};
