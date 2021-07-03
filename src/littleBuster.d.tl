@@ -175,6 +175,7 @@ global enum ItemModKey
     "ITEM_MOD_PARRY_RATING"
     "ITEM_MOD_AGILITY"
     "ITEM_MOD_INTELLECT"
+    "ITEM_MOD_SPIRIT"
 end
 
 global enum AuraModEnum
@@ -223,6 +224,8 @@ global enum LocaleStatKey
     "SpellDamage"
     "Healing"
     "ManaRegen"
+
+    "HealthRegen"
 end
 
 global enum InjectLocation
@@ -289,6 +292,12 @@ global enum ConfigToggle
     "Intellect-ManaRegen" -- from talents
     "Intellect-RangedAP" -- from talents (yes, really)
     "Intellect-Armor" -- from talents (mages, amirite?)
+    "ITEM_MOD_SPIRIT"
+    "Spirit-ManaRegenNotCasting"
+    "Spirit-ManaRegenCasting"
+    "Spirit-HealthRegen"
+    "Spirit-SpellDamage"
+    "Spirit-Healing"
 end
 
 global record Config
@@ -325,6 +334,12 @@ global LB_IntellectHealingCheckbox: ConfigCheckButton
 global LB_IntellectManaRegenCheckbox: ConfigCheckButton
 global LB_IntellectRangedAPCheckbox: ConfigCheckButton
 global LB_IntellectArmorCheckbox: ConfigCheckButton
+-- Spirit
+global LB_SpiritCheckbox: ConfigCheckButton
+global LB_SpiritManaRegenNotCastingCheckbox: ConfigCheckButton
+global LB_SpiritManaRegenCastingCheckbox: ConfigCheckButton
+global LB_SpiritHealthRegenCheckbox: ConfigCheckButton
+global LB_SpiritSpellDamageCheckbox: ConfigCheckButton
 
 -- Attributes stuff
 
@@ -348,6 +363,7 @@ global record CoreAttributeTable
     LoadConfig: function(): {ConfigToggle : boolean}
     GetStatMod: function(stat: AuraModEnum, class: ClassEnum, race: RaceEnum): number
     GetBaseDodge: function(class: ClassEnum): number
+    DecimalFormat: function(value: number): string
 end
 
 global record AttributeTable
@@ -358,6 +374,7 @@ global record Attributes
     Core: CoreAttributeTable
     Agility: AttributeTable
     Intellect: AttributeTable
+    Spirit: AttributeTable
     GetAttributeTable: function(ItemModKey): AttributeTable
 end
 

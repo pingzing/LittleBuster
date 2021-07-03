@@ -6,6 +6,7 @@ local _locale = LB.GetLocaleTable(GetLocale());
 local LoadConfig = LB.Attributes.Core.LoadConfig;
 local GetStatMod = LB.Attributes.Core.GetStatMod;
 local BlizzRound = LB.BlizzRound;
+local DecimalFormat = LB.Attributes.Core.DecimalFormat;
 
 -- Many of the calculations, tables, values, etc, in here courtesy of StatLogic, and Whitetooth@Cenarius(US).
 
@@ -175,7 +176,8 @@ local function getBonusesString(intellect: number): string
     if (config["Intellect-SpellDamage"]) then
         local spellDamageFromInt = getSpellDamageFromtInt(modifiedInt, playerClass, playerRace);
         if (spellDamageFromInt > 0) then
-            local spellDamageString = format("%d", spellDamageFromInt) .. " " .. _locale.StatStrings.SpellDamage;
+            local valueString = DecimalFormat(spellDamageFromInt);
+            local spellDamageString = valueString .. " " .. _locale.StatStrings.SpellDamage;
             table.insert(statStrings, spellDamageString);
         end
     end
@@ -184,7 +186,8 @@ local function getBonusesString(intellect: number): string
     if (config["Intellect-Healing"]) then
         local healingFromInt = getHealingFromInt(modifiedInt, playerClass, playerRace);
         if (healingFromInt > 0) then
-            local healingString = format("%d", healingFromInt) .. " " .. _locale.StatStrings.Healing;
+            local valueString = DecimalFormat(healingFromInt);
+            local healingString = valueString .. " " .. _locale.StatStrings.Healing;
             table.insert(statStrings, healingString);
         end
     end
@@ -193,7 +196,7 @@ local function getBonusesString(intellect: number): string
     if(config["Intellect-ManaRegen"]) then
         local regenFromInt = getManaRegenFromInt(modifiedInt, playerClass, playerRace);
         if (regenFromInt > 0) then
-            local regenString = format("%d", regenFromInt) .. " " .. _locale.StatStrings.ManaRegen;
+            local regenString = format("%.1F", regenFromInt) .. " " .. _locale.StatStrings.ManaRegen;
             table.insert(statStrings, regenString);
         end
     end
@@ -202,7 +205,8 @@ local function getBonusesString(intellect: number): string
     if (config["Intellect-RangedAP"]) then
         local rapFromInt = getRangedAPFromInt(modifiedInt, playerClass, playerRace);
         if (rapFromInt > 0) then
-            local rapString = format("%d", rapFromInt) .. " " .. _locale.StatStrings.RangedAttackPower;
+            local valueString = DecimalFormat(rapFromInt);
+            local rapString = valueString .. " " .. _locale.StatStrings.RangedAttackPower;
             table.insert(statStrings, rapString);
         end
     end

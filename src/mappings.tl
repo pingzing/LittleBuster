@@ -1,6 +1,7 @@
 local args = {...} as {string, SharedTable};
 local LB = args[2];
 
+-- This list controls which stats the addon will scan each tooltip line for.
 -- The order of these matters! Stats will be scanned in order from top to bottom.
 -- If we're looking at an item with "spell hit rating", but search for "hit rating" first, we'll
 -- return hit rating values!
@@ -22,6 +23,7 @@ LB.StatDetails = {
     [15] = { kind = "ITEM_MOD_PARRY_RATING", type = "Rating" },
     [16] = { kind = "ITEM_MOD_AGILITY", type = "Attribute" },
     [17] = { kind = "ITEM_MOD_INTELLECT", type = "Attribute" },
+    [18] = { kind = "ITEM_MOD_SPIRIT", type = "Attribute" }
 };
 
 LB.ShortStatKeys = {
@@ -42,6 +44,7 @@ LB.ShortStatKeys = {
     ["ITEM_MOD_PARRY_RATING"] = "ITEM_MOD_PARRY_RATING_SHORT",
     ["ITEM_MOD_AGILITY"] = "ITEM_MOD_AGILITY_SHORT",
     ["ITEM_MOD_INTELLECT"] = "ITEM_MOD_INTELLECT_SHORT",
+    ["ITEM_MOD_SPIRIT"] = "ITEM_MOD_SPIRIT_SHORT",
 };
 
 -- Used for ratings only, to look up the key to pass to GetEffectFromRating().

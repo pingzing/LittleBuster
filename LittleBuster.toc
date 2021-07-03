@@ -31,6 +31,7 @@ config/config.xml
 attributes/common.lua
 attributes/agility.lua
 attributes/intellect.lua
+attributes/spirit.lua
 
 # Entry point
 littleBuster.lua

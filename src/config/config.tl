@@ -34,6 +34,12 @@ local _defaultConfig: Config = {
         ["Intellect-ManaRegen"] = false,
         ["Intellect-RangedAP"] = false,
         ["Intellect-Armor"] = false,
+        ["ITEM_MOD_SPIRIT"] = true,
+        ["Spirit-ManaRegenNotCasting"] = true,
+        ["Spirit-ManaRegenCasting"] = false,
+        ["Spirit-HealthRegen"] = true,
+        ["Spirit-SpellDamage"] = false,
+        ["Spirit-Healing"] = false,
     }
 };
 
@@ -74,6 +80,12 @@ local _currentTogglesState: {ConfigToggle:boolean} = {
     ["Intellect-ManaRegen"] = false,
     ["Intellect-RangedAP"] = false,
     ["Intellect-Armor"] = false,
+    ["ITEM_MOD_SPIRIT"] = true,
+    ["Spirit-ManaRegenNotCasting"] = true,
+    ["Spirit-ManaRegenCasting"] = false,
+    ["Spirit-HealthRegen"] = true,
+    ["Spirit-SpellDamage"] = false,
+    ["Spirit-Healing"] = false,
 };
 
 local function drawCurrentState()
@@ -130,6 +142,19 @@ local function drawCurrentState()
     LB_IntellectRangedAPCheckbox:SetEnabled(intellectChecked);
     LB_IntellectArmorCheckbox:SetChecked(_currentTogglesState["Intellect-Armor"]);
     LB_IntellectArmorCheckbox:SetEnabled(intellectChecked);
+
+    --Spirit
+    LB_SpiritCheckbox:SetChecked(_currentTogglesState["ITEM_MOD_SPIRIT"]);
+    local spiritChecked = LB_SpiritCheckbox:GetChecked();
+    -- Spirit sub-items
+    LB_SpiritManaRegenNotCastingCheckbox:SetChecked(_currentTogglesState["Spirit-ManaRegenNotCasting"]);
+    LB_SpiritManaRegenNotCastingCheckbox:SetEnabled(spiritChecked);
+    LB_SpiritManaRegenCastingCheckbox:SetChecked(_currentTogglesState["Spirit-ManaRegenCasting"]);
+    LB_SpiritManaRegenCastingCheckbox:SetEnabled(spiritChecked);
+    LB_SpiritHealthRegenCheckbox:SetChecked(_currentTogglesState["Spirit-HealthRegen"]);
+    LB_SpiritHealthRegenCheckbox:SetEnabled(spiritChecked);
+    LB_SpiritSpellDamageCheckbox:SetChecked(_currentTogglesState["Spirit-SpellDamage"]);
+    LB_SpiritSpellDamageCheckbox:SetEnabled(spiritChecked);
 
 end
 

@@ -432,96 +432,161 @@
                     </Scripts>
                   </CheckButton>
 
-                <!-- Intellect - Mana -->
-                <CheckButton name = "LB_IntellectManaCheckbox" inherits="LB_ConfigCheckButtonBase">
-                  <Anchors>
-                    <Anchor x="15" point="TOPLEFT" relativeTo="LB_IntellectCheckbox" relativePoint="BOTTOMLEFT"/>
-                  </Anchors>
-                  <Scripts>
-                    <OnLoad>
-                      _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectManaCheckbox);
-                      self.statKey="Intellect-Mana";
-                    </OnLoad>
-                  </Scripts>
-                </CheckButton>
+                  <!-- Intellect - Mana -->
+                  <CheckButton name = "LB_IntellectManaCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor x="15" point="TOPLEFT" relativeTo="LB_IntellectCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectManaCheckbox);
+                        self.statKey="Intellect-Mana";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
 
-                <!-- Intellect - Spell Crit -->
-                <CheckButton name = "LB_IntellectSpellCritCheckbox" inherits="LB_ConfigCheckButtonBase">
-                  <Anchors>
-                    <Anchor point="TOPLEFT" relativeTo="LB_IntellectManaCheckbox" relativePoint="BOTTOMLEFT"/>
-                  </Anchors>
-                  <Scripts>
-                    <OnLoad>
-                      _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectSpellCritCheckbox);
-                      self.statKey="Intellect-SpellCrit";
-                    </OnLoad>
-                  </Scripts>
-                </CheckButton>
+                  <!-- Intellect - Spell Crit -->
+                  <CheckButton name = "LB_IntellectSpellCritCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor point="TOPLEFT" relativeTo="LB_IntellectManaCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectSpellCritCheckbox);
+                        self.statKey="Intellect-SpellCrit";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
 
-                <!-- Intellect - Spell Crit -->
-                <CheckButton name = "LB_IntellectSpellDamageCheckbox" inherits="LB_ConfigCheckButtonBase">
-                  <Anchors>
-                    <Anchor point="TOPLEFT" relativeTo="LB_IntellectSpellCritCheckbox" relativePoint="BOTTOMLEFT"/>
-                  </Anchors>
-                  <Scripts>
-                    <OnLoad>
-                      _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectSpellDamageCheckbox);
-                      self.statKey="Intellect-SpellDamage";
-                    </OnLoad>
-                  </Scripts>
-                </CheckButton>
+                  <!-- Intellect - Spell Crit -->
+                  <CheckButton name = "LB_IntellectSpellDamageCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor point="TOPLEFT" relativeTo="LB_IntellectSpellCritCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectSpellDamageCheckbox);
+                        self.statKey="Intellect-SpellDamage";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
 
-                <!-- Intellect - Healing -->
-                <CheckButton name = "LB_IntellectHealingCheckbox" inherits="LB_ConfigCheckButtonBase">
-                  <Anchors>
-                    <Anchor point="TOPLEFT" relativeTo="LB_IntellectSpellDamageCheckbox" relativePoint="BOTTOMLEFT"/>
-                  </Anchors>
-                  <Scripts>
-                    <OnLoad>
-                      _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectHealingCheckbox);
-                      self.statKey="Intellect-Healing";
-                    </OnLoad>
-                  </Scripts>
-                </CheckButton>
+                  <!-- Intellect - Healing -->
+                  <CheckButton name = "LB_IntellectHealingCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor point="TOPLEFT" relativeTo="LB_IntellectSpellDamageCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectHealingCheckbox);
+                        self.statKey="Intellect-Healing";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
 
-                <!-- Intellect - Mana Regen -->
-                <CheckButton name = "LB_IntellectManaRegenCheckbox" inherits="LB_ConfigCheckButtonBase">
-                  <Anchors>
-                    <Anchor point="TOPLEFT" relativeTo="LB_IntellectHealingCheckbox" relativePoint="BOTTOMLEFT"/>
-                  </Anchors>
-                  <Scripts>
-                    <OnLoad>
-                      _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectManaRegenCheckbox);
-                      self.statKey="Intellect-ManaRegen";
-                    </OnLoad>
-                  </Scripts>
-                </CheckButton>
+                  <!-- Intellect - Mana Regen -->
+                  <CheckButton name = "LB_IntellectManaRegenCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor point="TOPLEFT" relativeTo="LB_IntellectHealingCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectManaRegenCheckbox);
+                        self.statKey="Intellect-ManaRegen";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
 
-                <!-- Intellect - Ranged AP-->
-                <CheckButton name = "LB_IntellectRangedAPCheckbox" inherits="LB_ConfigCheckButtonBase">
-                  <Anchors>
-                    <Anchor point="TOPLEFT" relativeTo="LB_IntellectManaRegenCheckbox" relativePoint="BOTTOMLEFT"/>
-                  </Anchors>
-                  <Scripts>
-                    <OnLoad>
-                      _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectRangedAPCheckbox);
-                      self.statKey="Intellect-RangedAP";
-                    </OnLoad>
-                  </Scripts>
-                </CheckButton>
+                  <!-- Intellect - Ranged AP-->
+                  <CheckButton name = "LB_IntellectRangedAPCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor point="TOPLEFT" relativeTo="LB_IntellectManaRegenCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectRangedAPCheckbox);
+                        self.statKey="Intellect-RangedAP";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
 
-                <!-- Intellect - Armor-->
-                <CheckButton name = "LB_IntellectArmorCheckbox" inherits="LB_ConfigCheckButtonBase">
-                  <Anchors>
-                    <Anchor point="TOPLEFT" relativeTo="LB_IntellectRangedAPCheckbox" relativePoint="BOTTOMLEFT"/>
-                  </Anchors>
-                  <Scripts>
-                    <OnLoad>
-                      _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectArmorCheckbox);
-                      self.statKey="Intellect-Armor";
-                    </OnLoad>
-                  </Scripts>
-                </CheckButton>                
+                  <!-- Intellect - Armor-->
+                  <CheckButton name = "LB_IntellectArmorCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor point="TOPLEFT" relativeTo="LB_IntellectRangedAPCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.IntellectArmorCheckbox);
+                        self.statKey="Intellect-Armor";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Spirit -->
+                  <CheckButton name="LB_SpiritCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor x="-15" y="0" point="TOPLEFT" relativeTo="LB_IntellectArmorCheckbox" relativePoint="BOTTOMLEFT" />
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.SpiritCheckbox);
+                        self.statKey = "ITEM_MOD_SPIRIT";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Spirit - Regen while not casting-->
+                  <CheckButton name = "LB_SpiritManaRegenNotCastingCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor x="15" point="TOPLEFT" relativeTo="LB_SpiritCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.SpiritManaRegenNotCastingCheckbox);
+                        self.statKey="Spirit-ManaRegenNotCasting";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Spirit - Regen while casting-->
+                  <CheckButton name = "LB_SpiritManaRegenCastingCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor point="TOPLEFT" relativeTo="LB_SpiritManaRegenNotCastingCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.SpiritManaRegenCastingCheckbox);
+                        self.statKey="Spirit-ManaRegenCasting";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Spirit - HP Regen-->
+                  <CheckButton name = "LB_SpiritHealthRegenCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor point="TOPLEFT" relativeTo="LB_SpiritManaRegenCastingCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.SpiritHealthRegenCheckbox);
+                        self.statKey="Spirit-HealthRegen";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Spirit - Spell Damage-->
+                  <CheckButton name = "LB_SpiritSpellDamageCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor point="TOPLEFT" relativeTo="LB_SpiritHealthRegenCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.SpiritSpellDamageCheckbox);
+                        self.statKey="Spirit-SpellDamage";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>                  
 
                 </Frames>
               </Frame>

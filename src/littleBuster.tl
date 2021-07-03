@@ -176,8 +176,14 @@ local function tryGenerateModifiedLine(text: string, statInfo: StatDetailInfo, i
             end
             local currentColorCode: string = (select(3, string.find(text, "(|c%x%x%x%x%x%x%x%x)")) or _colorEnd) as string;
             local formattedValue = _goldColor .. " (" .. bonuses .. ")" .. currentColorCode;
-            if (found.patternUsed.location == "AfterValue") then                    
-                return {found.valueStart, found.valueEnd, formattedValue};
+            if (found.patternUsed.location == "AfterValue") then
+                -- The first value here *should* be found.valueStart, but we're returning found.patternStart instead to cover an
+                -- edge case where some items have phrasing like "Increase Spirit and Intellect by 20".
+                -- This way, callers will look at the beginning of the PATTERN (i.e. 'spirit.+by (%d+)' or 'intellect.+ by (%d+)')
+                -- instead of the beginning of the VALUE when marking this line's indicesProcessed.
+                -- This same edge case doesn't seem to appear for ratings, and this also doesn't seem to break
+                -- attribute displays on items, so it's a Good Enough(tm) hack.
+                return {found.patternStart, found.valueEnd, formattedValue};
             elseif (found.patternUsed.location == "PatternEnd") then
                 return {found.patternStart, found.patternEnd + 1, formattedValue};
             end

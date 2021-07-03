@@ -6,9 +6,11 @@ LB.Attributes = {};
 LB.Attributes.Core = {};
 LB.Attributes.Agility = {};
 LB.Attributes.Intellect = {};
+LB.Attributes.Spirit = {};
 
 -- Many of the calculations and code in here courtesy of the original RatingBuster, and Whitetooth@Cenarius(US).
 
+-- TODO: Can probably replace this silliness with an invocation of GetShapeshiftFormID()
 local function getStanceIcon(): string
     local currentStance = GetShapeshiftForm();
     if currentStance ~= 0 then
@@ -1464,12 +1466,25 @@ local function getBaseDodge(class: ClassEnum): number
 end
 LB.Attributes.Core.GetBaseDodge = getBaseDodge;
 
+-- Returns a whole number, unless the value is less than 1 and greater than 0. Then it returns 0.x.
+local function decimalFormat(value: number): string
+    if (value > 0 and value < 1) then
+        return format("%.1F", value);
+    else
+        return format("%d", value);
+    end
+end
+LB.Attributes.Core.DecimalFormat = decimalFormat;
+
 local function getAttributeTable(stat: ItemModKey): AttributeTable
     if stat == "ITEM_MOD_AGILITY" then
         return LB.Attributes.Agility;
     end
     if stat == "ITEM_MOD_INTELLECT" then
         return LB.Attributes.Intellect;
+    end
+    if stat == "ITEM_MOD_SPIRIT" then
+        return LB.Attributes.Spirit;
     end
 end
 LB.Attributes.GetAttributeTable = getAttributeTable;
