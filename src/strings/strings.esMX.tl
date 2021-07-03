@@ -23,6 +23,7 @@ esMX.AlternativePatterns = {
     ["ITEM_MOD_CRIT_RATING"] = {
         {pattern = "(%d+ p%.) el golpe crítico.", location="AfterValue"},
         {pattern = "(%d+) índice de golpe crítico", location="AfterValue"},
+        {pattern = "índice de golpes críticos en (%d+ p%.)", location="AfterValue"},
     },
     ["ITEM_MOD_CRIT_MELEE_RATING"] = {},
     ["ITEM_MOD_CRIT_RANGED_RATING"] = {},
@@ -55,12 +56,17 @@ esMX.AlternativePatterns = {
     ["ITEM_MOD_PARRY_RATING"] = {},
     ["ITEM_MOD_AGILITY"] = {
         { pattern = "+(%d+) agilidad", location = "PatternEnd" },
-        { pattern = "(%d+ p%.) la agilidad", location = "AfterValue" }
+        { pattern = "(%d+ p%.) la agilidad", location = "AfterValue" },
+        { pattern = "agilidad en (%d+ p%.)", location = "AfterValue" },
     },
     ["ITEM_MOD_INTELLECT"] = {
         { pattern = "+(%d+) intelecto", location = "PatternEnd" },
-        { pattern = "intelecto.+(%d+ p%.)", location = "AfterValue" },
+        { pattern = "intelecto.+ (%d+ p%.)", location = "AfterValue" },
         { pattern = "(%d+ p%.) el intelecto", location = "AfterValue" },
+    },
+    ["ITEM_MOD_SPIRIT"] = {
+        { pattern = "+(%d+) espíritu", location = "PatternEnd" },
+        { pattern = "espíritu.+ (%d+ p%.)", location = "AfterValue" },
     },
 };
 
@@ -112,6 +118,13 @@ esMX.ConfigStrings = {
     IntellectManaRegenCheckbox = "...display Mana Regen bonus",
     IntellectRangedAPCheckbox = "...display Ranged Attack Power bonus",
     IntellectArmorCheckbox = "...display Armor bonus",
+
+    SpiritCheckbox = "Scan for Spirit and...",
+    SpiritManaRegenNotCastingCheckbox = "...display Mana Regen while not casting",
+    SpiritManaRegenCastingCheckbox = "...display Mana Regen while casting",
+    SpiritHealthRegenCheckbox = "...display Health Regen bonus",
+    SpiritSpellDamageCheckbox = "...display Spell Damage bonus",
+    SpiritHealingCheckbox = "...display Healing bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -127,6 +140,8 @@ esMX.StatStrings = {
     SpellDamage = "Spell Damage",
     Healing = "Healing",
     ManaRegen = "MP5",
+
+    HealthRegen = "HP5"
 }
 
 LB.LocaleTables["esMX"] = {};
