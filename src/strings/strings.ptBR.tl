@@ -20,6 +20,7 @@ ptBR.AlternativePatterns = {
     },
     ["ITEM_MOD_CRIT_SPELL_RATING"] = {
         {pattern = "(%d+) a taxa de acerto crítico de feitiços", location = "AfterValue"},
+        {pattern = "(%d+) a taxa de de acerto crítico de feitiços", location = "AfterValue"}, -- typo in Adept's Elixir
         {pattern = "(%d+) taxa de acerto crítico de feitiço", location = "AfterValue"},
     },
     ["ITEM_MOD_HASTE_SPELL_RATING"] = {},
@@ -33,7 +34,11 @@ ptBR.AlternativePatterns = {
     },
     ["ITEM_MOD_INTELLECT"] = {
         { pattern = "+(%d+) intelecto", location = "PatternEnd" },
-        { pattern = "(%d+) o intelecto", location = "PatternEnd" },
+        { pattern = "(%d+) o.+intelecto", location = "PatternEnd" },
+    },
+    ["ITEM_MOD_SPIRIT"] = {
+        { pattern = "+(%d+) espírito", location = "PatternEnd" },
+        { pattern = "(%d+) o.+espírito", location = "PatternEnd" },
     },
 }
 
@@ -84,6 +89,13 @@ ptBR.ConfigStrings = {
     IntellectManaRegenCheckbox = "...display Mana Regen bonus",
     IntellectRangedAPCheckbox = "...display Ranged Attack Power bonus",
     IntellectArmorCheckbox = "...display Armor bonus",
+
+    SpiritCheckbox = "Scan for Spirit and...",
+    SpiritManaRegenNotCastingCheckbox = "...display Mana Regen while not casting",
+    SpiritManaRegenCastingCheckbox = "...display Mana Regen while casting",
+    SpiritHealthRegenCheckbox = "...display Health Regen bonus",
+    SpiritSpellDamageCheckbox = "...display Spell Damage bonus",
+    SpiritHealingCheckbox = "...display Healing bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -99,6 +111,8 @@ ptBR.StatStrings = {
     SpellDamage = "Spell Damage",
     Healing = "Healing",
     ManaRegen = "MP5",
+
+    HealthRegen = "HP5"
 }
 
 LB.LocaleTables["ptBR"] = {};
