@@ -81,9 +81,12 @@ ruRU.AlternativePatterns = {
     },
     ["ITEM_MOD_INTELLECT"] = {
         { pattern = "+(%d+) к интеллекту", location = "PatternEnd" },
-        { pattern = "интеллекта.+(%d+ ед%.)", location = "AfterValue" },
-
-    }
+        { pattern = "интеллекта.+на (%d+ ед%.)", location = "AfterValue" },
+    },
+    ["ITEM_MOD_SPIRIT"] = {
+        { pattern = "+(%d+) к духу", location = "PatternEnd" },
+        { pattern = "духа.+на (%d+ ед%.)", location = "AfterValue" },
+    },
 };
 
 -- Because the Russian short stat strings are never used directly--just the conjugated forms
@@ -104,7 +107,8 @@ local conjugatedShortStats: {string:string} = {
     ["ITEM_MOD_DODGE_RATING"] = "уклонения",
     ["ITEM_MOD_PARRY_RATING"] = "парирования",
     ["ITEM_MOD_AGILITY"] = "ловкости",
-    ["ITEM_MOD_INTELLECT"] = "интеллекту"
+    ["ITEM_MOD_INTELLECT"] = "интеллекту",
+    ["ITEM_MOD_SPIRIT"] = "духу", -- shockingly, the ITEM_MOD_SPIRIT_SHORT in-game is this already. It's the only short stat that doesn't need to be in this table
 }
 
 -- These are tried second.
@@ -155,6 +159,13 @@ ruRU.ConfigStrings ={
     IntellectManaRegenCheckbox = "бонус к регенерации маны (MP5)",
     IntellectRangedAPCheckbox = "бонус к силе атаки дальнего боя (RAP)",
     IntellectArmorCheckbox = "бонус к броне",
+
+    SpiritCheckbox = "Scan for Spirit and...",
+    SpiritManaRegenNotCastingCheckbox = "...display Mana Regen while not casting",
+    SpiritManaRegenCastingCheckbox = "...display Mana Regen while casting",
+    SpiritHealthRegenCheckbox = "...display Health Regen bonus",
+    SpiritSpellDamageCheckbox = "...display Spell Damage bonus",
+    SpiritHealingCheckbox = "...display Healing bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -170,6 +181,8 @@ ruRU.StatStrings = {
     SpellDamage = "SPD",
     Healing = "BH",
     ManaRegen = "MP5",
+
+    HealthRegen = "HP5"
 }
 
 LB.LocaleTables["ruRU"] = {};
