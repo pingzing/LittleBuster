@@ -39,11 +39,16 @@ zhTW.AlternativePatterns = {
     ["ITEM_MOD_PARRY_RATING"] = {},
     ["ITEM_MOD_AGILITY"] = {
         { pattern = "+(%d+)敏捷", location = "PatternEnd" },
+        { pattern = "敏捷提高(%d+)", location = "AfterValue" },
     },
     ["ITEM_MOD_INTELLECT"] = {
         { pattern ="+(%d+)智力", location = "PatternEnd" },
-        { pattern = "智力.+(%d+)", location = "AfterValue" },
-    }
+        { pattern = "智力.+高(%d+點)", location = "AfterValue" },
+    },
+    ["ITEM_MOD_SPIRIT"] = {
+        { pattern = "+(%d)精神", location = "PatternEnd" },
+        { pattern = "精神.+高(%d+點)", location = "AfterValue"},
+    },
 }
 
 -- These are tried second.
@@ -91,6 +96,13 @@ zhTW.ConfigStrings = {
     IntellectManaRegenCheckbox = "...display Mana Regen bonus",
     IntellectRangedAPCheckbox = "...display Ranged Attack Power bonus",
     IntellectArmorCheckbox = "...display Armor bonus",
+
+    SpiritCheckbox = "Scan for Spirit and...",
+    SpiritManaRegenNotCastingCheckbox = "...display Mana Regen while not casting",
+    SpiritManaRegenCastingCheckbox = "...display Mana Regen while casting",
+    SpiritHealthRegenCheckbox = "...display Health Regen bonus",
+    SpiritSpellDamageCheckbox = "...display Spell Damage bonus",
+    SpiritHealingCheckbox = "...display Healing bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -106,6 +118,8 @@ zhTW.StatStrings = {
     SpellDamage = "Spell Damage",
     Healing = "Healing",
     ManaRegen = "MP5",
+
+    HealthRegen = "HP5"
 }
 
 LB.LocaleTables["zhTW"] = {};
