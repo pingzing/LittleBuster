@@ -34,7 +34,7 @@ end
 global function strsplit(_sep: string, _string: string, _pieces: number): string...
 end
 
-global function loadstring(_luaCode: string, _chunkName: string | nil): {function, string}
+global function loadstring(_luaCode: string, _chunkName: string | nil): function
 end
 
 global record AuraUtil

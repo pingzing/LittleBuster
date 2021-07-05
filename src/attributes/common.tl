@@ -788,8 +788,7 @@ local _classStatModTable: {ClassEnum:{AuraModEnum:{number:StatModDetails}}} = {
                 ["num"] = 9,
                 ["rank"] = {
                     0.1, 0.2, 0.3,
-                },
-                ["condition"] = "wowBuildNo >= '7382'",
+                }
             },
         },
         -- Priest: Spiritual Guidance (Rank 5) - 2,14
@@ -1396,7 +1395,7 @@ local function adjustStatModifier(statModInfo: StatModAdjustment, race: RaceEnum
         if (case.buff) then
             buffName = case.buff as string; -- Taking advantage of the fact that arg 1 is a string
         end
-        if ok and case.condition and not loadstring("return "..case.condition)[1]() then ok = nil end
+        if ok and case.condition and not loadstring("return "..case.condition)() then ok = nil end
         if ok and case.buff and not AuraUtil.FindAuraByName(buffName, "player") then ok = nil end
         if ok and case.stance and case.stance ~= getStanceIcon() then ok = nil end
         if ok and case.race and case.race ~= race then ok = nil end
