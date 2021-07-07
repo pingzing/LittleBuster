@@ -29,7 +29,7 @@ local enum TooltipType
 end
 
 local record TooltipState
-    itemID: string
+    itemKey: string
     modifiedLines: {number:string}
     timesSeen: number
 end
@@ -57,10 +57,10 @@ local record StatScanResult
 end
 
 local _tooltipState: {TooltipType:TooltipState} = {
-    ["GameTooltip"] = { itemID = nil, modifiedLines = {}, timesSeen = 0 },
-    ["ItemRefTooltip"] = { itemID = nil, modifiedLines = {}, timesSeen = 0 },
-    ["ShoppingTooltip1"] = { itemID = nil, modifiedLines = {}, timesSeen = 0 },
-    ["ShoppingTooltip2"] = { itemID = nil, modifiedLines = {}, timesSeen = 0 },
+    ["GameTooltip"] = { itemKey = nil, modifiedLines = {}, timesSeen = 0 },
+    ["ItemRefTooltip"] = { itemKey = nil, modifiedLines = {}, timesSeen = 0 },
+    ["ShoppingTooltip1"] = { itemKey = nil, modifiedLines = {}, timesSeen = 0 },
+    ["ShoppingTooltip2"] = { itemKey = nil, modifiedLines = {}, timesSeen = 0 },
 }
 
 local function getItemIDFromLink(itemLink: string): number
@@ -280,14 +280,14 @@ local function injectStats(tooltip: Tooltip, tooltipType: TooltipType)
         return;
     end
 
-    local itemID: string = tostring(getItemIDFromLink(item[2])) .. "-" .. item[1];
+    local itemKey: string = tostring(getItemIDFromLink(item[2])) .. "-" .. item[1];
     local tooltipState = _tooltipState[tooltipType];
 
     -- If this particular tooltip already knows the lines for this item, just reuse what we have and return early
     -- Don't use the cached value unless we've seen the item at least TWICE though.
     -- Why? The first tooltip retrieval per GAME BOOT, (not /console reloadui session!)
     -- only seems to get base stats, not on-equip bonuses or other data.
-    if (tooltipState.itemID == itemID and tooltipState.timesSeen > 1) then
+    if (tooltipState.itemKey == itemKey and tooltipState.timesSeen > 1) then
         tooltipState.timesSeen = tooltipState.timesSeen + 1;
         injectModifiedLines(tooltip, tooltipState.modifiedLines);
         return;
@@ -295,12 +295,12 @@ local function injectStats(tooltip: Tooltip, tooltipType: TooltipType)
 
     local linesModified = generateModifiedTooltipLines(tooltip);
 
-    if (tooltipState.itemID == itemID) then
+    if (tooltipState.itemKey == itemKey) then
         tooltipState.timesSeen = tooltipState.timesSeen + 1;
     else
         tooltipState.timesSeen = 0;
     end
-    tooltipState.itemID = itemID;
+    tooltipState.itemKey = itemKey;
     tooltipState.modifiedLines = linesModified;
     injectModifiedLines(tooltip, linesModified);
 end
