@@ -29,7 +29,7 @@ local enum TooltipType
 end
 
 local record TooltipState
-    itemID: number
+    itemID: string
     modifiedLines: {number:string}
     timesSeen: number
 end
@@ -274,13 +274,13 @@ local function injectModifiedLines(tooltip: Tooltip, modifiedLines: {number:stri
 end
 
 local function injectStats(tooltip: Tooltip, tooltipType: TooltipType)
-    local item: {any, string} = {tooltip:GetItem()};
+    local item: {string, string} = {tooltip:GetItem()} as {string, string};
     if (not item or not item[2]) then
         -- If we don't get an itemLink, don't even bother trying
         return;
     end
 
-    local itemID: number = getItemIDFromLink(item[2]);
+    local itemID: string = tostring(getItemIDFromLink(item[2])) .. "-" .. item[1];
     local tooltipState = _tooltipState[tooltipType];
 
     -- If this particular tooltip already knows the lines for this item, just reuse what we have and return early
