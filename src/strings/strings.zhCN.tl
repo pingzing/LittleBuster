@@ -67,7 +67,10 @@ zhCN.AlternativePatterns = {
         {pattern = "使你的躲闪等级提高(%d+)", location="AfterValue"}, 
         {pattern = "(%d+) 躲闪等级", location="AfterValue"},
     },
-    ["ITEM_MOD_PARRY_RATING"] = {},
+    ["ITEM_MOD_PARRY_RATING"] = {
+        { pattern = "使你的招架等级提高(%d+)", location = "AfterValue" },
+        { pattern = "(%d+) 招架等级", location = "AfterValue" },
+    },
     ["ITEM_MOD_AGILITY"] = {
         { pattern = "+(%d+) 敏捷", location = "PatternEnd" },
         { pattern = "敏捷.+高(%d+)点", location = "AfterValue"  },
@@ -111,47 +114,47 @@ zhCN.ConfigStrings = {
     PhysicalHasteRatingCheckbox = "显示转换后的急速等级",
     PhysicalExpertiseRatingCheckbox = "显示转换后的精准等级",
 
-    AttributesHeader = "Attributes",
-    AgilityCheckbox = "Scan for Agility and...",
-    AgiDodgeCheck = "...display Dodge bonus",
-    AgiCritCheck = "...display Crit bonus",
-    AgiArmorCheck = "...display Armor bonus",
-    AgiAPCheck = "...display Attack Power bonus",
-    AgiRAPCheck = "...display Ranged Attack Power bonus",
-    AgilityHealingCheckbox = "...display Healing bonus",
+    AttributesHeader = "属性",
+    AgilityCheckbox = "扫描敏捷属性并且...",
+    AgiDodgeCheck = "...显示闪躲收益",
+    AgiCritCheck = "...显示暴击收益",
+    AgiArmorCheck = "...显示护甲收益",
+    AgiAPCheck = "...显示攻击强度收益(AP)",
+    AgiRAPCheck = "...显示远程攻击强度收益(RAP)",
+    AgilityHealingCheckbox = "...显示治疗收益",
 
-    IntellectCheckbox = "Scan for Intellect and...",
-    IntellectManaCheckbox = "...display Mana bonus",
-    IntellectSpellCritCheckbox = "...display Spell Crit bonus",
-    IntellectSpellDamageCheckbox = "...display Spell Damage bonus",
-    IntellectHealingCheckbox = "...display Healing bonus",
-    IntellectManaRegenCheckbox = "...display Mana Regen bonus",
-    IntellectRangedAPCheckbox = "...display Ranged Attack Power bonus",
-    IntellectArmorCheckbox = "...display Armor bonus",
+    IntellectCheckbox = "扫描智力属性并且...",
+    IntellectManaCheckbox = "...显示额外法力上限获得",
+    IntellectSpellCritCheckbox = "...显示法术暴击收益",
+    IntellectSpellDamageCheckbox = "...显示法术强度收益",
+    IntellectHealingCheckbox = "...显示治疗效果收益",
+    IntellectManaRegenCheckbox = "...显示魔法回复收益",
+    IntellectRangedAPCheckbox = "...显示远程攻击强度(RAP)收益",
+    IntellectArmorCheckbox = "...显示护甲收益",
 
-    SpiritCheckbox = "Scan for Spirit and...",
-    SpiritManaRegenNotCastingCheckbox = "...display Mana Regen while not casting",
-    SpiritManaRegenCastingCheckbox = "...display Mana Regen while casting",
-    SpiritHealthRegenCheckbox = "...display Health Regen bonus",
-    SpiritSpellDamageCheckbox = "...display Spell Damage bonus",
-    SpiritHealingCheckbox = "...display Healing bonus",    
+    SpiritCheckbox = "扫描精神属性并且...",
+    SpiritManaRegenNotCastingCheckbox = "...显示施法外五秒回复收益",
+    SpiritManaRegenCastingCheckbox = "...显示施法中五秒回复收益",
+    SpiritHealthRegenCheckbox = "...显示生命回复收益",
+    SpiritSpellDamageCheckbox = "...显示法术伤害收益",
+    SpiritHealingCheckbox = "...显示治疗效果收益",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
 zhCN.StatStrings = {
-    Dodge = "Dodge",
-    Crit = "Crit",
+    Dodge = "闪躲",
+    Crit = "暴击",
     AttackPower = "AP",
-    RangedAttackPower = "RAP",
-    Armor = "Armor",
+    RangedAttackPower = "远程AP",
+    Armor = "护甲",
 
-    Mana = "Mana",
-    SpellCrit = "Spell Crit",
-    SpellDamage = "Spell Damage",
-    Healing = "Healing",
+    Mana = "法力",
+    SpellCrit = "法暴",
+    SpellDamage = "法术",
+    Healing = "治疗效果",
     ManaRegen = "MP5",
 
-    HealthRegen = "HP5"
+   HealthRegen = "MP5"
 }
 
 LB.LocaleTables["zhCN"] = {};
