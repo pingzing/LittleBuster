@@ -43,10 +43,8 @@ local function getBonusesString(stamina: number): string
 
     -- TODO: Make this toggle-able
     local modifiedStam = stamina * GetStatMod("MOD_STA", playerClass, playerRace);
-    print("Stam: "..stamina..", ModifiedStam:"..modifiedStam);
     -- Can't use BlizzRound here, as Stamina appears to use more standard behavior, i.e. 0.5 or higher gets rounded up. (WHYYYY)
-    modifiedStam = floor(modifiedStam + 0.5);
-    print("Stam after rounding: "..modifiedStam);
+    modifiedStam = floor(modifiedStam + 0.5);    
 
     -- Health
     if (config["Stamina-Health"]) then
