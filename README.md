@@ -40,7 +40,6 @@ Supports tooltips with phrasing like:
 |Locale|Support|Future plans|
 |------|-------|------------|
 |enUS|✔|Update as bugs are discovered|
-|enGB|✔|Update as bugs are discovered|
 |ruRU|✔|Update as bugs are reported by users|
 |esMX|🔷|Update as bugs are reported by users|
 |esES|🔷|Update as bugs are reported by users|
@@ -48,5 +47,5 @@ Supports tooltips with phrasing like:
 |ptBR|🔷|Update as bugs are reported by users|
 |frFR|🔷|Update as bugs are reported by users|
 |zhCN|🔷|Update as bugs are reported by users|
+|zhTW|🔷|No plans to support unless assisted|
 |koKR|❌|No plans to support unless assisted|
-|zhTW|❌|No plans to support unless assisted|
