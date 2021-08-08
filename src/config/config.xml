@@ -586,7 +586,47 @@
                         self.statKey="Spirit-SpellDamage";
                       </OnLoad>
                     </Scripts>
-                  </CheckButton>                  
+                  </CheckButton>
+
+                  <!-- Stamina -->
+                  <CheckButton name="LB_StaminaCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor x="-15" y="0" point="TOPLEFT" relativeTo="LB_SpiritSpellDamageCheckbox" relativePoint="BOTTOMLEFT" />
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.StaminaCheckbox);
+                        self.statKey = "ITEM_MOD_STAMINA";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Stamina - Health-->
+                  <CheckButton name = "LB_StaminaHealthCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor x="15" point="TOPLEFT" relativeTo="LB_StaminaCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.StaminaHealthCheckbox);
+                        self.statKey="Stamina-Health";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Stamina - Spell damage-->
+                  <CheckButton name = "LB_StaminaSpellDamageCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor x="0" point="TOPLEFT" relativeTo="LB_StaminaHealthCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.StaminaSpellDamageCheckbox);
+                        self.statKey="Stamina-SpellDamage";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
+                  
 
                 </Frames>
               </Frame>

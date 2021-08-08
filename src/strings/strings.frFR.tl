@@ -50,7 +50,11 @@ frFR.AlternativePatterns = {
     ["ITEM_MOD_SPIRIT"] = {
         { pattern = "+(%d+) esprit", location = "PatternEnd" },
         { pattern = "l'esprit.+de (%d+)", location = "AfterValue" },
-    }
+    },
+    ["ITEM_MOD_STAMINA"] = {
+        { pattern = "+(%d+) endurance", location = "PatternEnd" },
+        { pattern = "l'endurance.+de (%d+)", location = "AfterValue" },
+    },
 };
 
 -- These are tried second.
@@ -106,6 +110,10 @@ frFR.ConfigStrings = {
     SpiritHealthRegenCheckbox = "...display Health Regen bonus",
     SpiritSpellDamageCheckbox = "...display Spell Damage bonus",
     SpiritHealingCheckbox = "...display Healing bonus",
+
+    StaminaCheckbox = "Scan for Stamina and...",
+    StaminaHealthCheckbox = "...display Health bonus",
+    StaminaSpellDamageCheckbox = "...display Spell Damage bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -122,6 +130,7 @@ frFR.StatStrings = {
     Healing = "Healing",
     ManaRegen = "MP5",
 
+    Health = "HP",
     HealthRegen = "HP5"
 }
 

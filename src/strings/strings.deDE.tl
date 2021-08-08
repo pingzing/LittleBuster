@@ -34,7 +34,11 @@ deDE.AlternativePatterns = {
     ["ITEM_MOD_SPIRIT"] = {
         { pattern = "+(%d+) willenskraft", location = "PatternEnd" },
         { pattern = "willenskraft.+um (%d+)", location = "AfterValue" },
-    }
+    },
+    ["ITEM_MOD_STAMINA"] = {
+        { pattern = "+(%d+) ausdauer", location = "PatternEnd" },
+        { pattern = "ausdauer.+um (%d+)", location = "AfterValue" },
+    },
 };
 
 -- Because the German short stat strings are never used directly--just their conjugated forms x.x
@@ -56,7 +60,8 @@ local conjugatedShortStats: {string:string} = {
     ["ITEM_MOD_PARRY_RATING"] = "parier",
     ["ITEM_MOD_AGILITY"] = "beweglichkeit",
     ["ITEM_MOD_INTELLECT"] = "intelligenz",
-    ["ITEM_MOD_SPIRIT"] = "willenskraft"
+    ["ITEM_MOD_SPIRIT"] = "willenskraft",
+    ["ITEM_MOD_STAMINA"] = "ausdauer",
 }
 
 -- These are tried second.
@@ -112,6 +117,10 @@ deDE.ConfigStrings = {
     SpiritHealthRegenCheckbox = "...display Health Regen bonus",
     SpiritSpellDamageCheckbox = "...display Spell Damage bonus",
     SpiritHealingCheckbox = "...display Healing bonus",
+
+    StaminaCheckbox = "Scan for Stamina and...",
+    StaminaHealthCheckbox = "...display Health bonus",
+    StaminaSpellDamageCheckbox = "...display Spell Damage bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -128,6 +137,7 @@ deDE.StatStrings = {
     Healing = "Healing",
     ManaRegen = "MP5",
 
+    Health = "HP",
     HealthRegen = "HP5"
 }
 

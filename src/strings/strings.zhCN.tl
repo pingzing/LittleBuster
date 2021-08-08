@@ -82,7 +82,13 @@ zhCN.AlternativePatterns = {
     ["ITEM_MOD_SPIRIT"] = {
         { pattern = "+(%d+) 精神", location = "PatternEnd" },
         { pattern = "精神.+高(%d+点)", location = "AfterValue" },
-    }
+    },
+    ["ITEM_MOD_STAMINA"] = {
+        { pattern = "+(%d+) 耐力", location = "PatternEnd" },
+        { pattern = "耐力提高(%d+点)", location = "AfterValue" },
+        { pattern = "(%d+点)耐力", location = "PatternEnd" },
+        { pattern = "耐力.+高(%d+点)", location = "PatternEnd" },
+    },
 }
 
 -- These are tried second.
@@ -138,6 +144,10 @@ zhCN.ConfigStrings = {
     SpiritHealthRegenCheckbox = "...显示生命恢复加成",
     SpiritSpellDamageCheckbox = "...显示法术伤害加成",
     SpiritHealingCheckbox = "...显示治疗加成", 
+
+    StaminaCheckbox = "Scan for Stamina and...",
+    StaminaHealthCheckbox = "...display Health bonus",
+    StaminaSpellDamageCheckbox = "...display Spell Damage bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -154,6 +164,7 @@ zhCN.StatStrings = {
     Healing = "治疗",
     ManaRegen = "每5秒法力回复",
     
+    Health = "HP",
     HealthRegen = "每5秒生命回复",
 }
 

@@ -40,6 +40,10 @@ ptBR.AlternativePatterns = {
         { pattern = "+(%d+) espírito", location = "PatternEnd" },
         { pattern = "(%d+) o.+espírito", location = "PatternEnd" },
     },
+    ["ITEM_MOD_STAMINA"] = {
+        { pattern = "+(%d+) vigor", location = "PatternEnd" },
+        { pattern = "(%d+) o.+vigor", location = "AfterValue" },
+    },
 }
 
 -- These are tried second.
@@ -96,6 +100,10 @@ ptBR.ConfigStrings = {
     SpiritHealthRegenCheckbox = "...display Health Regen bonus",
     SpiritSpellDamageCheckbox = "...display Spell Damage bonus",
     SpiritHealingCheckbox = "...display Healing bonus",
+
+    StaminaCheckbox = "Scan for Stamina and...",
+    StaminaHealthCheckbox = "...display Health bonus",
+    StaminaSpellDamageCheckbox = "...display Spell Damage bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -112,6 +120,7 @@ ptBR.StatStrings = {
     Healing = "Healing",
     ManaRegen = "MP5",
 
+    Health = "HP",
     HealthRegen = "HP5"
 }
 

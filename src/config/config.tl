@@ -3,7 +3,7 @@ local LB: SharedTable = args[2];
 
 local _locale = LB.GetLocaleTable(GetLocale());
 local _defaultConfig: Config = {
-    ConfigVersion = "1.11.1",
+    ConfigVersion = "1.12.0",
     DisplayToggles = {
         ["ITEM_MOD_DEFENSE_SKILL_RATING"] = true,
         ["ITEM_MOD_DODGE_RATING"] = true,
@@ -40,6 +40,9 @@ local _defaultConfig: Config = {
         ["Spirit-HealthRegen"] = true,
         ["Spirit-SpellDamage"] = false,
         ["Spirit-Healing"] = false,
+        ["ITEM_MOD_STAMINA"] = true,
+        ["Stamina-Health"] = true,
+        ["Stamina-SpellDamage"] = false,
     }
 };
 
@@ -86,6 +89,9 @@ local _currentTogglesState: {ConfigToggle:boolean} = {
     ["Spirit-HealthRegen"] = true,
     ["Spirit-SpellDamage"] = false,
     ["Spirit-Healing"] = false,
+    ["ITEM_MOD_STAMINA"] = true,
+    ["Stamina-Health"] = true,
+    ["Stamina-SpellDamage"] = false,
 };
 
 local function drawCurrentState()
@@ -155,6 +161,15 @@ local function drawCurrentState()
     LB_SpiritHealthRegenCheckbox:SetEnabled(spiritChecked);
     LB_SpiritSpellDamageCheckbox:SetChecked(_currentTogglesState["Spirit-SpellDamage"]);
     LB_SpiritSpellDamageCheckbox:SetEnabled(spiritChecked);
+
+    --Stamina
+    LB_StaminaCheckbox:SetChecked(_currentTogglesState["ITEM_MOD_STAMINA"]);
+    local staminaChecked = LB_StaminaCheckbox:GetChecked();
+    -- Stamina sub-items
+    LB_StaminaHealthCheckbox:SetChecked(_currentTogglesState["Stamina-Health"]);
+    LB_StaminaHealthCheckbox:SetEnabled(staminaChecked);
+    LB_StaminaSpellDamageCheckbox:SetChecked(_currentTogglesState["Stamina-SpellDamage"]);
+    LB_StaminaSpellDamageCheckbox:SetEnabled(staminaChecked);
 
 end
 

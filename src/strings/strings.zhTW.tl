@@ -44,6 +44,7 @@ zhTW.AlternativePatterns = {
     ["ITEM_MOD_DODGE_RATING"] = {
         { pattern = "(%d+點閃躲等級)", location = "AfterValue" },
         { pattern = "+(%d+閃躲等級)", location = "AfterValue" },
+        { pattern = "閃躲等級.+(%d+點)", location = "AfterValue" },
     },
     ["ITEM_MOD_PARRY_RATING"] = {
         { pattern = "+(%d+招架等級)", location = "AfterValue" },
@@ -62,6 +63,11 @@ zhTW.AlternativePatterns = {
     ["ITEM_MOD_SPIRIT"] = {
         { pattern = "+(%d)精神", location = "PatternEnd" },
         { pattern = "精神提高(%d+點)", location = "AfterValue" },
+    },
+    ["ITEM_MOD_STAMINA"] = {
+        { pattern = "+(%d+)耐力", location = "PatternEnd" },
+        { pattern = "耐力提高(%d+點)", location = "AfterValue" },
+        { pattern = "(%d+點)耐力", location = "PatternEnd"},
     },
 }
 
@@ -118,6 +124,10 @@ zhTW.ConfigStrings = {
     SpiritHealthRegenCheckbox = "...顯示體力回復加成",
     SpiritSpellDamageCheckbox = "...顯示法術傷害加成",
     SpiritHealingCheckbox = "...顯示治療加成",
+
+    StaminaCheckbox = "Scan for Stamina and...",
+    StaminaHealthCheckbox = "...display Health bonus",
+    StaminaSpellDamageCheckbox = "...display Spell Damage bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -134,6 +144,7 @@ zhTW.StatStrings = {
     Healing = "治療",
     ManaRegen = "MP5",
 
+    Health = "HP",
     HealthRegen = "HP5"
 }
 

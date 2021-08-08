@@ -1,3 +1,8 @@
+-- Contains both "ambient" WoW globals and things that get exported from other files,
+-- because WoW aaddons don't use the standard Lua require(). So declaring any shared
+-- functions or tables globally is the only way to make the Teal compiler happy.
+
+
 -- WoW Globals
 
 global enum ClassEnum
@@ -176,6 +181,7 @@ global enum ItemModKey
     "ITEM_MOD_AGILITY"
     "ITEM_MOD_INTELLECT"
     "ITEM_MOD_SPIRIT"
+    "ITEM_MOD_STAMINA"
 end
 
 global enum AuraModEnum
@@ -225,6 +231,7 @@ global enum LocaleStatKey
     "Healing"
     "ManaRegen"
 
+    "Health"
     "HealthRegen"
 end
 
@@ -298,6 +305,9 @@ global enum ConfigToggle
     "Spirit-HealthRegen"
     "Spirit-SpellDamage"
     "Spirit-Healing"
+    "ITEM_MOD_STAMINA"
+    "Stamina-Health"
+    "Stamina-SpellDamage"
 end
 
 global record Config
@@ -340,6 +350,10 @@ global LB_SpiritManaRegenNotCastingCheckbox: ConfigCheckButton
 global LB_SpiritManaRegenCastingCheckbox: ConfigCheckButton
 global LB_SpiritHealthRegenCheckbox: ConfigCheckButton
 global LB_SpiritSpellDamageCheckbox: ConfigCheckButton
+-- Stamina
+global LB_StaminaCheckbox: ConfigCheckButton
+global LB_StaminaHealthCheckbox: ConfigCheckButton
+global LB_StaminaSpellDamageCheckbox: ConfigCheckButton
 
 -- Attributes stuff
 
@@ -375,6 +389,7 @@ global record Attributes
     Agility: AttributeTable
     Intellect: AttributeTable
     Spirit: AttributeTable
+    Stamina: AttributeTable
     GetAttributeTable: function(ItemModKey): AttributeTable
 end
 
