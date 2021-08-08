@@ -21,6 +21,7 @@ local GetLocaleTable = LB.GetLocaleTable;
 -- attributesCore
 local GetAttributeTable = LB.Attributes.GetAttributeTable;
 
+ -- Records and tables local to this file
 local enum TooltipType
     "GameTooltip"
     "ItemRefTooltip"

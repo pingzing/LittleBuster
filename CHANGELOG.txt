@@ -1,4 +1,16 @@
 |||||||||||||
+||| 1.12.0 ||| 2021-08-08
+|||||||||||||
+
++ Add support for Stamina. Stamina is broken down into:
+  - Health
+  - Spell Damage (only for Warlocks with the Demonic Knowledge talent, and an active pet)
+  Each of these can be individually toggled from the options menu under Settings -> Interface -> Addons -> Little Buster. 
++ Items with the same item ID but different random suffixes will no longer be mistakenly detected as the same item.
++ Updates to the zhTW translations (courtesy of acelan. Thanks!)
++ Updates to the zhCN translation (courtesy of extrame911 and MadLeon119. Thanks!)
+
+|||||||||||||
 ||| 1.11.1 ||| 2021-07-05
 |||||||||||||
 
