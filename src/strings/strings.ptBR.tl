@@ -44,6 +44,10 @@ ptBR.AlternativePatterns = {
         { pattern = "+(%d+) vigor", location = "PatternEnd" },
         { pattern = "(%d+) o.+vigor", location = "AfterValue" },
     },
+    ["ITEM_MOD_STRENGTH"] = {
+        { pattern = "+(%d+) força", location = "PatternEnd" },
+        { pattern = "(%d+) o.+força", location = "AfterValue" }
+    }
 }
 
 -- These are tried second.
@@ -104,6 +108,10 @@ ptBR.ConfigStrings = {
     StaminaCheckbox = "Scan for Stamina and...",
     StaminaHealthCheckbox = "...display Health bonus",
     StaminaSpellDamageCheckbox = "...display Spell Damage bonus",
+
+    StrengthCheckbox = "Scan for Strength and...",
+    StrengthAttackPowerCheckbox = "...display Attack Power bonus",
+    StrengthBlockValueCheckbox = "...display Block Value bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -121,7 +129,9 @@ ptBR.StatStrings = {
     ManaRegen = "MP5",
 
     Health = "HP",
-    HealthRegen = "HP5"
+    HealthRegen = "HP5",
+
+    BlockValue = "Block Value",
 }
 
 LB.LocaleTables["ptBR"] = {};
