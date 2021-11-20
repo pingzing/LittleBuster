@@ -55,6 +55,10 @@ frFR.AlternativePatterns = {
         { pattern = "+(%d+) endurance", location = "PatternEnd" },
         { pattern = "l'endurance.+de (%d+)", location = "AfterValue" },
     },
+    ["ITEM_MOD_STRENGTH"] = {
+        { pattern = "+(%d+) force", location = "PatternEnd" },
+        { pattern = "force.+de (%d+)", location = "AfterValue" },
+    },
 };
 
 -- These are tried second.
@@ -114,6 +118,10 @@ frFR.ConfigStrings = {
     StaminaCheckbox = "Scan for Stamina and...",
     StaminaHealthCheckbox = "...display Health bonus",
     StaminaSpellDamageCheckbox = "...display Spell Damage bonus",
+
+    StrengthCheckbox = "Scan for Strength and...",
+    StrengthAttackPowerCheckbox = "...display Attack Power bonus",
+    StrengthBlockValueCheckbox = "...display Block Value bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -131,7 +139,9 @@ frFR.StatStrings = {
     ManaRegen = "MP5",
 
     Health = "HP",
-    HealthRegen = "HP5"
+    HealthRegen = "HP5",
+
+    BlockValue = "Block Value",
 }
 
 LB.LocaleTables["frFR"] = {};
