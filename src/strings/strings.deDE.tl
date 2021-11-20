@@ -39,6 +39,10 @@ deDE.AlternativePatterns = {
         { pattern = "+(%d+) ausdauer", location = "PatternEnd" },
         { pattern = "ausdauer.+um (%d+)", location = "AfterValue" },
     },
+    ["ITEM_MOD_STRENGTH"] = {
+        { pattern = "+(%d+) stärke", location = "PatternEnd" },
+        { pattern = "stärke.+um (%d+)", location = "AfterValue" },
+    },
 };
 
 -- Because the German short stat strings are never used directly--just their conjugated forms x.x
@@ -62,6 +66,7 @@ local conjugatedShortStats: {string:string} = {
     ["ITEM_MOD_INTELLECT"] = "intelligenz",
     ["ITEM_MOD_SPIRIT"] = "willenskraft",
     ["ITEM_MOD_STAMINA"] = "ausdauer",
+    ["ITEM_MOD_STRENGTH"] = "stärke",
 }
 
 -- These are tried second.
@@ -121,6 +126,10 @@ deDE.ConfigStrings = {
     StaminaCheckbox = "Scan for Stamina and...",
     StaminaHealthCheckbox = "...display Health bonus",
     StaminaSpellDamageCheckbox = "...display Spell Damage bonus",
+
+    StrengthCheckbox = "Scan for Strength and...",
+    StrengthAttackPowerCheckbox = "...display Attack Power bonus",
+    StrengthBlockValueCheckbox = "...display Block Value bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -138,7 +147,9 @@ deDE.StatStrings = {
     ManaRegen = "MP5",
 
     Health = "HP",
-    HealthRegen = "HP5"
+    HealthRegen = "HP5",
+
+    BlockValue = "Block Value",
 }
 
 LB.LocaleTables["deDE"] = {};
