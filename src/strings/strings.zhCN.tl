@@ -60,8 +60,8 @@ zhCN.AlternativePatterns = {
         { pattern = "防御等级提高(%d+)", location = "AfterValue" },
     },
     ["ITEM_MOD_BLOCK_RATING"] = { 
-        { pattern = "使你的盾牌格挡值提高(%d+)", location = "AfterValue" },
-        { pattern = "使你的盾牌格挡值提高(%d+点)", location = "AfterValue" },
+        { pattern = "使你的盾牌格挡等级提高(%d+)", location = "AfterValue" },
+        { pattern = "使你的盾牌格挡等级提高(%d+点)", location = "AfterValue" },
      },
     ["ITEM_MOD_DODGE_RATING"] = { 
         { pattern = "使你的躲闪等级提高(%d+)", location = "AfterValue" }, 
