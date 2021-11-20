@@ -92,6 +92,10 @@ ruRU.AlternativePatterns = {
         { pattern = "+(%d+) к выносливости", location = "PatternEnd" },
         { pattern = "выносливости.+на (%d+ ед%.)", location = "AfterValue" },
     },
+    ["ITEM_MOD_STRENGTH"] = {
+        { pattern = "+(%d+) к силе", location = "PatternEnd" },
+        { pattern = "силе.+на (%d+ ед%.)", location = "AfterValue" },
+    }
 };
 
 -- Because the Russian short stat strings are never used directly--just the conjugated forms
@@ -115,6 +119,7 @@ local conjugatedShortStats: {string:string} = {
     ["ITEM_MOD_INTELLECT"] = "интеллекту",
     ["ITEM_MOD_SPIRIT"] = "духу", -- shockingly, the ITEM_MOD_SPIRIT_SHORT in-game is this already. It's the only short stat that doesn't need to be in this table
     ["ITEM_MOD_STAMINA"] = "выносливости",
+    ["ITEM_MOD_STRENGTH"] = "силе",
 }
 
 -- These are tried second.
@@ -176,6 +181,10 @@ ruRU.ConfigStrings ={
     StaminaCheckbox = "Scan for Stamina and...",
     StaminaHealthCheckbox = "...display Health bonus",
     StaminaSpellDamageCheckbox = "...display Spell Damage bonus",
+
+    StrengthCheckbox = "Scan for Strength and...",
+    StrengthAttackPowerCheckbox = "...display Attack Power bonus",
+    StrengthBlockValueCheckbox = "...display Block Value bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -193,7 +202,9 @@ ruRU.StatStrings = {
     ManaRegen = "MP5",
 
     Health = "HP",
-    HealthRegen = "HP5"
+    HealthRegen = "HP5",
+
+    BlockValue = "Block Value",
 }
 
 LB.LocaleTables["ruRU"] = {};

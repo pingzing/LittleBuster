@@ -172,8 +172,8 @@ local function tryGenerateModifiedLine(text: string, statInfo: StatDetailInfo, i
         elseif (statInfo.type == "Attribute") then
             local attributeTable = GetAttributeTable(statInfo.kind);
             local bonuses = attributeTable.GetBonusesString(found.valueFound);
-            if (not bonuses) then
-                return {nil, nil, nil};
+            if (not bonuses) then                
+                return {nil, nil, nil}; 
             end
             local currentColorCode: string = (select(3, string.find(text, "(|c%x%x%x%x%x%x%x%x)")) or _colorEnd) as string;
             local formattedValue = _goldColor .. " (" .. bonuses .. ")" .. currentColorCode;
@@ -230,6 +230,9 @@ local function generateModifiedTooltipLines(tooltip: Tooltip): {number:string}
         local indicesProcessed: {number:boolean} = {}; -- contains a mapping of startIndex -> boolean, to track which values we've already looked at in this line
         if (text) then
             for _, statKind in ipairs(StatDetails) do
+                -- TODO: Instead of not processing a stat, just mark the index as
+                -- processed, and inject an empty string. That way we won't have cases
+                -- where Spell Hit is disabled, but gets picked up by the Melee Hit detection.
                 if (LB.Config.DisplayToggles[statKind.kind]) then -- Only look for a stat if the user has it enabled
                     local modifiedLineInfo: {number, number, string} =
                         tryGenerateModifiedLine(text, statKind, indicesProcessed);

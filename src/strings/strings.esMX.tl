@@ -72,6 +72,10 @@ esMX.AlternativePatterns = {
         { pattern = "+(%d+) aguante", location = "PatternEnd" },
         { pattern = "aguante.+ (%d+)", location = "AfterValue" },
     },
+    ["ITEM_MOD_STRENGTH"] = {
+        { pattern = "+(%d+) fuerza", location = "PatternEnd" },
+        { pattern = "fuerza.+ (%d+)", location = "AfterValue" },
+    },
 };
 
 -- These are tried second.
@@ -133,6 +137,10 @@ esMX.ConfigStrings = {
     StaminaCheckbox = "Scan for Stamina and...",
     StaminaHealthCheckbox = "...display Health bonus",
     StaminaSpellDamageCheckbox = "...display Spell Damage bonus",
+
+    StrengthCheckbox = "Scan for Strength and...",
+    StrengthAttackPowerCheckbox = "...display Attack Power bonus",
+    StrengthBlockValueCheckbox = "...display Block Value bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -150,7 +158,9 @@ esMX.StatStrings = {
     ManaRegen = "MP5",
 
     Health = "HP",
-    HealthRegen = "HP5"
+    HealthRegen = "HP5",
+
+    BlockValue = "Block Value",
 }
 
 LB.LocaleTables["esMX"] = {};

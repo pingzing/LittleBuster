@@ -89,6 +89,12 @@ zhCN.AlternativePatterns = {
         { pattern = "(%d+点)耐力", location = "PatternEnd" },
         { pattern = "耐力.+高(%d+点)", location = "PatternEnd" },
     },
+    ["ITEM_MOD_STRENGTH"] = {
+        { pattern = "+(%d+) 力量", location = "PatternEnd" },
+        { pattern = "力量提高(%d+点)", location = "AfterValue" },
+        { pattern = "(%d+点)力量", location = "PatternEnd" },
+        { pattern = "力量.+高(%d+点)", location = "PatternEnd" },
+    }
 }
 
 -- These are tried second.
@@ -148,6 +154,10 @@ zhCN.ConfigStrings = {
     StaminaCheckbox = "Scan for Stamina and...",
     StaminaHealthCheckbox = "...display Health bonus",
     StaminaSpellDamageCheckbox = "...display Spell Damage bonus",
+
+    StrengthCheckbox = "Scan for Strength and...",
+    StrengthAttackPowerCheckbox = "...display Attack Power bonus",
+    StrengthBlockValueCheckbox = "...display Block Value bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -166,6 +176,8 @@ zhCN.StatStrings = {
     
     Health = "HP",
     HealthRegen = "每5秒生命回复",
+
+    BlockValue = "Block Value",
 }
 
 LB.LocaleTables["zhCN"] = {};
