@@ -69,6 +69,11 @@ zhTW.AlternativePatterns = {
         { pattern = "耐力提高(%d+點)", location = "AfterValue" },
         { pattern = "(%d+點)耐力", location = "PatternEnd"},
     },
+    ["ITEM_MOD_STRENGTH"] = {
+        { pattern = "+(%d+)力量", location = "PatternEnd" },
+        { pattern = "力量提高(%d+點)", location = "AfterValue" },
+        { pattern = "(%d+點)力量", location = "PatternEnd" },
+    }
 }
 
 -- These are tried second.
@@ -128,6 +133,10 @@ zhTW.ConfigStrings = {
     StaminaCheckbox = "Scan for Stamina and...",
     StaminaHealthCheckbox = "...display Health bonus",
     StaminaSpellDamageCheckbox = "...display Spell Damage bonus",
+
+    StrengthCheckbox = "Scan for Strength and...",
+    StrengthAttackPowerCheckbox = "...display Attack Power bonus",
+    StrengthBlockValueCheckbox = "...display Block Value bonus",
 };
 
 -- These are used to localize text injected into tooltips (mostly used for breaking down things like Agility and Intellect).
@@ -145,7 +154,9 @@ zhTW.StatStrings = {
     ManaRegen = "MP5",
 
     Health = "HP",
-    HealthRegen = "HP5"
+    HealthRegen = "HP5",
+
+    BlockValue = "Block Value",
 }
 
 LB.LocaleTables["zhTW"] = {};
