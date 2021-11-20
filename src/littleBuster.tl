@@ -229,33 +229,36 @@ local function generateModifiedTooltipLines(tooltip: Tooltip): {number:string}
         local text = lineRef:GetText();
         local indicesProcessed: {number:boolean} = {}; -- contains a mapping of startIndex -> boolean, to track which values we've already looked at in this line
         if (text) then
-            for _, statKind in ipairs(StatDetails) do
-                -- TODO: Instead of not processing a stat, just mark the index as
-                -- processed, and inject an empty string. That way we won't have cases
-                -- where Spell Hit is disabled, but gets picked up by the Melee Hit detection.
-                if (LB.Config.DisplayToggles[statKind.kind]) then -- Only look for a stat if the user has it enabled
-                    local modifiedLineInfo: {number, number, string} =
-                        tryGenerateModifiedLine(text, statKind, indicesProcessed);
-                        local injectStart = modifiedLineInfo[1];
-                        local injectEnd = modifiedLineInfo[2];
-                        local formattedValue = modifiedLineInfo[3];
-                    if (injectStart and injectEnd and formattedValue) then
-                        local lineData: LineData = statsFound[i];
-                        if (lineData == nil) then
-                            lineData = { originalText = text, modifications = {} };
-                            statsFound[i] = lineData;
-                        end
-                        table.insert(lineData.modifications, {
-                            stat = statKind.kind,
-                            statType = statKind.type,
-                            startIndex = injectStart,
-                            endIndex = injectEnd,
-                            formattedString = formattedValue,
-                        });
-                        -- Mark this stat's index as processed
-                        indicesProcessed[injectStart] = true;
+            for _, statKind in ipairs(StatDetails) do                
+                local modifiedLineInfo: {number, number, string} =
+                        tryGenerateModifiedLine(text, statKind, indicesProcessed);                
+                local injectStart = modifiedLineInfo[1];
+                local injectEnd = modifiedLineInfo[2];
+                local formattedValue = modifiedLineInfo[3];
+                if (injectStart and injectEnd and formattedValue) then
+                    -- We've found something for this stat. 
+                    -- If that stat is disabled by the user, instead force formattedValue 
+                    -- to be an empty string.
+                    -- This way, the stat gets marked as processed, but nothing is added to the tooltip.                   
+                    if (not LB.Config.DisplayToggles[statKind.kind]) then
+                        formattedValue = "";                                                
                     end
-                end
+
+                    local lineData: LineData = statsFound[i];
+                    if (lineData == nil) then
+                        lineData = { originalText = text, modifications = {} };
+                        statsFound[i] = lineData;
+                    end
+                    table.insert(lineData.modifications, {
+                        stat = statKind.kind,
+                        statType = statKind.type,
+                        startIndex = injectStart,
+                        endIndex = injectEnd,
+                        formattedString = formattedValue,
+                    });
+                    -- Mark this stat's index as processed
+                    indicesProcessed[injectStart] = true;
+                end                
             end
         end
     end
