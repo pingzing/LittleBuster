@@ -626,6 +626,45 @@
                       </OnLoad>
                     </Scripts>
                   </CheckButton>
+
+                  <!-- Strength -->
+                  <CheckButton name="LB_StrengthCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor x="-15" y="0" point="TOPLEFT" relativeTo="LB_StaminaSpellDamageCheckbox" relativePoint="BOTTOMLEFT" />
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.StrengthCheckbox);
+                        self.statKey = "ITEM_MOD_STRENGTH";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Strength - Attack Power-->
+                  <CheckButton name = "LB_StrengthAttackPowerCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor x="15" point="TOPLEFT" relativeTo="LB_StrengthCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.StrengthAttackPowerCheckbox);
+                        self.statKey="Strength-AttackPower";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
+
+                  <!-- Strength - Block Value-->
+                  <CheckButton name = "LB_StrengthBlockValueCheckbox" inherits="LB_ConfigCheckButtonBase">
+                    <Anchors>
+                      <Anchor x="0" point="TOPLEFT" relativeTo="LB_StrengthAttackPowerCheckbox" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <Scripts>
+                      <OnLoad>
+                        _G[self:GetName().."Text"]:SetText(LB_CONF_STR.StrengthBlockValueCheckbox);
+                        self.statKey="Strength-BlockValue";
+                      </OnLoad>
+                    </Scripts>
+                  </CheckButton>
                   
 
                 </Frames>

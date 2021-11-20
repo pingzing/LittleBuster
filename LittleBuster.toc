@@ -2,7 +2,7 @@
 ## Title: LittleBuster
 ## Notes: Break those ratings down into actual percentages.
 ## Author: PingZing
-## Version: 1.12.1
+## Version: 1.13.0
 ## SavedVariablesPerCharacter: LB_Config
 ## X-Email: psychozagal@gmail.com
 ## X-License: GPL v3
@@ -33,6 +33,7 @@ attributes/agility.lua
 attributes/intellect.lua
 attributes/spirit.lua
 attributes/stamina.lua
+attributes/strength.lua
 
 # Entry point
 littleBuster.lua

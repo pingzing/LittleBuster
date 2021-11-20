@@ -43,6 +43,9 @@ local _defaultConfig: Config = {
         ["ITEM_MOD_STAMINA"] = true,
         ["Stamina-Health"] = true,
         ["Stamina-SpellDamage"] = false,
+        ["ITEM_MOD_STRENGTH"] = true,
+        ["Strength-AttackPower"] = true,
+        ["Strength-BlockValue"] = false,
     }
 };
 
@@ -92,6 +95,9 @@ local _currentTogglesState: {ConfigToggle:boolean} = {
     ["ITEM_MOD_STAMINA"] = true,
     ["Stamina-Health"] = true,
     ["Stamina-SpellDamage"] = false,
+    ["ITEM_MOD_STRENGTH"] = true,
+    ["Strength-AttackPower"] = true,
+    ["Strength-BlockValue"] = false,
 };
 
 local function drawCurrentState()
@@ -171,17 +177,26 @@ local function drawCurrentState()
     LB_StaminaSpellDamageCheckbox:SetChecked(_currentTogglesState["Stamina-SpellDamage"]);
     LB_StaminaSpellDamageCheckbox:SetEnabled(staminaChecked);
 
+    --Strength
+    LB_StrengthCheckbox:SetChecked(_currentTogglesState["ITEM_MOD_STRENGTH"]);
+    local strChecked = LB_StrengthCheckbox:GetChecked();
+    -- Strength sub-items
+    LB_StrengthAttackPowerCheckbox:SetChecked(_currentTogglesState["Strength-AttackPower"]);
+    LB_StrengthAttackPowerCheckbox:SetEnabled(strChecked);
+    LB_StrengthBlockValueCheckbox:SetChecked(_currentTogglesState["Strength-BlockValue"]);
+    LB_StrengthBlockValueCheckbox:SetEnabled(strChecked);
+
 end
 
 global function LB_Config_CheckButtonChanged(_: ConfigCheckButton, statKey: ItemModKey, isChecked: boolean)
-    -- TODO: Make this invalidate the caches we're storing over in the main file
+    -- TODO: Make this invalidate the caches we're storing over in the main littleBuster.tl file
     _currentTogglesState[statKey] = isChecked;
     drawCurrentState();
 end
 
 local function configFrame_OnRefresh(_: ConfigFrame)
     -- Called whenever the entire Interface panel opens, or Default is pressed
-    -- Use this init the UI.
+    -- Use this to init the UI.
     for k,v in pairs(LB.Config.DisplayToggles) do
         _currentTogglesState[k] = v;
     end 

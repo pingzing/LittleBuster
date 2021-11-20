@@ -182,6 +182,7 @@ global enum ItemModKey
     "ITEM_MOD_INTELLECT"
     "ITEM_MOD_SPIRIT"
     "ITEM_MOD_STAMINA"
+    "ITEM_MOD_STRENGTH"
 end
 
 global enum AuraModEnum
@@ -233,6 +234,8 @@ global enum LocaleStatKey
 
     "Health"
     "HealthRegen"
+
+    "BlockValue"
 end
 
 global enum InjectLocation
@@ -308,6 +311,9 @@ global enum ConfigToggle
     "ITEM_MOD_STAMINA"
     "Stamina-Health"
     "Stamina-SpellDamage"
+    "ITEM_MOD_STRENGTH"
+    "Strength-AttackPower"
+    "Strength-BlockValue"
 end
 
 global record Config
@@ -354,6 +360,10 @@ global LB_SpiritSpellDamageCheckbox: ConfigCheckButton
 global LB_StaminaCheckbox: ConfigCheckButton
 global LB_StaminaHealthCheckbox: ConfigCheckButton
 global LB_StaminaSpellDamageCheckbox: ConfigCheckButton
+-- Strength
+global LB_StrengthCheckbox: ConfigCheckButton
+global LB_StrengthAttackPowerCheckbox: ConfigCheckButton
+global LB_StrengthBlockValueCheckbox: ConfigCheckButton
 
 -- Attributes stuff
 
@@ -390,6 +400,7 @@ global record Attributes
     Intellect: AttributeTable
     Spirit: AttributeTable
     Stamina: AttributeTable
+    Strength: AttributeTable
     GetAttributeTable: function(ItemModKey): AttributeTable
 end
 

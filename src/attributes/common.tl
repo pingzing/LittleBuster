@@ -8,6 +8,7 @@ LB.Attributes.Agility = {};
 LB.Attributes.Intellect = {};
 LB.Attributes.Spirit = {};
 LB.Attributes.Stamina = {};
+LB.Attributes.Strength = {};
 
 -- Many of the calculations and code in here courtesy of the original RatingBuster, and Whitetooth@Cenarius(US).
 
@@ -1488,6 +1489,9 @@ local function getAttributeTable(stat: ItemModKey): AttributeTable
     end
     if stat == "ITEM_MOD_STAMINA" then
         return LB.Attributes.Stamina;
+    end
+    if stat == "ITEM_MOD_STRENGTH" then
+        return LB.Attributes.Strength;
     end
 end
 LB.Attributes.GetAttributeTable = getAttributeTable;
