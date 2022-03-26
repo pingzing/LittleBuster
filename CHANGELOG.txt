@@ -1,4 +1,14 @@
 |||||||||||||
+||| 1.13.1 ||| 2022-03-26
+|||||||||||||
+
++ TOC version bump. Patch 2.5.4 is now supported.
++ AP should no longer be incorrectly detected as Str in Russian (ruRU) locales.
++ Spell Crit should no longer be incorrectly detected as Spell Hit in German (deDE) locales.
++ Talents that increase AP by percentage values should now be properly factored in when calculating AP and RAP bonuses from Agility.
++ Fix possible crash when viewing tooltips when playing as a Warrior.
+
+|||||||||||||
 ||| 1.13.1 ||| 2021-11-20
 |||||||||||||
 
