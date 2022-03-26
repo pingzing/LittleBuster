@@ -13,8 +13,12 @@ deDE.AlternativePatterns = {
     ["ITEM_MOD_CRIT_RANGED_RATING"] = {},
     ["ITEM_MOD_HASTE_RATING"] = {},
     ["ITEM_MOD_EXPERTISE_RATING"] = {},
-    ["ITEM_MOD_HIT_SPELL_RATING"] = {},
-    ["ITEM_MOD_CRIT_SPELL_RATING"] = {},
+    ["ITEM_MOD_HIT_SPELL_RATING"] = {
+        { pattern = "zaubertrefferwertung um (%d+)", location = "AfterValue" },
+    },
+    ["ITEM_MOD_CRIT_SPELL_RATING"] = {
+        { pattern = "kritische zaubertrefferwertung um (%d+)", location = "AfterValue" },
+    },
     ["ITEM_MOD_HASTE_SPELL_RATING"] = {},
     ["ITEM_MOD_DEFENSE_SKILL_RATING"] = {},
     ["ITEM_MOD_BLOCK_RATING"] = {
@@ -55,8 +59,8 @@ local conjugatedShortStats: {string:string} = {
     ["ITEM_MOD_CRIT_RANGED_RATING"] = "kritische treffer", -- ditto just ranged crit?
     ["ITEM_MOD_HASTE_RATING"] = "tempo",
     ["ITEM_MOD_EXPERTISE_RATING"] = "waffenkunde",
-    ["ITEM_MOD_HIT_SPELL_RATING"] = "zaubertreffer zaubertreffer",
-    ["ITEM_MOD_CRIT_SPELL_RATING"] = "kritische",
+    ["ITEM_MOD_HIT_SPELL_RATING"] = "zaubertrefferwertung",
+    ["ITEM_MOD_CRIT_SPELL_RATING"] = "kritische zaubertrefferwertung",
     ["ITEM_MOD_HASTE_SPELL_RATING"] = "zaubertempo",
     ["ITEM_MOD_DEFENSE_SKILL_RATING"] = "verteidigungs",
     ["ITEM_MOD_BLOCK_RATING"] = "doNotUse", -- This tends to collide with "XX Block" (i.e. a shield's innate block value), so let's just use the alternative pattern above

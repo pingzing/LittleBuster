@@ -3,7 +3,7 @@ local LB: SharedTable = args[2];
 
 local _locale = LB.GetLocaleTable(GetLocale());
 local _defaultConfig: Config = {
-    ConfigVersion = "1.13.1",
+    ConfigVersion = "1.14.0",
     DisplayToggles = {
         ["ITEM_MOD_DEFENSE_SKILL_RATING"] = true,
         ["ITEM_MOD_DODGE_RATING"] = true,
