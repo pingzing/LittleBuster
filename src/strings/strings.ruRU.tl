@@ -95,6 +95,12 @@ ruRU.AlternativePatterns = {
     ["ITEM_MOD_STRENGTH"] = {
         { pattern = "+(%d+) к силе", location = "PatternEnd" },
         { pattern = "силе.+на (%d+ ед%.)", location = "AfterValue" },
+    },
+    -- Special case: Russian _does_ handle attack power, because it uses the same word ("силе") for
+    -- Strength. So we're doing negative processing: we process it, then discard it, to make sure that
+    -- we never accidentally display AP as Str.
+    ["ITEM_MOD_ATTACK_POWER"] = {
+        { pattern = "+(%d+) к силе атаки", location = "PatternEnd" },
     }
 };
 
@@ -120,6 +126,7 @@ local conjugatedShortStats: {string:string} = {
     ["ITEM_MOD_SPIRIT"] = "духу", -- shockingly, the ITEM_MOD_SPIRIT_SHORT in-game is this already. It's the only short stat that doesn't need to be in this table
     ["ITEM_MOD_STAMINA"] = "выносливости",
     ["ITEM_MOD_STRENGTH"] = "силе",
+    ["ITEM_MOD_ATTACK_POWER"] = "doNotUse",
 }
 
 -- These are tried second.

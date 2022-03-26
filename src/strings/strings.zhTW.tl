@@ -73,7 +73,8 @@ zhTW.AlternativePatterns = {
         { pattern = "+(%d+)力量", location = "PatternEnd" },
         { pattern = "力量提高(%d+點)", location = "AfterValue" },
         { pattern = "(%d+點)力量", location = "PatternEnd" },
-    }
+    },
+    ["ITEM_MOD_ATTACK_POWER"] = {},
 }
 
 -- These are tried second.

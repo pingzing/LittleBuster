@@ -140,7 +140,7 @@ local function getCritFromAgi(agi: number, class: ClassEnum, level: number): num
     return agi * _critPerAgi[level][classId];
 end
 
-local function getAPFromAgi(agi: number, class: ClassEnum): number
+local function getAPFromAgi(agi: number, class: ClassEnum, race: RaceEnum): number
     local apPerAgi: number = 0;
     if (class == "DRUID" and GetShapeshiftFormID() == CAT_FORM) then
         apPerAgi = 1;
@@ -148,12 +148,16 @@ local function getAPFromAgi(agi: number, class: ClassEnum): number
         apPerAgi = _apPerAgi[class];
     end
 
-    return agi * apPerAgi;
+    local apMod = GetStatMod("MOD_AP", class, race)
+    return BlizzRound((agi * apPerAgi) * apMod);
 end
 
-local function getRAPFromAgi(agi: number, class: ClassEnum): number
+local function getRAPFromAgi(agi: number, class: ClassEnum, race: RaceEnum): number
     local rapPerAgi: number = _rapPerAgi[class];
-    return agi * rapPerAgi;
+
+    local apMod = GetStatMod("MOD_AP", class, race);
+
+    return BlizzRound((agi * rapPerAgi) * apMod);
 end
 
 local function getArmorFromAgi(agi: number): number
@@ -209,7 +213,7 @@ function getBonusesString(agility: number): string
 
     -- AP
     if (config["Agility-AP"]) then
-        local apFromAgi = getAPFromAgi(modifiedAgility, playerClass);
+        local apFromAgi = getAPFromAgi(modifiedAgility, playerClass, playerRace);
         if (apFromAgi > 0) then            
             local apString = format("%d", apFromAgi) .. " " .. _locale.StatStrings.AttackPower;
             table.insert(statStrings, apString);

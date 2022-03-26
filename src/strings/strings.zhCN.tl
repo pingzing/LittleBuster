@@ -94,7 +94,8 @@ zhCN.AlternativePatterns = {
         { pattern = "力量提高(%d+点)", location = "AfterValue" },
         { pattern = "(%d+点)力量", location = "PatternEnd" },
         { pattern = "力量.+高(%d+点)", location = "PatternEnd" },
-    }
+    },
+    ["ITEM_MOD_ATTACK_POWER"] = {},
 }
 
 -- These are tried second.

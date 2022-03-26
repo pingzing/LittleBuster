@@ -84,7 +84,8 @@ enUS.AlternativePatterns = {
     ["ITEM_MOD_STRENGTH"] = {
         { pattern = "+(%d+) strength", location = "PatternEnd" },
         { pattern = "strength.+by (%d+)", location = "AfterValue" },
-    }
+    },
+    ["ITEM_MOD_ATTACK_POWER"] = {},
 }
 
 -- These are tried second.

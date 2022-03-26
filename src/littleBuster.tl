@@ -64,6 +64,23 @@ local _tooltipState: {TooltipType:TooltipState} = {
     ["ShoppingTooltip2"] = { itemKey = nil, modifiedLines = {}, timesSeen = 0 },
 }
 
+-- Debugging helpers
+
+-- local function Dump(o: {any:any}): string
+--     if type(o) == "table" then
+--         local s = "{ "
+--         for k, v in pairs(o) do
+--             if type(k) ~= "number" then
+--                 k = "\"" .. tostring(k) .. "\""
+--             end
+--             s = s .. "[" .. tostring(k) .. "] = " .. Dump(v as {any:any}) .. ","
+--         end
+--         return s .. "} "
+--     else
+--         return tostring(o)
+--     end
+-- end
+
 local function getItemIDFromLink(itemLink: string): number
     -- |cff9d9d9d|Hitem:0000000: <-- the zeroes are the item ID.
     local firstColonIndex = string.find(itemLink, ":");
@@ -155,6 +172,9 @@ local function tryGenerateModifiedLine(text: string, statInfo: StatDetailInfo, i
     -- Parse the stat value and its location out of the tooltip line.
     local found = scanForStat(text, statInfo.kind, statInfo.type);
     if (found and not (indicesProcessed[found.valueStart]) and found.valueFound) then
+        if (statInfo.kind == "ITEM_MOD_ATTACK_POWER") then
+            return {found.valueStart, found.valueEnd, ""}; -- We don't process AP at all.
+        end
         -- Ratings and attributes get treated differently, as ratings only ever map to one thing
         if (statInfo.type == "Rating") then
             statValue = GetEffectFromRating(found.valueFound, StatKeyToRatingID[statInfo.kind]);
@@ -327,20 +347,3 @@ end);
 ShoppingTooltip2:HookScript("OnTooltipSetItem", function(self: Tooltip)
     injectStats(self, "ShoppingTooltip2");
 end);
-
--- Debugging helpers
-
--- function Dump(o)
---     if type(o) == "table" then
---         local s = "{ "
---         for k, v in pairs(o) do
---             if type(k) ~= "number" then
---                 k = "\"" .. k .. "\""
---             end
---             s = s .. "[" .. k .. "] = " .. Dump(v) .. ","
---         end
---         return s .. "} "
---     else
---         return tostring(o)
---     end
--- end

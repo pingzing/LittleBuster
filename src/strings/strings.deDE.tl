@@ -47,6 +47,7 @@ deDE.AlternativePatterns = {
         { pattern = "+(%d+) stärke", location = "PatternEnd" },
         { pattern = "stärke.+um (%d+)", location = "AfterValue" },
     },
+    ["ITEM_MOD_ATTACK_POWER"] = {},
 };
 
 -- Because the German short stat strings are never used directly--just their conjugated forms x.x
@@ -71,6 +72,7 @@ local conjugatedShortStats: {string:string} = {
     ["ITEM_MOD_SPIRIT"] = "willenskraft",
     ["ITEM_MOD_STAMINA"] = "ausdauer",
     ["ITEM_MOD_STRENGTH"] = "stärke",
+    ["ITEM_MOD_ATTACK_POWER"] = "doNotUse",
 }
 
 -- These are tried second.

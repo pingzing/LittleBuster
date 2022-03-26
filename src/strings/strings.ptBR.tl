@@ -47,7 +47,8 @@ ptBR.AlternativePatterns = {
     ["ITEM_MOD_STRENGTH"] = {
         { pattern = "+(%d+) força", location = "PatternEnd" },
         { pattern = "(%d+) o.+força", location = "AfterValue" }
-    }
+    },
+    ["ITEM_MOD_ATTACK_POWER"] = {},
 }
 
 -- These are tried second.

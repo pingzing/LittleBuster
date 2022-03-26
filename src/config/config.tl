@@ -46,6 +46,7 @@ local _defaultConfig: Config = {
         ["ITEM_MOD_STRENGTH"] = true,
         ["Strength-AttackPower"] = true,
         ["Strength-BlockValue"] = false,
+        ["ITEM_MOD_ATTACK_POWER"] = false, -- always false, and never exposed to the user. This is a workaround for Russian, because it uses the some word for "Attack" and "Strength"
     }
 };
 
@@ -98,6 +99,7 @@ local _currentTogglesState: {ConfigToggle:boolean} = {
     ["ITEM_MOD_STRENGTH"] = true,
     ["Strength-AttackPower"] = true,
     ["Strength-BlockValue"] = false,
+    ["ITEM_MOD_ATTACK_POWER"] = false, -- always false, and never exposed to the user. This is a workaround for Russian, because it uses the some word for "Attack" and "Strength"
 };
 
 local function drawCurrentState()

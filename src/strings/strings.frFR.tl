@@ -59,6 +59,7 @@ frFR.AlternativePatterns = {
         { pattern = "+(%d+) force", location = "PatternEnd" },
         { pattern = "force.+de (%d+)", location = "AfterValue" },
     },
+    ["ITEM_MOD_ATTACK_POWER"] = {},
 };
 
 -- These are tried second.

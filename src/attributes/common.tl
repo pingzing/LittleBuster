@@ -16,7 +16,8 @@ LB.Attributes.Strength = {};
 local function getStanceIcon(): string
     local currentStance = GetShapeshiftForm();
     if currentStance ~= 0 then
-        return GetShapeshiftFormInfo(currentStance)[1];
+        local stanceIcon, _, _, _ = GetShapeshiftFormInfo(currentStance);
+        return stanceIcon;
     end
 end
 

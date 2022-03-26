@@ -68,7 +68,7 @@ end
 global function GetShapeshiftForm(_flag: boolean | nil) : number
 end
 
-global function GetShapeshiftFormInfo(_index: number): {string, number, number, number}
+global function GetShapeshiftFormInfo(_index: number): (string, number, number, number)
 end
 
 global function GetShapeshiftFormID(): number
@@ -183,6 +183,7 @@ global enum ItemModKey
     "ITEM_MOD_SPIRIT"
     "ITEM_MOD_STAMINA"
     "ITEM_MOD_STRENGTH"
+    "ITEM_MOD_ATTACK_POWER"
 end
 
 global enum AuraModEnum
@@ -314,6 +315,8 @@ global enum ConfigToggle
     "ITEM_MOD_STRENGTH"
     "Strength-AttackPower"
     "Strength-BlockValue"
+    "Ignores-AttackPower"
+    "ITEM_MOD_ATTACK_POWER" -- Never exposed to the user. Workaround for Russian.
 end
 
 global record Config

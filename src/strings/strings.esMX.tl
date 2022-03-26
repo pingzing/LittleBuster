@@ -76,6 +76,7 @@ esMX.AlternativePatterns = {
         { pattern = "+(%d+) fuerza", location = "PatternEnd" },
         { pattern = "fuerza.+ (%d+)", location = "AfterValue" },
     },
+    ["ITEM_MOD_ATTACK_POWER"] = {},
 };
 
 -- These are tried second.
