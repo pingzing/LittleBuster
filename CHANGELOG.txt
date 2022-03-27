@@ -1,5 +1,5 @@
 |||||||||||||
-||| 1.13.1 ||| 2022-03-26
+||| 1.14.0 ||| 2022-03-26
 |||||||||||||
 
 + TOC version bump. Patch 2.5.4 is now supported.
@@ -18,13 +18,13 @@
 ||| 1.13.0 ||| 2021-11-20
 |||||||||||||
 
-Huzzah! With this release, Little Buster now supports all major attributes, and all ratings except for Resillience.
+Huzzah! With this release, Little Buster now supports all major attributes, and all ratings except for Resilience.
 
 + Add support for Strength. Strength is broken down into:
   - Attack Power
   - Block Value
   Each of these can be individually toggled from the options menu under Settings -> Interface -> Addons -> Little Buster.
-  + Fix Shield Block Value being displayed as Shield Block Rating in zhCN (Simplied Chinese) locales.
+  + Fix Shield Block Value being displayed as Shield Block Rating in zhCN (Simplified Chinese) locales.
   + Fix issue with disabled stats still being displayed in tooltips if they were similar to other, enabled stats.
   
 
